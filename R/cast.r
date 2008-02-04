@@ -89,7 +89,8 @@
 #X lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")
 cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NA, add.missing=FALSE, value = guess_value(data)) {
 	
-	if (!is.character(formula)) formula <- deparse(substitute(formula))
+	if (!is.character(formula) && !inherits(formula, "formula")) 
+	  formula <- deparse(substitute(formula))
 	subset <- eval(substitute(subset), data, parent.frame())  
 	data <- data[subset, , drop=FALSE]  
 	variables <- cast_parse_formula(formula, names(data))
