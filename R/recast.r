@@ -17,5 +17,7 @@ recast <- function(data, formula, ..., id.var, measure.var) {
 	#used <- intersect(names(data), union(var, measure.var))
 
 	molten <- melt(data, id.var, measure.var)
-	cast(molten, deparse(substitute(formula)), ...)
+	if (!is.character(formula) && !inherits(formula, "formula"))
+    formula <- deparse(substitute(formula))
+	cast(molten, formula), ...)
 }
