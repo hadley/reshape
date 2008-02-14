@@ -1,11 +1,3 @@
-Reshape 0.8.1: -----------------------
-
-  * allow user to specify column used for values, guessing if necessary
-  * improve error messages when melt or casting parameters incorrectly specified 
-  * by default, treat character and factor variables as id variables (i.e. integer variables no longer default to being id vars)
-  * helpful error message if value column missing when calling cast
-  * ... now passed on to melt in melt.list (thanks to Charles Naylor)
-  * fix add.all.combinations to work properly again for a wider range of input
 
 Reshape 0.8:
 

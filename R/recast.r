@@ -13,11 +13,10 @@
 # @seealso \url{http://had.co.nz/reshape/}
 #X recast(french_fries, time ~ variable, id.var=1:4)
 recast <- function(data, formula, ..., id.var, measure.var) {
-	#var <- unlist(cast_parse_formula(deparse(substitute(formula)), names(data)))
-	#used <- intersect(names(data), union(var, measure.var))
-
 	molten <- melt(data, id.var, measure.var)
-	if (!is.character(formula) && !inherits(formula, "formula"))
-    formula <- deparse(substitute(formula))
-	cast(molten, formula), ...)
+
+	if (is.formula(formula))    formula <- deparse(formula)
+	if (!is.character(formula)) formula <- as.character(formula)
+
+	cast(molten, formula, ...)
 }
