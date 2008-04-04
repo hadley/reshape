@@ -11,7 +11,7 @@ prettyprint <- function(x, digits=getOption("digits"), ..., colnames=TRUE) {
 	
 	labels <- strip.dups(unx[,names(x) %in% label.rows, drop=FALSE])
 	colnames(labels) <- label.rows[names(x) %in% label.rows]
-	data <-   as.matrix(format(unx[,!(names(x) %in% label.rows), drop=FALSE]))
+	data <-   as.matrix((unx[,!(names(x) %in% label.rows), drop=FALSE]))
 	
 	col.labels <- t(strip.dups(rcolnames(x)))
 	
@@ -31,7 +31,7 @@ prettyprint <- function(x, digits=getOption("digits"), ..., colnames=TRUE) {
 }
 
 # Strip duplicates.
-# Strips out duplicates from data.frame and replace them with periods.
+# Strips out duplicates from data.frame and replace them with blanks.
 # 
 # @arguments data.frame to modify
 # @value character matrix

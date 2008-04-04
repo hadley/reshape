@@ -18,35 +18,25 @@ sparseby(data, INDICES = list(), FUN, ..., GROUPNAMES = TRUE)
  bound to the result}
 }
 \details{
-A data frame or matrix is split by row into data frames or matrices respectively
-subsetted by the values of one or more factors, and function
-\code{FUN} is applied to each subset in turn.
 
+A data frame or matrix is split by row into data frames or matrices respectively subsetted by the values of one or more factors, and function \code{FUN} is applied to each subset in turn.
 
-\code{sparseby} is much faster and more memory efficient
-than \code{\link{by}} or \code{\link{tapply}}
-in the situation where the combinations of \code{INDICES} present in the data
-form a sparse subset of all possible combinations.
+\code{sparseby} is much faster and more memory efficient than \code{\link{by}} or \code{\link{tapply}} in the situation where the combinations of \code{INDICES} present in the data form a sparse subset of all possible combinations.
+
 }
 
-\value{
-A data frame or matrix containing the results of \code{FUN} applied
-to each subgroup of the matrix.  The result depends on what is returned
-from \code{FUN}:
+\value{ 
 
-If \code{FUN} returns \code{NULL}
-on any subsets, those are dropped.
+A data frame or matrix containing the results of \code{FUN} applied to each subgroup of the matrix. The result depends on what is returned from \code{FUN}:
 
-If it returns a single value or a vector of values, the length must be consistent
-across all subgroups.  These will be returned as values in rows of the resulting
-data frame or matrix.
+If \code{FUN} returns \code{NULL} on any subsets, those are dropped.
 
-If it returns data frames or
-matrices, they must all have the same number of columns, and they
-will be bound with \code{\link{rbind}} into a single data frame or matrix.
+If it returns a single value or a vector of values, the length must be consistent across all subgroups. These will be returned as values in rows of the resulting data frame or matrix.
 
-Names for the columns will be taken from the names in the list of \code{INDICES}
-or from the results of \code{FUN}, as appropriate.
+If it returns data frames or matrices, they must all have the same number of columns, and they will be bound with \code{\link{rbind}} into a single data frame or matrix.
+
+Names for the columns will be taken from the names in the list of \code{INDICES} or from the results of \code{FUN}, as appropriate.
+
 }
 \author{Duncan Murdoch}
 \seealso{ \code{\link{tapply}}, \code{\link{by}} }

@@ -13,6 +13,8 @@
 # @seealso \url{http://had.co.nz/reshape/}
 #X recast(french_fries, time ~ variable, id.var=1:4)
 recast <- function(data, formula, ..., id.var, measure.var) {
+  
+  if (any(c("id.vars", "measure.vars") %in% names(list(...)))) stop("its var, not vars\n")
 	molten <- melt(data, id.var, measure.var)
 
 	if (is.formula(formula))    formula <- deparse(formula)

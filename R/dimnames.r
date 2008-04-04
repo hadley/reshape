@@ -28,11 +28,10 @@ rdimnames <- function(x) attr(x, "rdimnames")
 "rdimnames<-" <- function(x, value) {
   
   name <- function(df) {
-    rownames(df) <- apply(df, 1, paste, collapse="_")
+    rownames(df) <- do.call("paste", c(df, sep="_"))
     df
   }
-	
-	value <- lapply(value, name)
+  value <- lapply(value, name)
 	attr(x, "rdimnames") <- value
 	attr(x, "idvars") <- colnames(value[[1]])
 	x
@@ -95,6 +94,9 @@ as.matrix.cast_df <- function(x, ...) {
 # @keyword internal
 as.matrix.cast_matrix <- function(x, ...) {
   class(x) <- class(x)[-1]
+  attr(x, "rdimnames") <- NULL
+  attr(x, "idvars") <- NULL
+  attr(x, "dimnames") <- NULL
   x
 }
 

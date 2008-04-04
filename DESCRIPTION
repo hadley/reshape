@@ -8,6 +8,6 @@ Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: Reshape lets you flexibly restructure and aggregate data using just two functions: melt and cast.
 URL: http://had.co.nz/reshape
 Depends: R (>= 2.5.1)
-Suggests: butler
+Suggests: RUnit
 License: MIT
 LazyData: true

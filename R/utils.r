@@ -1,3 +1,5 @@
+is.formula <- function(x) inherits(x, "formula")
+
 # Guess name of value column
 # 
 # Strategy:
@@ -288,4 +290,17 @@ nulldefault <- function(x, default) {
 namerows <- function(df, col.name = "id") {
 	df[[col.name]] = rownames(df)
 	df
+}
+
+# Number of unique values
+# Calculate number of unique values of a variable as efficiently as possible.
+# 
+# @arguments vector
+# @keyword internal
+nunique <- function(x) {
+  if (is.factor(x)) {
+    length(levels(x))
+  } else {
+    length(unique(x))
+  }
 }
