@@ -49,7 +49,7 @@ castd <- function(...) {
 casta <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., drop = TRUE, margins = NULL) {
   exprs <- cast_parse_formula(deparse(formula), names(data))$m
   exprs <- Filter(function(x) length(x) > 0, exprs)
-  vars <- unlist(get_vars(list(exprs)))
+  vars <- unlist(get_vars(exprs))
 	vars.clean <- clean.vars(vars)
 	
 	# Add margins if needed
@@ -99,36 +99,11 @@ casta <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., drop 
   cast_matrix(results, dimnames)
 }
 
-# az <- read.csv("output/az.csv")
 
-add.margins <- function(data, vars, margins) {
-	if (length(margins) == 0) return(data)
-	
-	# Ensure all variables are factors, and have level (all)
-	data[vars] <- lapply(data[vars], as.factor)
-	data[vars] <- lapply(data[vars], function(x) {
-	  levels(x) <- c(levels(x), "(all)"); x
-	})
-
-	margin <- function(v) {
-		over <- setdiff(unlist(vars), v)
-		data[, over] <- rep(factor("(all)"), length(over))
-		data
-	}
-	out <- do.call("rbind", lapply(margins, margin))
-	rbind(data, out)
-
-}
-
-test_cast <- function(e, a) {
-  stopifnot(all.equal(dim(e), dim(a)))
-}
-
-# test_cast(casta(test2, A + B ~ .), 1:20)
-
-# Tests need to check:
-#   * margins
-#   * drop = F and T
-#   * pure casting
-#   * arrays and data.frames
-#   * variable names and order 
+# Clean variables.
+# Clean variable list for reshaping.
+#
+# @arguments vector of variable names
+# @value Vector of "real" variable names (excluding result\_variable etc.)
+# @keyword internal
+clean.vars <- function(vars) {vars[vars != "result_variable"]}

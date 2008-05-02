@@ -21,18 +21,3 @@ combine_factor <- function(fac, variable=levels(fac), other.label="Other") {
 		factor(variable[as.numeric(fac)], labels=levels(fac)[!duplicated(variable)])		
 	}
 } 
-
-# Reorder factor levels
-# Convenience method for reordering the levels of a factor
-# 
-# @arguments factor variable
-# @arguments new order 
-# @arguments whether should be sorted descreasing
-# @keyword manip 
-#X df <- data.frame(a = LETTERS[sample(5, 15, replace=TRUE)], y = rnorm(15))	
-#X (f <- reorder_factor(df$a, tapply(df$y, df$a, mean)))
-#X (f <- reorder_factor(f))
-#X reorder_factor(f, c(4,2,3,1,5), dec=TRUE)
-reorder_factor <- function(fac, variable=levels(fac), decreasing=FALSE) {
-	factor(fac, levels=levels(fac)[order(variable, decreasing=decreasing)])
-}

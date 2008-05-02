@@ -1,40 +1,21 @@
-# Compute margins
-# Compute marginal values.
-# 
-# @arguments data frame
-# @arguments margins to compute
-# @arguments all id variables
-# @arguments aggregation function
-# @arguments other argument passed to aggregation function
-# @keyword internal 
-compute.margins <- function(data, margins, vars, fun.aggregate, ..., df=FALSE) {
-	if (length(margins) == 0) return(data.frame())
+
+add.margins <- function(data, vars, margins) {
+	if (length(margins) == 0) return(data)
 	
-	if (missing(fun.aggregate) || is.null(fun.aggregate)) {
-		warning("Margins require fun.aggregate: length used as default", call.=FALSE)
-		fun.aggregate <- length
+	# Ensure all variables are factors, and have level (all)
+	data[vars] <- lapply(data[vars], as.factor)
+	data[vars] <- lapply(data[vars], function(x) {
+	  levels(x) <- c(levels(x), "(all)"); x
+	})
+
+	margin <- function(v) {
+		over <- setdiff(unlist(vars), v)
+		data[, over] <- rep(factor("(all)"), length(over))
+		data
 	}
-	exp <- function(x) {
-		if (df) {
-			out <- condense.df(data, x, fun.aggregate, ...)
-		} else {
-			out <- expand(condense(data, x, fun.aggregate, ...))
-		}
-		others <- setdiff(unlist(vars), x)
-		out[, others] <- factor("(all)")
-		out[, unlist(vars)] <- lapply(out[, unlist(vars)], factor)
-		
-		out
-	}
-	df <- do.call("rbind",lapply(margins, exp))
-	cat <- sapply(df, is.factor)
-	
-	fixlevel <- function(x) {
-		factor(x, levels=c(setdiff(levels(x), "(all)"), "(all)"))
-	}
-	
-	df[cat] <- lapply(df[cat], fixlevel)
-	df[, c(which(cat), which(!cat))]
+	out <- do.call("rbind", lapply(margins, margin))
+	rbind(data, out)
+
 }
 
 
