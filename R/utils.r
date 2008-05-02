@@ -1,5 +1,3 @@
-is.formula <- function(x) inherits(x, "formula")
-
 # Guess name of value column
 # 
 # Strategy:
@@ -106,7 +104,7 @@ compact <- function(l) {
 }
 
 # Defaults
-# Convience method for combining a list of values with their defaults.
+# Convient method for combining a list of values with their defaults.
 # 
 # @arguments list of values
 # @arguments defaults
@@ -203,22 +201,6 @@ updatelist <- function(x, y)  {
 	x[common] <- y[common]
 	x
 } 
-
-
-# Dimensions
-# Number of dimensions of an array or vector
-# 
-# @arguments array 
-# @keyword internal
-dims <- function(x) length(vdim(x))
-
-
-# Dimensions
-# Compute dimensions for a vector similarly to arrays
-# 
-# @arguments array or vector
-# @keyword internal 
-vdim <- function(x) if (is.vector(x)) length(x) else dim(x)
 
 
 # Nested.by function

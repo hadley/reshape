@@ -1,66 +1,55 @@
-s2 <- array(seq.int(3 * 4), c(3,4))
-s2m <- melt(s2)
-
-s3 <- array(seq.int(3 * 4 * 5), c(3,4,5))
-s3m <- melt(s3)
-
-test_reshaping <- function() {
-  # 2d 
-  checkEquals(s2, as.matrix(casta(s2m, X1 ~ X2)))
-  checkEquals(t(s2), as.matrix(casta(s2m, X2 ~ X1)))
-  checkEquals(as.vector(s2), as.vector(casta(s2m, X1 + X2 ~ .)))
-
-  # 3d 
-  checkEquals(s3, as.matrix(casta(s3m, X1 ~ X2 ~ X3)))
-  checkEquals(as.vector(s3), as.vector(casta(s3m, X1 + X2 + X3 ~ .)))
-  checkEquals(aperm(s3, c(1,3,2)), as.matrix(casta(s3m, X1 ~ X3 ~ X2)))
-  checkEquals(aperm(s3, c(2,1,3)), as.matrix(casta(s3m, X2 ~ X1 ~ X3)))
-  checkEquals(aperm(s3, c(2,3,1)), as.matrix(casta(s3m, X2 ~ X3 ~ X1)))
-  checkEquals(aperm(s3, c(3,1,2)), as.matrix(casta(s3m, X3 ~ X1 ~ X2)))
-  checkEquals(aperm(s3, c(3,2,1)), as.matrix(casta(s3m, X3 ~ X2 ~ X1)))
-}
-
-test_aggregating <- function() {
-  # 2d -> 1d
-  checkEquals(colMeans(s2), as.vector(casta(s2m, X2 ~ ., mean)))
-  checkEquals(rowMeans(s2), as.vector(casta(s2m, X1 ~ ., mean)))
-  
-  # 3d -> 1d 
-  checkEquals(
-    as.vector(iapply(s3, 1, mean)), 
-    as.vector(casta(s3m, X1 ~ ., mean))
-  )
-  checkEquals(
-    as.vector(iapply(s3, 2, mean)), 
-    as.vector(casta(s3m, X2 ~ ., mean))
-  )
-  checkEquals(
-    as.vector(iapply(s3, 3, mean)), 
-    as.vector(casta(s3m, X3 ~ ., mean))
-  )
-  
-  # 3d -> 2d
-  checkEquals(
-    reduce(iapply(s3, c(1,2), mean)), 
-    as.matrix(casta(s3m, X1 ~ X2, mean))
-  )
-  checkEquals(
-    reduce(iapply(s3, c(1,3), mean)), 
-    as.matrix(casta(s3m, X1 ~ X3, mean))
-  )
-  checkEquals(
-    reduce(iapply(s3, c(2,3), mean)), 
-    as.matrix(casta(s3m, X3 ~ X2, mean))
-  )  
-}
-
-# Matthias Burger <burgerm at users.sourceforge.net>
+# s2 <- array(seq.int(3 * 4), c(3,4))
+# s2m <- melt(s2)
 # 
-# Things that are lacking:
-#   * output that displays as tests are run
-#   * tests are not silent
-#   * only reports on number of functions, not number of tests
-#   * default output excessively verbose
-#   * other check functions don't use checkTrue
-#   * checkTrue should be called check (and why check and not assert?)
-#   * more built in check functions - inherits, attributes, ...
+# s3 <- array(seq.int(3 * 4 * 5), c(3,4,5))
+# s3m <- melt(s3)
+# 
+# test_reshaping <- function() {
+#   # 2d 
+#   checkEquals(s2, as.matrix(casta(s2m, X1 ~ X2)))
+#   checkEquals(t(s2), as.matrix(casta(s2m, X2 ~ X1)))
+#   checkEquals(as.vector(s2), as.vector(casta(s2m, X1 + X2 ~ .)))
+# 
+#   # 3d 
+#   checkEquals(s3, as.matrix(casta(s3m, X1 ~ X2 ~ X3)))
+#   checkEquals(as.vector(s3), as.vector(casta(s3m, X1 + X2 + X3 ~ .)))
+#   checkEquals(aperm(s3, c(1,3,2)), as.matrix(casta(s3m, X1 ~ X3 ~ X2)))
+#   checkEquals(aperm(s3, c(2,1,3)), as.matrix(casta(s3m, X2 ~ X1 ~ X3)))
+#   checkEquals(aperm(s3, c(2,3,1)), as.matrix(casta(s3m, X2 ~ X3 ~ X1)))
+#   checkEquals(aperm(s3, c(3,1,2)), as.matrix(casta(s3m, X3 ~ X1 ~ X2)))
+#   checkEquals(aperm(s3, c(3,2,1)), as.matrix(casta(s3m, X3 ~ X2 ~ X1)))
+# }
+# 
+# test_aggregating <- function() {
+#   # 2d -> 1d
+#   checkEquals(colMeans(s2), as.vector(casta(s2m, X2 ~ ., mean)))
+#   checkEquals(rowMeans(s2), as.vector(casta(s2m, X1 ~ ., mean)))
+#   
+#   # 3d -> 1d 
+#   checkEquals(
+#     as.vector(iapply(s3, 1, mean)), 
+#     as.vector(casta(s3m, X1 ~ ., mean))
+#   )
+#   checkEquals(
+#     as.vector(iapply(s3, 2, mean)), 
+#     as.vector(casta(s3m, X2 ~ ., mean))
+#   )
+#   checkEquals(
+#     as.vector(iapply(s3, 3, mean)), 
+#     as.vector(casta(s3m, X3 ~ ., mean))
+#   )
+#   
+#   # 3d -> 2d
+#   checkEquals(
+#     reduce(iapply(s3, c(1,2), mean)), 
+#     as.matrix(casta(s3m, X1 ~ X2, mean))
+#   )
+#   checkEquals(
+#     reduce(iapply(s3, c(1,3), mean)), 
+#     as.matrix(casta(s3m, X1 ~ X3, mean))
+#   )
+#   checkEquals(
+#     reduce(iapply(s3, c(2,3), mean)), 
+#     as.matrix(casta(s3m, X3 ~ X2, mean))
+#   )  
+# }

@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-Cast a molten data frame into the reshaped or aggregated form you want
+Cast a molten data frame into the reshaped or aggregated form you want.
 }
 \usage{cast(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NA, add.missing=FALSE)}
 \arguments{

@@ -2,7 +2,6 @@ FILE <- (function() {
   attr(body(sys.function()), "srcfile")
 })()$filename
 PATH <- dirname(FILE)
-
 source(file.path(PATH, "load.r"))
 
 testSuite <- defineTestSuite(

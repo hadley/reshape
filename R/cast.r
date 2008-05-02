@@ -202,6 +202,7 @@ reshape1 <- function(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins,
 
   if (length(vars.clean) > 2 && margins) {
     warning("Sorry, you currently can't use margins with high D arrays", .call=FALSE)
+    
     margins <- FALSE
   }
 	margins.r <- compute.margins(data, margin.vars(vars.clean, margins), vars.clean, fun.aggregate, ..., df=df)

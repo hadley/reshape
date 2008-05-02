@@ -1,13 +1,13 @@
 Package: reshape
 Type: Package
 Title: Flexibly reshape data.
-Version: 0.8.1
-Date: 2007-07-05
+Version: 0.1
+Date: 2008-05-01
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: Reshape lets you flexibly restructure and aggregate data using just two functions: melt and cast.
 URL: http://had.co.nz/reshape
-Depends: R (>= 2.5.1)
+Depends: R (>= 2.5.1), plyr
 Suggests: RUnit
 License: MIT
 LazyData: true

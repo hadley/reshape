@@ -1,16 +1,4 @@
-# test2 <- expand.grid(A = 1:5, B = letters[1:4])
-# test2$value <- 1:nrow(test2)
-# 
-# samp <- expand.grid(A = 1:5, B = letters[1:4], C=letters[1:2])
-# samp$value <- 1:nrow(samp)
-# samp <- samp[-c(4,10, 15, 29), ]
-#
-# mcast <- function(f) as.matrix(cast(samp, f, force))
-# mcast(A ~ B)
-# ak <- read.csv("cache/ak-long.csv")
-
-ninteraction <- function(vars, drop = FALSE) {
-  
+ninteraction <- function(vars, drop = FALSE) {  
   if (length(vars) == 0) {
     res <- structure(rep.int(1L, nrow(vars)), n = 1L)
     return(res)
@@ -23,11 +11,12 @@ ninteraction <- function(vars, drop = FALSE) {
   }
   
   # Convert to factors, if necessary
-  not_factor <- !sapply(vars, is.factor)
-  vars[not_factor] <- lapply(vars[not_factor], factor, exclude=NULL)
+  not_factor <- !laply(vars, is.factor)
+  vars[not_factor] <- llply(vars[not_factor], factor, exclude=NULL)
   
   # Calculate dimensions
-  ndistinct <- unlist(lapply(vars, nunique))
+
+  ndistinct <- laply(vars, nunique)
   n <- prod(ndistinct)
 
   p <- length(vars)
@@ -58,8 +47,9 @@ castd <- function(...) {
 }
 
 casta <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., drop = TRUE, margins = NULL) {
-  vars <- cast_parse_formula(deparse(formula), names(data))$m
-	vars.clean <- lapply(vars, clean.vars)
+  exprs <- cast_parse_formula(deparse(formula), names(data))$m
+  vars <- unlist(get_vars(exprs))
+	vars.clean <- clean.vars(vars)
 	
 	# Add margins if needed
 	if (!is.null(margins)) {
@@ -67,10 +57,11 @@ casta <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., drop 
   	data <- add.margins(data, unlist(vars.clean), margin.vars(vars.clean, margins))
 	}
 	
-  pos <- lapply(vars, function(v) ninteraction(data[v], drop=drop))
+	browser()
+  pos <- llply(vars, function(v) ninteraction(data[v], drop=drop))
 
   # Calculate dimensionality
-	dims <- unlist(lapply(pos, "attr", "n"))
+	dims <- laply(pos, "attr", "n")
   n <- prod(dims)
 
   overall <- ninteraction(pos)
