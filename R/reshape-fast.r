@@ -48,7 +48,8 @@ castd <- function(...) {
 
 casta <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., drop = TRUE, margins = NULL) {
   exprs <- cast_parse_formula(deparse(formula), names(data))$m
-  vars <- unlist(get_vars(exprs))
+  exprs <- Filter(function(x) length(x) > 0, exprs)
+  vars <- unlist(get_vars(list(exprs)))
 	vars.clean <- clean.vars(vars)
 	
 	# Add margins if needed
@@ -56,9 +57,10 @@ casta <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., drop 
   	if (isTRUE(margins)) margins <- c(unlist(vars.clean), "grand_row", "grand_col")
   	data <- add.margins(data, unlist(vars.clean), margin.vars(vars.clean, margins))
 	}
-	
-	browser()
-  pos <- llply(vars, function(v) ninteraction(data[v], drop=drop))
+  cols <- ldply(exprs, eval, data)
+  names(cols) <- make.names(laply(exprs, deparse))
+  
+  pos <- llply(seq_along(cols), function(i) ninteraction(cols[, i, drop=FALSE], drop=drop))
 
   # Calculate dimensionality
 	dims <- laply(pos, "attr", "n")
