@@ -5,29 +5,29 @@
 # @argument Argument required to match generic
 # @keyword internal
 prettyprint <- function(x, digits=getOption("digits"), ..., colnames=TRUE) {
-	unx <- x
-	class(unx) <- "data.frame"
-	label.rows <- names(rrownames(x))
-	
-	labels <- strip.dups(unx[,names(x) %in% label.rows, drop=FALSE])
-	colnames(labels) <- label.rows[names(x) %in% label.rows]
-	data <-   as.matrix((unx[,!(names(x) %in% label.rows), drop=FALSE]))
-	
-	col.labels <- t(strip.dups(rcolnames(x)))
-	
-	bottom <- cbind(labels,data)
-	top <- cbind(matrix("", ncol=ncol(labels)-1, nrow=nrow(col.labels)), names(rcolnames(x)), col.labels)
-	if(colnames) {
-		middle <- colnames(bottom)
-	} else {
-		middle <- c(colnames(labels), rep("", ncol(bottom) - length(colnames(labels))))
-	}
+  unx <- x
+  class(unx) <- "data.frame"
+  label.rows <- names(rrownames(x))
+  
+  labels <- strip.dups(unx[,names(x) %in% label.rows, drop=FALSE])
+  colnames(labels) <- label.rows[names(x) %in% label.rows]
+  data <-   as.matrix((unx[,!(names(x) %in% label.rows), drop=FALSE]))
+  
+  col.labels <- t(strip.dups(rcolnames(x)))
+  
+  bottom <- cbind(labels,data)
+  top <- cbind(matrix("", ncol=ncol(labels)-1, nrow=nrow(col.labels)), names(rcolnames(x)), col.labels)
+  if(colnames) {
+    middle <- colnames(bottom)
+  } else {
+    middle <- c(colnames(labels), rep("", ncol(bottom) - length(colnames(labels))))
+  }
 
-	result <- rbind(top, middle, bottom)
-	rownames(result) <- rep("", nrow(result))
-	colnames(result) <- rep("", ncol(result))
+  result <- rbind(top, middle, bottom)
+  rownames(result) <- rep("", nrow(result))
+  colnames(result) <- rep("", ncol(result))
 
-	print(result, quote=FALSE, right=TRUE)	
+  print(result, quote=FALSE, right=TRUE)  
 }
 
 # Strip duplicates.
@@ -37,8 +37,8 @@ prettyprint <- function(x, digits=getOption("digits"), ..., colnames=TRUE) {
 # @value character matrix
 # @keyword internal
 strip.dups <- function(df) {
-	clear.dup <- function(dups,ret=dups) ifelse(duplicated(dups), "", ret)
+  clear.dup <- function(dups,ret=dups) ifelse(duplicated(dups), "", ret)
 
-	mat <- apply(df, c(1,2), as.character)
-	do.call(cbind, lapply(1:ncol(mat), function(x) clear.dup(mat[,1:x, drop=FALSE], mat[,x, drop=FALSE])))
+  mat <- apply(df, c(1,2), as.character)
+  do.call(cbind, lapply(1:ncol(mat), function(x) clear.dup(mat[,1:x, drop=FALSE], mat[,x, drop=FALSE])))
 }

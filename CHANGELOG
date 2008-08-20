@@ -1,12 +1,13 @@
 
 Reshape 0.8:
 
-	* preserve.na now renamed to na.rm to be consistent with other R functions
-	* raw names for columns
-	* margins now displayed with (all) instead of NA
-	* extend melt.array to deal with case where there are partial dimnames - Thanks to Roberto Ugoccioni
-	* add the Smiths dataset to the package
-	* fixed bug when displaying margins with multiple result variables
+  * melt.array now uses type.convert on dimnames to convert to appropriate type
+  * preserve.na now renamed to na.rm to be consistent with other R functions
+  * raw names for columns
+  * margins now displayed with (all) instead of NA
+  * extend melt.array to deal with case where there are partial dimnames - Thanks to Roberto Ugoccioni
+  * add the Smiths dataset to the package
+  * fixed bug when displaying margins with multiple result variables
 
 Reshape 0.7.4
  * only display all levels of a categorical variable when requested

@@ -15,10 +15,10 @@
 recast <- function(data, formula, ..., id.var, measure.var) {
   
   if (any(c("id.vars", "measure.vars") %in% names(list(...)))) stop("its var, not vars\n")
-	molten <- melt(data, id.var, measure.var)
+  molten <- melt(data, id.var, measure.var)
 
-	if (is.formula(formula))    formula <- deparse(formula)
-	if (!is.character(formula)) formula <- as.character(formula)
+  if (is.formula(formula))    formula <- deparse(formula)
+  if (!is.character(formula)) formula <- as.character(formula)
 
-	cast(molten, formula, ...)
+  cast(molten, formula, ...)
 }

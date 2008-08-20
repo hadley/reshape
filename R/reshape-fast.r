@@ -1,80 +1,72 @@
-ninteraction <- function(vars, drop = FALSE) {  
-  if (length(vars) == 0) {
-    res <- structure(rep.int(1L, nrow(vars)), n = 1L)
-    return(res)
-  }
-  
-  if (length(vars) == 1) {
-    f <- as.factor(vars[[1]])
-    res <- structure(as.integer(f), n = nunique(f))
-    return(res)
-  }
-  
-  # Convert to factors, if necessary
-  not_factor <- !laply(vars, is.factor)
-  vars[not_factor] <- llply(vars[not_factor], factor, exclude=NULL)
-  
-  # Calculate dimensions
-
-  ndistinct <- laply(vars, nunique)
-  n <- prod(ndistinct)
-
-  p <- length(vars)
-  combs <- c(1, cumprod(ndistinct[-p]))
-  
-  mat <- do.call("cbind", lapply(vars, as.integer))
-  res <- c((mat - 1L) %*% combs + 1L)
-  
-  # vdf <- data.frame(vars)
-  # names(vdf) <- paste("X", 1:ncol(vdf), sep="")
-  # vdf$i <- res
-  # browser()
-  
-  if (drop) {
-    f <- factor(res) 
-    n <- nunique(f)
-    res <- as.integer(f)
-  }
-  
-  attr(res, "n") <- n
-  res
-}
-
 castd <- function(...) {
   cm <- casta(...)
   if (dims(cm) > 2) return(cm)
   as.data.frame(cm)
 }
 
+# a + b ~ c       
+# log(a + b) ~ c  
+#   - only really differ in labels, but
+# round(a) ~ .
+# log(a) ~ .
+# differ profoundly
+# 
+# cast is just a special case of aaply (or adply as the case may be)
+# it's just the labelling that's special
+# 
+# to create array need to compute interactions for each dimension
+# and then over interaction + ordering
+# 
+# if duplicates in those values, need to perform aggregation
+# if no duplicated, still need to process with fun.aggregate
+# 
+# need to refactor to make paths of flow more obvious
+# (and needs to be fast! - i.e. only take slow paths if absolutely 
+# necessary)
+#
+# paths determined by:
+#   * aggregate: more rows than ids, or !is.null(fun.aggregate)
+#   * compute margins
+#   * lack of balance  (fill with fun.aggregate(vector()) or NA if NULL)
+#   * all combinations shown
+
 casta <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., drop = TRUE, margins = NULL) {
   exprs <- cast_parse_formula(deparse(formula), names(data))$m
   exprs <- Filter(function(x) length(x) > 0, exprs)
   vars <- unlist(get_vars(exprs))
-	vars.clean <- clean.vars(vars)
-	
-	# Add margins if needed
-	if (!is.null(margins)) {
-  	if (isTRUE(margins)) margins <- c(unlist(vars.clean), "grand_row", "grand_col")
-  	data <- add.margins(data, unlist(vars.clean), margin.vars(vars.clean, margins))
-	}
+  vars.clean <- clean.vars(vars)
+  
+  # -> need to create evaluated data.frame and then operate on 
+  # that from them on - create names with make.names?
+  
+  # Add margins if needed
+  if (!is.null(margins)) {
+    if (isTRUE(margins)) margins <- c(unlist(vars.clean), "grand_row", "grand_col")
+    data <- add.margins(data, unlist(vars.clean), margin.vars(vars.clean, margins))
+  }
+  
+  # -> Compute indices and calculate dimensionality
   cols <- ldply(exprs, eval, data)
-  names(cols) <- make.names(laply(exprs, deparse))
+  names(cols) <- make.names(laply(exprs, deparse))  
   
   pos <- llply(seq_along(cols), function(i) ninteraction(cols[, i, drop=FALSE], drop=drop))
 
   # Calculate dimensionality
-	dims <- laply(pos, "attr", "n")
+  dims <- laply(pos, "attr", "n")
   n <- prod(dims)
 
   overall <- ninteraction(pos)
   val <- data$value
   
-  if (length(overall) > n) {
+  if (length(unique(overall)) > n) {
+    # -> this bit needs to be separated out into own function
+    # combine? aggregate?
+    
     # Aggregation 
     if (is.null(fun.aggregate)) {
-			message("Aggregation requires fun.aggregate: length used as default")
-			fun.aggregate <- length
-		}
+      message("Aggregation requires fun.aggregate: length used as default")
+      fun.aggregate <- length
+    }
     fun.index <- function(x) fun.aggregate(val[x], ...)
     
     pieces <- split(seq_along(overall), factor(overall, levels=1:n))
@@ -87,6 +79,8 @@ casta <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., drop 
   }
   
   dim(results) <- dims
+  
+  # -> labelling needs to be own function too
   
   # Need to do something different when drop = T
   dimnames <- lapply(seq_along(vars), function(i) {

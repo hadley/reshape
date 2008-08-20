@@ -89,32 +89,32 @@
 #X lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")
 cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NA, add.missing=FALSE, value = guess_value(data)) {
   if (!is.null(fun.aggregate)) fun.aggregate <- match.fun(fun.aggregate)
-	if (is.formula(formula))    formula <- deparse(formula)
-	if (!is.character(formula)) formula <- as.character(formula)
+  if (is.formula(formula))    formula <- deparse(formula)
+  if (!is.character(formula)) formula <- as.character(formula)
 
-	subset <- eval(substitute(subset), data, parent.frame())  
-	data <- data[subset, , drop=FALSE]  
-	variables <- cast_parse_formula(formula, names(data))
+  subset <- eval(substitute(subset), data, parent.frame())  
+  data <- data[subset, , drop=FALSE]  
+  variables <- cast_parse_formula(formula, names(data))
 
   if (any(names(data) == value))  names(data)[names(data) == value] <- "value"
 
-	v <- unlist(variables)
-	v <- v[v != "result_variable"]
-	if (add.missing) data[v] <- lapply(data[v], as.factor)
+  v <- unlist(variables)
+  v <- v[v != "result_variable"]
+  if (add.missing) data[v] <- lapply(data[v], as.factor)
 
-	if (length(fun.aggregate) > 1) 
-		fun.aggregate <- do.call(funstofun, as.list(match.call()[[4]])[-1])
-	
-	if (!is.null(variables$l)) {
-		res <- nested.by(data, data[variables$l], function(x) {
-			castd(x, variables$m, fun.aggregate, margins=margins, df=df, fill=fill, add.missing=add.missing, ...)
-		})	
-	} else {
-		res <- castd(data, variables$m, fun.aggregate, margins=margins, df=df,fill=fill, add.missing=add.missing, ...)
-	}
-	#attr(res, "formula") <- formula
-	#attr(res, "data") <- deparse(substitute(data))
-	
-	res
+  if (length(fun.aggregate) > 1) 
+    fun.aggregate <- do.call(funstofun, as.list(match.call()[[4]])[-1])
+  
+  if (!is.null(variables$l)) {
+    res <- nested.by(data, data[variables$l], function(x) {
+      castd(x, variables$m, fun.aggregate, margins=margins, df=df, fill=fill, add.missing=add.missing, ...)
+    })  
+  } else {
+    res <- castd(data, variables$m, fun.aggregate, margins=margins, df=df,fill=fill, add.missing=add.missing, ...)
+  }
+  #attr(res, "formula") <- formula
+  #attr(res, "data") <- deparse(substitute(data))
+  
+  res
 }
 

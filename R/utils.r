@@ -2,19 +2,19 @@
 # 
 # Strategy:
 # \enumerate{
-# 	\item Is value or (all) column present? If so, use that
-# 	\item Otherwise, guess that last column is the value column
+#   \item Is value or (all) column present? If so, use that
+#   \item Otherwise, guess that last column is the value column
 # }
 # @arguments Data frame to guess value column from
 # @keyword internal
 guess_value <- function(df) {
-	if ("value" %in% names(df)) return("value")
-	if ("(all)" %in% names(df)) return("(all)")
-	
-	last <- names(df)[ncol(df)]
-	message("Using ", last, " as value column.  Use the value argument to cast to override this choice")
-	
-	last
+  if ("value" %in% names(df)) return("value")
+  if ("(all)" %in% names(df)) return("(all)")
+  
+  last <- names(df)[ncol(df)]
+  message("Using ", last, " as value column.  Use the value argument to cast to override this choice")
+  
+  last
 }
 
 # Merge together a series of data.frames
@@ -25,93 +25,11 @@ guess_value <- function(df) {
 # @seealso \code{\link{merge_recurse}}
 # @keyword manip
 merge_all <- function(dfs, ...) {
-	if (length(dfs)==1) return(dfs[[1]])
-	df <- merge_recurse(dfs, ...)
-	df <- df[, match(names(dfs[[1]]), names(df))]
-	df[do.call("order", df[, -ncol(df), drop=FALSE]), ,drop=FALSE]
+  if (length(dfs)==1) return(dfs[[1]])
+  df <- merge_recurse(dfs, ...)
+  df <- df[, match(names(dfs[[1]]), names(df))]
+  df[do.call("order", df[, -ncol(df), drop=FALSE]), ,drop=FALSE]
 }
-
-# Recursively merge data frames
-#
-# @arguments list of data frames to merge
-# @seealso \code{\link{merge_all}}
-# @keyword internal
-merge_recurse <- function(dfs, ...) {
-	if (length(dfs) == 2) {
-		merge(dfs[[1]], dfs[[2]], all=TRUE, sort=FALSE, ...)
-	} else {
-		merge(dfs[[1]], Recall(dfs[-1]), all=TRUE, sort=FALSE, ...)
-	}
-}
-
-# expand grid
-# expand grid of data frames
-#
-# Creates new data frame containing all combination of rows from
-# data.frames in \code{...}
-#
-# @arguments list of data frames (first varies fastest)
-# @arguments only use unique rows?
-# @keyword manip
-#X expand.grid.df(data.frame(a=1,b=1:2))
-#X expand.grid.df(data.frame(a=1,b=1:2), data.frame())
-#X expand.grid.df(data.frame(a=1,b=1:2), data.frame(c=1:2, d=1:2))
-#X expand.grid.df(data.frame(a=1,b=1:2), data.frame(c=1:2, d=1:2), data.frame(e=c("a","b")))
-expand.grid.df <- function(..., unique=TRUE) {
-	dfs <- list(...)
-
-	notempty <- sapply(dfs, ncol) != 0
-	if (sum(notempty) == 1) return(dfs[notempty][[1]])
-
-	if (unique) dfs <- lapply(dfs, unique)
-	indexes <- lapply(dfs, function(x) 1:nrow(x))
-
-	grid <- do.call(expand.grid, indexes)
-	df <- do.call(data.frame, mapply(function(df, index) df[index, ,drop=FALSE], dfs, grid))
-	colnames(df) <- unlist(lapply(dfs, colnames))
-	rownames(df) <- 1:nrow(df)
-	
-	return(df)
-}
-
-
-# Rbind fill
-# Rbind a list of data frames filling missing columns with NA 
-#
-# @arguments data frames to row bind together
-# @keyword manip
-rbind.fill <- function(...) {
-	dfs <- list(...)
-	if (length(dfs) == 0) return(list())
-
-	all.names <- unique(unlist(lapply(dfs, names)))
-	do.call("rbind", compact(lapply(dfs, function(df) {
-		if (length(df) == 0 || nrow(df) == 0) return(NULL)
-		
- 		missing.vars <- setdiff(all.names, names(df))
-		if (length(missing.vars) > 0) df[, missing.vars] <- NA
-		df
-	})))
-}
-
-# Compact list
-# Remove all NULL entries from a list
-# 
-# @arguments list
-# @keyword manip 
-compact <- function(l) {
-  l[!sapply(l, is.null)]
-}
-
-# Defaults
-# Convient method for combining a list of values with their defaults.
-# 
-# @arguments list of values
-# @arguments defaults
-# @keyword manip 
-defaults <- function(x, y)  {
-	c(x, y[setdiff(names(y), names(x))])
-} 
 
 
 # Sort data frame
@@ -122,8 +40,8 @@ defaults <- function(x, y)  {
 # @returns sorted data frame
 # @keyword manip 
 sort_df <- function(data, vars=names(data)) {
-	if (length(vars) == 0 || is.null(vars)) return(data)
-	data[do.call("order", data[,vars, drop=FALSE]), ,drop=FALSE]
+  if (length(vars) == 0 || is.null(vars)) return(data)
+  data[do.call("order", data[,vars, drop=FALSE]), ,drop=FALSE]
 }
 
 
@@ -135,7 +53,7 @@ sort_df <- function(data, vars=names(data)) {
 # @arguments vector of counts (of same length as \code{df})
 # @keyword manip 
 untable <- function(df, num) {
-	df[rep(1:nrow(df), num), ]
+  df[rep(1:nrow(df), num), ]
 }
 
 
@@ -147,8 +65,8 @@ untable <- function(df, num) {
 # @arguments default to use if values not uniquez
 # @keyword manip 
 uniquedefault <- function(values, default) {
-	unq <- unique(values)
-	if (length(unq) == 1) unq[1] else "black"
+  unq <- unique(values)
+  if (length(unq) == 1) unq[1] else "black"
 }
 
 # Rename
@@ -164,9 +82,9 @@ uniquedefault <- function(values, default) {
 #X a <- list(a = 1, b = 2, c = 3)
 #X rename(a, c(b = "a", c = "b", a="c"))
 rename <- function(x, replace) {
-	replacement <-  replace[names(x)]
-	names(x)[!is.na(replacement)] <- replacement[!is.na(replacement)]
-	x
+  replacement <-  replace[names(x)]
+  names(x)[!is.na(replacement)] <- replacement[!is.na(replacement)]
+  x
 }
 
 # Round any
@@ -186,7 +104,7 @@ rename <- function(x, replace) {
 #X round_any(135, 100, ceiling)
 #X round_any(135, 25, ceiling)
 round_any <- function(x, accuracy, f=round) {
-	f(x / accuracy) * accuracy
+  f(x / accuracy) * accuracy
 }
 
 
@@ -197,9 +115,9 @@ round_any <- function(x, accuracy, f=round) {
 # @arguments list with updated values
 # @keyword internal 
 updatelist <- function(x, y)  {
-	common <- intersect(names(x),names(y))
-	x[common] <- y[common]
-	x
+  common <- intersect(names(x),names(y))
+  x[common] <- y[common]
+  x
 } 
 
 
@@ -207,18 +125,18 @@ updatelist <- function(x, y)  {
 # 
 # @keyword internal
 nested.by <- function(data, INDICES, FUN, ...) {
-	if (length(compact(INDICES)) == 0 || is.null(INDICES)) return(FUN(data, ...))
-	
-	FUNx <- function(x) FUN(data[x, ], ...)
-	nd <- nrow(data)
+  if (length(compact(INDICES)) == 0 || is.null(INDICES)) return(FUN(data, ...))
+  
+  FUNx <- function(x) FUN(data[x, ], ...)
+  nd <- nrow(data)
 
-	if (length(INDICES) == 1) {
-		return(with(data, tapply(1:nd, INDICES[[1]], FUNx)))
-	}
+  if (length(INDICES) == 1) {
+    return(with(data, tapply(1:nd, INDICES[[1]], FUNx)))
+  }
 
-	tapply(1:nd, INDICES[[length(INDICES)]], function(x) {
-		nested.by(data[x, ], lapply(INDICES[-length(INDICES)],"[", x), FUN, ...)
-	}, simplify=FALSE)
+  tapply(1:nd, INDICES[[length(INDICES)]], function(x) {
+    nested.by(data[x, ], lapply(INDICES[-length(INDICES)],"[", x), FUN, ...)
+  }, simplify=FALSE)
 }
 
 
@@ -234,9 +152,9 @@ nested.by <- function(data, INDICES, FUN, ...) {
 colsplit <- function(x, split="", names) UseMethod("colsplit", x)
 colsplit.factor <- function(x, split="", names) colsplit(as.character(x), split, names)
 colsplit.character <- function(x, split="", names) {
-	vars <- as.data.frame(do.call(rbind, strsplit(x, split)))
-	names(vars) <- names
-	as.data.frame(lapply(vars, function(x) type.convert(as.character(x))))
+  vars <- as.data.frame(do.call(rbind, strsplit(x, split)))
+  names(vars) <- names
+  as.data.frame(lapply(vars, function(x) type.convert(as.character(x))))
 }
 
 # Aggregate multiple functions into a single function
@@ -270,19 +188,7 @@ nulldefault <- function(x, default) {
 
 
 namerows <- function(df, col.name = "id") {
-	df[[col.name]] = rownames(df)
-	df
+  df[[col.name]] = rownames(df)
+  df
 }
 
-# Number of unique values
-# Calculate number of unique values of a variable as efficiently as possible.
-# 
-# @arguments vector
-# @keyword internal
-nunique <- function(x) {
-  if (is.factor(x)) {
-    length(levels(x))
-  } else {
-    length(unique(x))
-  }
-}

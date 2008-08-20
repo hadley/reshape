@@ -5,9 +5,9 @@
 # for specific details for different data structures:
 #
 # \itemize{
-# 	\item \code{\link{melt.data.frame}} for data.frames
-# 	\item \code{\link{melt.array}} for arrays, matrices and tables
-# 	\item \code{\link{melt.list}} for lists
+#   \item \code{\link{melt.data.frame}} for data.frames
+#   \item \code{\link{melt.array}} for arrays, matrices and tables
+#   \item \code{\link{melt.list}} for lists
 # }
 #
 # @keyword manip
@@ -19,7 +19,7 @@ melt <- function(data, ...) UseMethod("melt", data)
 #
 # @keyword internal
 melt.default <- function(data, ...) {
-	data.frame(value=data)
+  data.frame(value=data)
 }
 
 # Melt a list
@@ -39,15 +39,15 @@ melt.default <- function(data, ...) {
 #X melt(list(1:5, matrix(1:4, ncol=2)))
 #X melt(list(list(1:3), 1, list(as.list(3:4), as.list(1:2))))
 melt.list <- function(data, ..., level=1) {
-	var <- nulldefault(attr(data, "varname"), paste("L", level, sep=""))
-	names <- nulldefault(names(data), 1:length(data))
-	parts <- lapply(data, melt, level=level+1, ...)
-	
-	namedparts <- mapply(function(x, name) {
-	 x[[var]] <- name
-	 x 
-	}, parts, names, SIMPLIFY=FALSE)
-	do.call(rbind.fill, namedparts)
+  var <- nulldefault(attr(data, "varname"), paste("L", level, sep=""))
+  names <- nulldefault(names(data), 1:length(data))
+  parts <- lapply(data, melt, level=level+1, ...)
+  
+  namedparts <- mapply(function(x, name) {
+   x[[var]] <- name
+   x 
+  }, parts, names, SIMPLIFY=FALSE)
+  do.call(rbind.fill, namedparts)
 }
 
 # Melt a data frame
@@ -60,8 +60,8 @@ melt.list <- function(data, ..., level=1) {
 # integer and factor variables are id variables, and all other are measured.
 #
 # @arguments Data set to melt
-# @arguments Id variables. If blank, will use all non measure.vars variables
-# @arguments Measured variables. If blank, will use all non id.vars variables
+# @arguments Id variables. If blank, will use all non measure.vars variables.  Can be integer (variable position) or string (variable name)
+# @arguments Measured variables. If blank, will use all non id.vars variables. Can be integer (variable position) or string (variable name)
 # @arguments Name of the variable that will store the names of the original variables
 # @arguments Should NAs be removed from the data set?
 # @arguments Old argument name, now deprecated
@@ -74,25 +74,25 @@ melt.list <- function(data, ..., level=1) {
 #X names(ChickWeight) <- tolower(names(ChickWeight))
 #X melt(ChickWeight, id=2:4)
 melt.data.frame <- function(data, id.vars, measure.vars, variable_name = "variable", na.rm = !preserve.na, preserve.na = TRUE, ...) {
-	if (!missing(preserve.na)) message("Use of preserve.na is now deprecated, please use na.rm instead")
-	remove.na <- function(df) if (!na.rm) df else df[complete.cases(df),,drop=FALSE]
+  if (!missing(preserve.na)) message("Use of preserve.na is now deprecated, please use na.rm instead")
+  remove.na <- function(df) if (!na.rm) df else df[complete.cases(df),,drop=FALSE]
 
-	var <- melt_check(data, id.vars, measure.vars)
-	
-	if (length(var$measure) == 0) {
-		return(remove.na(data[, var$id, drop=FALSE]))
-	}
-	
-	ids <- data[,var$id, drop=FALSE]
-	df <- do.call("rbind", lapply(var$measure, function(x) {
-		data.frame(ids, x, data[, x])
-	}))
-	names(df) <- c(names(ids), variable_name, "value")
+  var <- melt_check(data, id.vars, measure.vars)
+  
+  if (length(var$measure) == 0) {
+    return(remove.na(data[, var$id, drop=FALSE]))
+  }
+  
+  ids <- data[,var$id, drop=FALSE]
+  df <- do.call("rbind", lapply(var$measure, function(x) {
+    data.frame(ids, x, data[, x])
+  }))
+  names(df) <- c(names(ids), variable_name, "value")
 
-	df[[variable_name]] <- factor(df[[variable_name]], unique(df[[variable_name]])) 
-	df <- remove.na(df)
-	rownames(df) <- NULL
-	df
+  df[[variable_name]] <- factor(df[[variable_name]], unique(df[[variable_name]])) 
+  df <- remove.na(df)
+  rownames(df) <- NULL
+  df
 }
 
 # Melt an array
@@ -112,17 +112,19 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable_name = "variab
 #X dimnames(a)[1] <- list(NULL)
 #X melt(a)
 melt.array <- function(data, varnames = names(dimnames(data)), ...) {
-	values <- as.vector(data)
-	
-	dn <- dimnames(data)
-	if (is.null(dn)) dn <- vector("list", length(dim(data)))
+  values <- as.vector(data)
+  
+  dn <- dimnames(data)
+  if (is.null(dn)) dn <- vector("list", length(dim(data)))
 
-	dn_missing <- sapply(dn, is.null)
-	dn[dn_missing] <- lapply(dim(data), function(x) 1:x)[dn_missing]
-	indicies <- do.call(expand.grid, dn)
+  dn_missing <- sapply(dn, is.null)
+  dn[dn_missing] <- lapply(dim(data), function(x) 1:x)[dn_missing]
+  dn[] <- lapply(dn, type.convert)
+  indicies <- do.call(expand.grid, dn)
 
-	names(indicies) <- varnames
-	data.frame(indicies, value=values)
+  names(indicies) <- varnames
+
+  data.frame(indicies, value=values)
 }
 
 melt.table <- melt.array
@@ -133,19 +135,19 @@ melt.matrix <- melt.array
 # 
 # @keyword internal
 melt.cast_df <- function(data, drop.margins=TRUE, ...) {
-	molten <- melt.data.frame(as.data.frame(data), id=attr(data, "idvars"))
-	
-	cols <- rcolnames(data)
-	rownames(cols) <- make.names(rownames(cols))
+  molten <- melt.data.frame(as.data.frame(data), id=attr(data, "idvars"))
+  
+  cols <- rcolnames(data)
+  rownames(cols) <- make.names(rownames(cols))
 
-	molten <- cbind(molten[names(molten) != "variable"], cols[molten$variable, , drop=FALSE])
-	
-	if (drop.margins) {
-			margins <- !complete.cases(molten[,names(molten) != "value", drop=FALSE])
-		molten <- molten[!margins, ]
-	}
+  molten <- cbind(molten[names(molten) != "variable"], cols[molten$variable, , drop=FALSE])
+  
+  if (drop.margins) {
+      margins <- !complete.cases(molten[,names(molten) != "value", drop=FALSE])
+    molten <- molten[!margins, ]
+  }
 
-	molten
+  molten
 
 }
 
@@ -153,7 +155,7 @@ melt.cast_df <- function(data, drop.margins=TRUE, ...) {
 # 
 # @keyword internal
 melt.cast_matrix <- function(data, ...) {
-	melt(as.data.frame(data))
+  melt(as.data.frame(data))
 }
 
 # Melt check.
@@ -173,35 +175,35 @@ melt.cast_matrix <- function(data, ...) {
 # @value id list id variable names
 # @value measure list of measured variable names
 melt_check <- function(data, id.vars, measure.vars) {
-	varnames <- names(data)
-	if (!missing(id.vars) && is.numeric(id.vars)) id.vars <- varnames[id.vars]
-	if (!missing(measure.vars) && is.numeric(measure.vars)) measure.vars <- varnames[measure.vars]
-	
-	if (!missing(id.vars)) {
-		unknown <- setdiff(id.vars, varnames)
-		if (length(unknown) > 0) {
-			stop("id variables not found in data: ", paste(unknown, collapse=", "), 
-			  call. = FALSE)
-		}
-	} 
-	
-	if (!missing(measure.vars)) {
-		unknown <- setdiff(measure.vars, varnames)
-		if (length(unknown) > 0) {
-			stop("measure variables not found in data: ", paste(unknown, collapse=", "), 
-			  call. = FALSE)
-		}
-	} 
+  varnames <- names(data)
+  if (!missing(id.vars) && is.numeric(id.vars)) id.vars <- varnames[id.vars]
+  if (!missing(measure.vars) && is.numeric(measure.vars)) measure.vars <- varnames[measure.vars]
+  
+  if (!missing(id.vars)) {
+    unknown <- setdiff(id.vars, varnames)
+    if (length(unknown) > 0) {
+      stop("id variables not found in data: ", paste(unknown, collapse=", "), 
+        call. = FALSE)
+    }
+  } 
+  
+  if (!missing(measure.vars)) {
+    unknown <- setdiff(measure.vars, varnames)
+    if (length(unknown) > 0) {
+      stop("measure variables not found in data: ", paste(unknown, collapse=", "), 
+        call. = FALSE)
+    }
+  } 
 
-	if (missing(id.vars) && missing(measure.vars)) {
-		categorical <- sapply(data, function(x) class(x)[1]) %in% c("factor", "ordered", "character")
-		id.vars <- varnames[categorical]
-		measure.vars <- varnames[!categorical]
-		message("Using ", paste(id.vars, collapse=", "), " as id variables")
-	} 
+  if (missing(id.vars) && missing(measure.vars)) {
+    categorical <- sapply(data, function(x) class(x)[1]) %in% c("factor", "ordered", "character")
+    id.vars <- varnames[categorical]
+    measure.vars <- varnames[!categorical]
+    message("Using ", paste(id.vars, collapse=", "), " as id variables")
+  } 
 
-	if (missing(id.vars)) id.vars <- varnames[!(varnames %in% c(measure.vars))]
-	if (missing(measure.vars)) measure.vars <- varnames[!(varnames %in% c(id.vars))]
-	
-	list(id = id.vars, measure = measure.vars)	
+  if (missing(id.vars)) id.vars <- varnames[!(varnames %in% c(measure.vars))]
+  if (missing(measure.vars)) measure.vars <- varnames[!(varnames %in% c(id.vars))]
+  
+  list(id = id.vars, measure = measure.vars)  
 }

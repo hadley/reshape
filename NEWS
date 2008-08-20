@@ -1,9 +1,15 @@
 Reshape 1.0 (2008-XX-XX) --------------------------
 
+  * stamp removed - if you were using it, ddply from the plyr package should be uniformly better
+
   * major speed improvements
   * formula now more flexible
     * can contain functions
     * -(a + b) works like ... but excludes variables a & b
+    
+  * includes tests to try and stop me from breaking it quite so often during development 
+    
+  * add.all.combinations argument renamed to drop to be more consistent with other R functions, and should work much more reliably
 
   * tweaks to cast and recast to make it easier to pass in formulas created elsewhere
   * allow user to specify column used for values, guessing if necessary
@@ -11,4 +17,3 @@ Reshape 1.0 (2008-XX-XX) --------------------------
   * by default, treat character and factor variables as id variables (i.e. integer variables no longer default to being id vars)
   * helpful error message if value column missing when calling cast
   * ... now passed on to melt in melt.list (thanks to Charles Naylor)
-  * fix add.all.combinations to work properly again for a wider range of input

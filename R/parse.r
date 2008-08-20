@@ -16,11 +16,11 @@ simplify <- function(x) {
 parse_expression <- function(f) {
   if (is.formula(f)) f <- deparse(f)
   parts <- strsplit(f, "\\|")[[1]]
-	
-	list(
-	  m = structure(lapply(as.quoted(parts[1]), simplify), class="quoted"),
-	  l = if(length(parts) > 1) structure(lapply(as.quoted(parts[2]), simplify), class = "quoted")
-	)
+  
+  list(
+    m = structure(lapply(as.quoted(parts[1]), simplify), class="quoted"),
+    l = if(length(parts) > 1) structure(lapply(as.quoted(parts[2]), simplify), class = "quoted")
+  )
 }
 
 get_vars <- function(x) {

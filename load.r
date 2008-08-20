@@ -1,7 +1,4 @@
-library(reshape)
-library(RUnit)
-
-source("~/documents/plyr/plyr/load.r")
+library(reshape2)
 
 FILE <- (function() {
   attr(body(sys.function()), "srcfile")
