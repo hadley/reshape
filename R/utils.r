@@ -229,7 +229,15 @@ nulldefault <- function(x, default) {
   if (is.null(x)) default else x
 }
 
-
+# Name rows
+# Add variable to data frame containing rownames
+# 
+# This is useful when the thing that you want to melt by is the rownames
+# of the data frame, not an explicit variable
+# 
+# @arguments data frame
+# @arguments name of new column containing rownames
+# @keyword manip
 namerows <- function(df, col.name = "id") {
   df[[col.name]] = rownames(df)
   df

@@ -30,7 +30,7 @@ fastest.  There are a couple of special variables: "..." represents all other va
 not used in the formula and "." represents no variable, so you can do \code{formula=var1 ~ .}
 
 Creating high-D arrays is simple, and allows a class of transformations that are hard
-without \code{\link{iapply}} and \code{\link{sweep}}
+without \code{\link{apply}} and \code{\link{sweep}}
 
 If the combination of variables you supply does not uniquely identify one row in the
 original data set, you will need to supply an aggregating function, \code{fun.aggregate}.

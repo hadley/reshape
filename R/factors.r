@@ -9,7 +9,7 @@
 #X df <- data.frame(a = LETTERS[sample(5, 15, replace=TRUE)], y = rnorm(15))  
 #X combine_factor(df$a, c(1,2,2,1,2))
 #X combine_factor(df$a, c(1:4, 1))
-#X (f <- reorder_factor(df$a, tapply(df$y, df$a, mean)))
+#X (f <- reorder(df$a, df$y))
 #X percent <- tapply(abs(df$y), df$a, sum)
 #X combine_factor(f, c(order(percent)[1:3]))
 combine_factor <- function(fac, variable=levels(fac), other.label="Other") {

@@ -88,7 +88,6 @@
 #X cast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
 #X lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")
 cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NA, add.missing=FALSE, value = guess_value(data)) {
-  if (!is.null(fun.aggregate)) fun.aggregate <- match.fun(fun.aggregate)
 	if (is.formula(formula))    formula <- deparse(formula)
 	if (!is.character(formula)) formula <- as.character(formula)
 
@@ -104,6 +103,7 @@ cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margin
 
 	if (length(fun.aggregate) > 1) 
 		fun.aggregate <- do.call(funstofun, as.list(match.call()[[4]])[-1])
+  if (!is.null(fun.aggregate) && is.character(fun.aggregate)) fun.aggregate <- match.fun(fun.aggregate)
 	
 	if (!is.null(variables$l)) {
 		res <- nested.by(data, data[variables$l], function(x) {
