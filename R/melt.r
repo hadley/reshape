@@ -119,7 +119,9 @@ melt.array <- function(data, varnames = names(dimnames(data)), ...) {
 
   dn_missing <- sapply(dn, is.null)
   dn[dn_missing] <- lapply(dim(data), function(x) 1:x)[dn_missing]
-  dn[] <- lapply(dn, type.convert)
+  
+  char <- sapply(dn, is.character)
+  dn[char] <- lapply(dn[char], type.convert)
   indicies <- do.call(expand.grid, dn)
 
   names(indicies) <- varnames
