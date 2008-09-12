@@ -15,7 +15,7 @@ This function melts a high-dimensional array into a form that you can use \code{
 \item{...}{}
 }
 
-\details{}
+\details{This code is conceptually similar to \code{\link{as.data.frame.table}}}
 
 \examples{a <- array(1:24, c(2,3,4))
 melt(a)

@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Rescales matrix by columns
 }
 \usage{rescaler.matrix(x, type="sd", ...)}
 \arguments{

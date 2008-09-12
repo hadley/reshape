@@ -12,7 +12,7 @@ Convenience method for sorting a data frame using the given variables.
 \item{vars}{variables to use for sorting}
 }
 
-\details{}
+\details{Simple wrapper around order}
 
 \examples{}
 \keyword{manip}

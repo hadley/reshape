@@ -3,11 +3,11 @@
 \alias{str.cast_df}
 \alias{print.cast_matrix}
 \alias{print.cast_df}
-\title{Printing methods}
+\title{Print cast objects}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Printing methods
 }
 \usage{str.cast_matrix(object, ...)}
 \arguments{
@@ -15,7 +15,7 @@
 \item{...}{}
 }
 
-\details{}
+\details{Used for printing.}
 
 \examples{}
 \keyword{internal}

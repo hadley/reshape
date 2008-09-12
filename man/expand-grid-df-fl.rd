@@ -1,10 +1,10 @@
 \name{expand.grid.df}
 \alias{expand.grid.df}
-\title{expand grid}
+\title{Expand grid}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-expand grid of data frames
+Expand grid of data frames
 }
 \usage{expand.grid.df(..., unique=TRUE)}
 \arguments{

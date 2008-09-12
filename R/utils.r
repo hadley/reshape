@@ -1,3 +1,4 @@
+# Guess value
 # Guess name of value column
 # 
 # Strategy:
@@ -5,6 +6,7 @@
 #   \item Is value or (all) column present? If so, use that
 #   \item Otherwise, guess that last column is the value column
 # }
+# 
 # @arguments Data frame to guess value column from
 # @keyword internal
 guess_value <- function(df) {
@@ -17,6 +19,7 @@ guess_value <- function(df) {
   last
 }
 
+# Merge all
 # Merge together a series of data.frames
 #
 # Order of data frames should be from most complete to least complete 
@@ -31,6 +34,7 @@ merge_all <- function(dfs, ...) {
   df[do.call("order", df[, -ncol(df), drop=FALSE]), ,drop=FALSE]
 }
 
+# Merge recursively
 # Recursively merge data frames
 #
 # @arguments list of data frames to merge
@@ -44,8 +48,8 @@ merge_recurse <- function(dfs, ...) {
   }
 }
 
-# expand grid
-# expand grid of data frames
+# Expand grid
+# Expand grid of data frames
 #
 # Creates new data frame containing all combination of rows from
 # data.frames in \code{...}
@@ -78,6 +82,8 @@ expand.grid.df <- function(..., unique=TRUE) {
 # Sort data frame
 # Convenience method for sorting a data frame using the given variables.
 # 
+# Simple wrapper around order
+# 
 # @arguments data frame to sort
 # @arguments variables to use for sorting
 # @returns sorted data frame
@@ -89,6 +95,8 @@ sort_df <- function(data, vars=names(data)) {
 
 
 # Untable a dataset
+# Inverse of table
+# 
 # Given a tabulated dataset (or matrix) this will untabulate it
 # by repeating each row by the number of times it was repeated
 # 
@@ -103,6 +111,8 @@ untable <- function(df, num) {
 
 # Unique default
 # Convenience function for setting default if not unique
+# 
+# Used by ggplot2
 # 
 # @arguments vector of values
 # @arguments default to use if values not uniquez
@@ -133,6 +143,8 @@ rename <- function(x, replace) {
 # Round any
 # Round to multiple of any number
 # 
+# Useful when you want to round a number to arbitrary precision
+# 
 # @arguments numeric vector to round
 # @arguments number to round to
 # @arguments function to use for round (eg. \code{\link{floor}})
@@ -154,6 +166,8 @@ round_any <- function(x, accuracy, f=round) {
 # Update list
 # Update a list, but don't create new entries
 # 
+# Don't know what this is used for!
+# 
 # @arguments list to be updated
 # @arguments list with updated values
 # @keyword internal 
@@ -165,6 +179,9 @@ updatelist <- function(x, y)  {
 
 
 # Nested.by function
+# Nest series of by statements returning nested list
+# 
+# Work horse for producing cast lists.
 # 
 # @keyword internal
 nested.by <- function(data, INDICES, FUN, ...) {
@@ -222,7 +239,10 @@ funstofun <- function(...) {
   }
 }
 
+# Null default
 # Use default value when null
+# 
+# Handy method when argument defaults aren't good enough.
 #
 # @keyword internal
 nulldefault <- function(x, default) {

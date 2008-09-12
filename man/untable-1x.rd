@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-Given a tabulated dataset (or matrix) this will untabulate it
+Inverse of table
 }
 \usage{untable(df, num)}
 \arguments{
@@ -12,7 +12,8 @@ Given a tabulated dataset (or matrix) this will untabulate it
 \item{num}{vector of counts (of same length as \code{df})}
 }
 
-\details{}
+\details{Given a tabulated dataset (or matrix) this will untabulate it
+by repeating each row by the number of times it was repeated}
 
 \examples{}
 \keyword{manip}

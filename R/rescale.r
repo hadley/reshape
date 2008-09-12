@@ -40,6 +40,7 @@ rescaler.default <- function(x, type="sd", ...) {
 }
 
 # Rescale a data frame
+# Rescales data frame by columns
 # 
 # @arguments data.frame to rescale
 # @arguments type of rescaling to apply
@@ -52,6 +53,7 @@ rescaler.data.frame <- function(x, type="sd", ...) {
 }
 
 # Rescale a matrix
+# Rescales matrix by columns
 # 
 # @arguments matrix to rescale
 # @arguments type of rescaling to apply

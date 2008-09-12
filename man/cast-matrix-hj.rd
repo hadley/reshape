@@ -12,7 +12,7 @@ Createa a new cast matrix
 \item{dimnames}{list of dimension names (as data.frames), row, col, ...}
 }
 \value{object of type \code{\link{cast_matrix}}}
-\details{}
+\details{For internal use only}
 
 \examples{}
 \keyword{internal}

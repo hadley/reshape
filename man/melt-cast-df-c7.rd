@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-After casting into a particular form, it can sometimes be useful to
+Melt the results of a cast
 }
 \usage{melt.cast_df(data, drop.margins=TRUE, ...)}
 \arguments{
@@ -13,7 +13,9 @@ After casting into a particular form, it can sometimes be useful to
 \item{...}{}
 }
 
-\details{}
+\details{This can be useful when performning complex aggregations - melting
+the result of a cast will do it's best to figure out the correct variables
+to use as id and measured.}
 
 \examples{}
 \keyword{internal}

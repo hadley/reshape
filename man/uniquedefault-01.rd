@@ -12,7 +12,7 @@ Convenience function for setting default if not unique
 \item{default}{default to use if values not uniquez}
 }
 
-\details{}
+\details{Used by ggplot2}
 
 \examples{}
 \keyword{manip}

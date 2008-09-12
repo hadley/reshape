@@ -1,10 +1,10 @@
 \name{merge_all}
 \alias{merge_all}
-\title{Merge together a series of data.frames}
+\title{Merge all}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Merge together a series of data.frames
 }
 \usage{merge_all(dfs, ...)}
 \arguments{

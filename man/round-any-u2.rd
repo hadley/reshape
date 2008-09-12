@@ -13,7 +13,7 @@ Round to multiple of any number
 \item{f}{function to use for round (eg. \code{\link{floor}})}
 }
 
-\details{}
+\details{Useful when you want to round a number to arbitrary precision}
 
 \examples{round_any(135, 10)
 round_any(135, 100)

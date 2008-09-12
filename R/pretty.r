@@ -1,5 +1,9 @@
+# Pretty print
 # Print reshaped data frame
 #
+# This will always work on the direct output from cast, but may not
+# if you have manipulated (e.g. subsetted) the results.
+# 
 # @argument Reshaped data frame
 # @argument Argument required to match generic
 # @argument Argument required to match generic

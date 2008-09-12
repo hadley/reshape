@@ -12,7 +12,7 @@ Update a list, but don't create new entries
 \item{y}{list with updated values}
 }
 
-\details{}
+\details{Don't know what this is used for!}
 
 \examples{}
 \keyword{internal}

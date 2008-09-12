@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Rescales data frame by columns
 }
 \usage{rescaler.data.frame(x, type="sd", ...)}
 \arguments{

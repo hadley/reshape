@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Condense
 }
 \usage{condense.df(data, variables, fun, ...)}
 \arguments{

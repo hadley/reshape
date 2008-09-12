@@ -1,10 +1,10 @@
 \name{merge_recurse}
 \alias{merge_recurse}
-\title{Recursively merge data frames}
+\title{Merge recursively}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Recursively merge data frames
 }
 \usage{merge_recurse(dfs, ...)}
 \arguments{

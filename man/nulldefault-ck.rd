@@ -1,10 +1,10 @@
 \name{nulldefault}
 \alias{nulldefault}
-\title{Use default value when null}
+\title{Null default}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Use default value when null
 }
 \usage{nulldefault(x, default)}
 \arguments{
@@ -12,7 +12,7 @@
 \item{default}{}
 }
 
-\details{}
+\details{Handy method when argument defaults aren't good enough.}
 
 \examples{}
 \keyword{internal}

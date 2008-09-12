@@ -16,6 +16,7 @@
 melt <- function(data, ...) UseMethod("melt", data)
 
 # Default melt function
+# For vectors, make a column of a data frame
 #
 # @keyword internal
 melt.default <- function(data, ...) {
@@ -98,6 +99,8 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable_name = "variab
 # Melt an array
 # This function melts a high-dimensional array into a form that you can use \code{\link{cast}} with.
 #
+# This code is conceptually similar to \code{\link{as.data.frame.table}}
+# 
 # @arguments array to melt
 # @arguments variable names to use in molten data.frame
 # @keyword manip
@@ -133,7 +136,11 @@ melt.table <- melt.array
 melt.matrix <- melt.array
 
 # Melt cast data.frames
-# After casting into a particular form, it can sometimes be useful to 
+# Melt the results of a cast
+# 
+# This can be useful when performning complex aggregations - melting
+# the result of a cast will do it's best to figure out the correct variables
+# to use as id and measured.
 # 
 # @keyword internal
 melt.cast_df <- function(data, drop.margins=TRUE, ...) {
@@ -154,6 +161,9 @@ melt.cast_df <- function(data, drop.margins=TRUE, ...) {
 }
 
 # Melt cast matrices
+# Melt the results of a cast
+# 
+# Converts to a data frame and then uses \code{\link{melt.cast_df}}
 # 
 # @keyword internal
 melt.cast_matrix <- function(data, ...) {

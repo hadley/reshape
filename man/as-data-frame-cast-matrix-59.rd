@@ -1,10 +1,10 @@
 \name{as.data.frame.cast_matrix}
 \alias{as.data.frame.cast_matrix}
-\title{Convert cast matrix into a data frame}
+\title{as.data.frame.cast\_matrix}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Convert cast matrix into a data frame
 }
 \usage{as.data.frame.cast_matrix(x, row.names, optional, ...)}
 \arguments{
@@ -14,7 +14,8 @@
 \item{...}{}
 }
 
-\details{}
+\details{Converts a matrix produced by cast into a data frame with
+appropriate id columns.}
 
 \examples{}
 \keyword{internal}

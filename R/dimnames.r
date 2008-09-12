@@ -1,6 +1,8 @@
 # Cast matrix.
 # Createa a new cast matrix
 # 
+# For internal use only
+# 
 # @arguments matrix to turn into cast matrix
 # @arguments list of dimension names (as data.frames), row, col, ...
 # @value object of type \code{\link{cast_matrix}}
@@ -17,6 +19,10 @@ cast_matrix <- function(m, dimnames) {
 # Dimension names
 # These methods provide easy access to the special dimension names
 # associated without the output of reshape
+# 
+# Reshape stores dimension names in a slightly different format to 
+# base R, to allow for (e.g.) multiple levels of column header.  These
+# accessor functions allow you to get and set them.
 # 
 # @alias rdimnames<- 
 # @alias rcolnames 
@@ -51,8 +57,12 @@ rrownames <- function(x) rdimnames(x)[[1]]
   x
 }
 
+# as.data.frame.cast\_matrix
 # Convert cast matrix into a data frame
 #
+# Converts a matrix produced by cast into a data frame with
+# appropriate id columns.
+# 
 # @argument Reshape matrix
 # @argument Argument required to match generic
 # @argument Argument required to match generic
@@ -71,7 +81,11 @@ as.data.frame.cast_matrix <- function(x, row.names, optional, ...) {
   r.df
 }
 
+# as.matrix.cast\_df
 # Convert cast data.frame into a matrix
+# 
+# Converts a data frame produced by cast into a matrix with
+# appropriate dimnames.
 # 
 # @keyword internal
 as.matrix.cast_df <- function(x, ...) {
@@ -89,7 +103,10 @@ as.matrix.cast_df <- function(x, ...) {
   mat
 }
 
+# as.matrix.cast\_matrix
 # Convert cast matrix into a matrix
+# 
+# Strips off cast related attributes so matrix becomes a normal matrix
 # 
 # @keyword internal
 as.matrix.cast_matrix <- function(x, ...) {
@@ -100,7 +117,10 @@ as.matrix.cast_matrix <- function(x, ...) {
   x
 }
 
+# as.data.frame.cast\_df
 # Convert cast data.frame into a matrix
+# 
+# Strips off cast related attributes so data frame becomes a normal data frame
 # 
 # @keyword internal
 as.data.frame.cast_df <- function(x, ...) {
@@ -108,7 +128,10 @@ as.data.frame.cast_df <- function(x, ...) {
   x
 }
 
+# Print cast objects
 # Printing methods
+# 
+# Used for printing.
 # 
 # @keyword internal
 # @alias str.cast_df

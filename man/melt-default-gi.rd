@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+For vectors, make a column of a data frame
 }
 \usage{melt.default(data, ...)}
 \arguments{

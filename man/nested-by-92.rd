@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Nest series of by statements returning nested list
 }
 \usage{nested.by(data, INDICES, FUN, ...)}
 \arguments{
@@ -14,7 +14,7 @@
 \item{...}{}
 }
 
-\details{}
+\details{Work horse for producing cast lists.}
 
 \examples{}
 \keyword{internal}

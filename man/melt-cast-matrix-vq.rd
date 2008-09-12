@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Melt the results of a cast
 }
 \usage{melt.cast_matrix(data, ...)}
 \arguments{
@@ -12,7 +12,7 @@
 \item{...}{}
 }
 
-\details{}
+\details{Converts to a data frame and then uses \code{\link{melt.cast_df}}}
 
 \examples{}
 \keyword{internal}

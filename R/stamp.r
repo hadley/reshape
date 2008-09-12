@@ -27,6 +27,7 @@ stamp <- function(data, formula = . ~ ., fun.aggregate, ..., margins=NULL, subse
 }
 
 # Condense a data frame
+# Condense
 # 
 # @arguments data frame
 # @arguments character vector of variables to condense over

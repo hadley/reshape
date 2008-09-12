@@ -1,10 +1,10 @@
 \name{as.data.frame.cast_df}
 \alias{as.data.frame.cast_df}
-\title{Convert cast data.frame into a matrix}
+\title{as.data.frame.cast\_df}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Convert cast data.frame into a matrix
 }
 \usage{as.data.frame.cast_df(x, ...)}
 \arguments{
@@ -12,7 +12,7 @@
 \item{...}{}
 }
 
-\details{}
+\details{Strips off cast related attributes so data frame becomes a normal data frame}
 
 \examples{}
 \keyword{internal}

@@ -16,7 +16,9 @@ These methods provide easy access to the special dimension names
 \item{x}{}
 }
 
-\details{}
+\details{Reshape stores dimension names in a slightly different format to
+base R, to allow for (e.g.) multiple levels of column header.  These
+accessor functions allow you to get and set them.}
 
 \examples{}
 \keyword{internal}
