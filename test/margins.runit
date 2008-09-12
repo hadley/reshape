@@ -20,7 +20,7 @@ test_reshaping <- function() {
   checkEquals(aperm(s3, c(3,2,1)), as.matrix(casta(s3m, X3 ~ X2 ~ X1)))
 }
 
-test_aggregating <- function() {
+test_aggregating <- function() { 
   # 2d -> 1d
   checkEquals(colMeans(s2), as.vector(casta(s2m, X2 ~ ., mean)))
   checkEquals(rowMeans(s2), as.vector(casta(s2m, X1 ~ ., mean)))

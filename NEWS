@@ -1,19 +1,21 @@
-Reshape 1.0 (2008-XX-XX) --------------------------
+Reshape 0.8.1 (2008-XX-XX) --------------------------
+  
+Melt
 
-  * stamp removed - if you were using it, ddply from the plyr package should be uniformly better
+  * character dimension names are processed by type.convert
 
-  * major speed improvements
-  * formula now more flexible
-    * can contain functions
-    * -(a + b) works like ... but excludes variables a & b
-    
-  * includes tests to try and stop me from breaking it quite so often during development 
-    
+Cast
+
+
+  * now depends on the new plyr package for many of the workhorse functions
+  
+  * stamp function removed - if you were using it, ddply from the plyr package should be uniformly better
+
   * add.all.combinations argument renamed to drop to be more consistent with other R functions, and should work much more reliably
 
   * tweaks to cast and recast to make it easier to pass in formulas created elsewhere
   * allow user to specify column used for values, guessing if necessary
+  * helpful error message if value column missing when calling cast
   * improve error messages when melt or casting parameters incorrectly specified 
   * by default, treat character and factor variables as id variables (i.e. integer variables no longer default to being id vars)
-  * helpful error message if value column missing when calling cast
   * ... now passed on to melt in melt.list (thanks to Charles Naylor)
