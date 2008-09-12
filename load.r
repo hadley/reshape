@@ -1,4 +1,5 @@
 library(reshape)
+l(plyr)
 
 FILE <- (function() {
   attr(body(sys.function()), "srcfile")
