@@ -3,19 +3,15 @@ Reshape 0.8.1 (2008-XX-XX) --------------------------
 Melt
 
   * character dimension names are processed by type.convert
+  * by default, treat character and factor variables as id variables (i.e. integer variables no longer default to being id vars)
+  * ... now passed on to melt in melt.list (thanks to Charles Naylor)
 
 Cast
 
+  * tweaks to cast and recast to make it easier to pass in formulas created elsewhere
+  * allow user to specify column used for values, guessing if necessary, and giving a warning message if value column does not exist
+  * improve error messages when melt or casting parameters incorrectly specified 
+
+General
 
   * now depends on the new plyr package for many of the workhorse functions
-  
-  * stamp function removed - if you were using it, ddply from the plyr package should be uniformly better
-
-  * add.all.combinations argument renamed to drop to be more consistent with other R functions, and should work much more reliably
-
-  * tweaks to cast and recast to make it easier to pass in formulas created elsewhere
-  * allow user to specify column used for values, guessing if necessary
-  * helpful error message if value column missing when calling cast
-  * improve error messages when melt or casting parameters incorrectly specified 
-  * by default, treat character and factor variables as id variables (i.e. integer variables no longer default to being id vars)
-  * ... now passed on to melt in melt.list (thanks to Charles Naylor)
