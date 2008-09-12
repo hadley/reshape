@@ -31,6 +31,49 @@ merge_all <- function(dfs, ...) {
   df[do.call("order", df[, -ncol(df), drop=FALSE]), ,drop=FALSE]
 }
 
+# Recursively merge data frames
+#
+# @arguments list of data frames to merge
+# @seealso \code{\link{merge_all}}
+# @keyword internal
+merge_recurse <- function(dfs, ...) {
+  if (length(dfs) == 2) {
+    merge(dfs[[1]], dfs[[2]], all=TRUE, sort=FALSE, ...)
+  } else {
+    merge(dfs[[1]], Recall(dfs[-1]), all=TRUE, sort=FALSE, ...)
+  }
+}
+
+# expand grid
+# expand grid of data frames
+#
+# Creates new data frame containing all combination of rows from
+# data.frames in \code{...}
+#
+# @arguments list of data frames (first varies fastest)
+# @arguments only use unique rows?
+# @keyword manip
+#X expand.grid.df(data.frame(a=1,b=1:2))
+#X expand.grid.df(data.frame(a=1,b=1:2), data.frame())
+#X expand.grid.df(data.frame(a=1,b=1:2), data.frame(c=1:2, d=1:2))
+#X expand.grid.df(data.frame(a=1,b=1:2), data.frame(c=1:2, d=1:2), data.frame(e=c("a","b")))
+expand.grid.df <- function(..., unique=TRUE) {
+  dfs <- list(...)
+ 
+  notempty <- sapply(dfs, ncol) != 0
+  if (sum(notempty) == 1) return(dfs[notempty][[1]])
+ 
+  if (unique) dfs <- lapply(dfs, unique)
+  indexes <- lapply(dfs, function(x) 1:nrow(x))
+ 
+  grid <- do.call(expand.grid, indexes)
+  df <- do.call(data.frame, mapply(function(df, index) df[index, ,drop=FALSE], dfs, grid))
+  colnames(df) <- unlist(lapply(dfs, colnames))
+  rownames(df) <- 1:nrow(df)
+  
+  return(df)
+}
+
 
 # Sort data frame
 # Convenience method for sorting a data frame using the given variables.
