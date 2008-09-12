@@ -1,4 +1,4 @@
-library(reshape2)
+library(reshape)
 
 FILE <- (function() {
   attr(body(sys.function()), "srcfile")

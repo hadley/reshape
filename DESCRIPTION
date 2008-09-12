@@ -1,4 +1,4 @@
-Package: reshape2
+Package: reshape
 Type: Package
 Title: Flexibly reshape data.
 Version: 0.8.1
