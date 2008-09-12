@@ -15,7 +15,7 @@ Convenience function to make it easy to combine multiple levels
 
 \details{}
 
-\examples{df <- data.frame(a = LETTERS[sample(5, 15, replace=TRUE)], y = rnorm(15))	
+\examples{df <- data.frame(a = LETTERS[sample(5, 15, replace=TRUE)], y = rnorm(15))  
 combine_factor(df$a, c(1,2,2,1,2))
 combine_factor(df$a, c(1:4, 1))
 (f <- reorder_factor(df$a, tapply(df$y, df$a, mean)))

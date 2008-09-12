@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-Strips out duplicates from data.frame and replace them with periods.
+Strips out duplicates from data.frame and replace them with blanks.
 }
 \usage{strip.dups(df)}
 \arguments{
