@@ -88,34 +88,34 @@
 #X cast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
 #X lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")
 cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NA, add.missing=FALSE, value = guess_value(data)) {
-	if (is.formula(formula))    formula <- deparse(formula)
-	if (!is.character(formula)) formula <- as.character(formula)
+  if (is.formula(formula))    formula <- deparse(formula)
+  if (!is.character(formula)) formula <- as.character(formula)
 
-	subset <- eval(substitute(subset), data, parent.frame())  
-	data <- data[subset, , drop=FALSE]  
-	variables <- cast_parse_formula(formula, names(data))
+  subset <- eval(substitute(subset), data, parent.frame())  
+  data <- data[subset, , drop=FALSE]  
+  variables <- cast_parse_formula(formula, names(data))
 
   if (any(names(data) == value))  names(data)[names(data) == value] <- "value"
 
-	v <- unlist(variables)
-	v <- v[v != "result_variable"]
-	if (add.missing) data[v] <- lapply(data[v], as.factor)
+  v <- unlist(variables)
+  v <- v[v != "result_variable"]
+  if (add.missing) data[v] <- lapply(data[v], as.factor)
 
-	if (length(fun.aggregate) > 1) 
-		fun.aggregate <- do.call(funstofun, as.list(match.call()[[4]])[-1])
+  if (length(fun.aggregate) > 1) 
+    fun.aggregate <- do.call(funstofun, as.list(match.call()[[4]])[-1])
   if (!is.null(fun.aggregate) && is.character(fun.aggregate)) fun.aggregate <- match.fun(fun.aggregate)
-	
-	if (!is.null(variables$l)) {
-		res <- nested.by(data, data[variables$l], function(x) {
-			reshape1(x, variables$m, fun.aggregate, margins=margins, df=df, fill=fill, add.missing=add.missing, ...)
-		})	
-	} else {
-		res <- reshape1(data, variables$m, fun.aggregate, margins=margins, df=df,fill=fill, add.missing=add.missing, ...)
-	}
-	#attr(res, "formula") <- formula
-	#attr(res, "data") <- deparse(substitute(data))
-	
-	res
+  
+  if (!is.null(variables$l)) {
+    res <- nested.by(data, data[variables$l], function(x) {
+      reshape1(x, variables$m, fun.aggregate, margins=margins, df=df, fill=fill, add.missing=add.missing, ...)
+    })  
+  } else {
+    res <- reshape1(data, variables$m, fun.aggregate, margins=margins, df=df,fill=fill, add.missing=add.missing, ...)
+  }
+  #attr(res, "formula") <- formula
+  #attr(res, "data") <- deparse(substitute(data))
+  
+  res
 }
 
 # Casting workhorse.
@@ -176,58 +176,58 @@ cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margin
 #X 
 #X reshape1(aqm, list(c("month"), c("variable")), function(x) diff(range(x))) 
 reshape1 <- function(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins, df=FALSE, fill=NA, add.missing=FALSE, ...) {
-	vars.clean <- lapply(vars, clean.vars)
-	variables <- unlist(vars.clean)
-	
-	if (!missing(margins) && isTRUE(margins)) margins <- c(variables, "grand_row", "grand_col")
-	
-	aggregate <- nrow(unique(data[,variables, drop=FALSE])) < nrow(data) || !is.null(fun.aggregate)
-	if (aggregate) {
-		if (missing(fun.aggregate) || is.null(fun.aggregate)) {
-			message("Aggregation requires fun.aggregate: length used as default")
-			fun.aggregate <- length
-		}
-		if (!df) {
-		  data.r <- expand(condense(data, variables, fun.aggregate, ...)) 
-		} else {
-		  data.r <- condense.df(data, variables, fun.aggregate, ...)
-		}
-		if ("result_variable" %in% names(data.r) && !("result_variable" %in% unlist(vars))) {
-			vars[[2]] <- c(vars[[2]], "result_variable")
-		}
-	} else {
-		data.r <- data.frame(data[,c(variables), drop=FALSE], result = data$value)
-		if (!is.null(fun.aggregate)) data.r$result <- sapply(data.r$result, fun.aggregate)
-	}
+  vars.clean <- lapply(vars, clean.vars)
+  variables <- unlist(vars.clean)
+  
+  if (!missing(margins) && isTRUE(margins)) margins <- c(variables, "grand_row", "grand_col")
+  
+  aggregate <- nrow(unique(data[,variables, drop=FALSE])) < nrow(data) || !is.null(fun.aggregate)
+  if (aggregate) {
+    if (missing(fun.aggregate) || is.null(fun.aggregate)) {
+      message("Aggregation requires fun.aggregate: length used as default")
+      fun.aggregate <- length
+    }
+    if (!df) {
+      data.r <- expand(condense(data, variables, fun.aggregate, ...)) 
+    } else {
+      data.r <- condense.df(data, variables, fun.aggregate, ...)
+    }
+    if ("result_variable" %in% names(data.r) && !("result_variable" %in% unlist(vars))) {
+      vars[[2]] <- c(vars[[2]], "result_variable")
+    }
+  } else {
+    data.r <- data.frame(data[,c(variables), drop=FALSE], result = data$value)
+    if (!is.null(fun.aggregate)) data.r$result <- sapply(data.r$result, fun.aggregate)
+  }
 
   if (length(vars.clean) > 2 && margins) {
     warning("Sorry, you currently can't use margins with high D arrays", .call=FALSE)
     
     margins <- FALSE
   }
-	margins.r <- compute.margins(data, margin.vars(vars.clean, margins), vars.clean, fun.aggregate, ..., df=df)
+  margins.r <- compute.margins(data, margin.vars(vars.clean, margins), vars.clean, fun.aggregate, ..., df=df)
 
-	if (ncol(margins.r) > 0) {
-		need.factorising <- !sapply(data.r, is.factor) & sapply(margins.r, is.factor)
-		data.r[need.factorising] <- lapply(data.r[need.factorising], factor)
-	}
-	result <- sort_df(rbind.fill(data.r, margins.r), unlist(vars))
-	
-	if (add.missing) result <- add.missing.levels(result, unlist(vars), fill=fill)
-	result <- add.all.combinations(result, vars, fill=fill)
-	
-	dimnames <- lapply(vars, function(x) dim_names(result, x))
+  if (ncol(margins.r) > 0) {
+    need.factorising <- !sapply(data.r, is.factor) & sapply(margins.r, is.factor)
+    data.r[need.factorising] <- lapply(data.r[need.factorising], factor)
+  }
+  result <- sort_df(rbind.fill(data.r, margins.r), unlist(vars))
+  
+  if (add.missing) result <- add.missing.levels(result, unlist(vars), fill=fill)
+  result <- add.all.combinations(result, vars, fill=fill)
+  
+  dimnames <- lapply(vars, function(x) dim_names(result, x))
 
   r <- if (!df) unlist(result$result) else result$result
-	reshaped <- array(r, rev(sapply(dimnames, nrow)))
+  reshaped <- array(r, rev(sapply(dimnames, nrow)))
   
   reshaped <- aperm(reshaped, length(dim(reshaped)):1)
-	dimnames(reshaped) <- lapply(dimnames, function(x) apply(x, 1, paste, collapse="-"))
-	names(dimnames(reshaped)) <- lapply(vars, paste, collapse="-")
-	
-	if (length(vars.clean) > 2) return(reshaped)
-	if (df) return(cast_matrix(reshaped, dimnames))
-	as.data.frame(cast_matrix(reshaped, dimnames))
+  dimnames(reshaped) <- lapply(dimnames, function(x) apply(x, 1, paste, collapse="-"))
+  names(dimnames(reshaped)) <- lapply(vars, paste, collapse="-")
+  
+  if (length(vars.clean) > 2) return(reshaped)
+  if (df) return(cast_matrix(reshaped, dimnames))
+  as.data.frame(cast_matrix(reshaped, dimnames))
 }
 
 
@@ -252,42 +252,42 @@ reshape1 <- function(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins,
 #X add.all.combinations(df, list(c("a", "b"), "c"))
 #X add.all.combinations(df, list(c("a", "b", "c")))
 add.all.combinations <- function(data, vars = list(NULL), fill=NA) {
-	if (sum(sapply(vars, length)) == 0) return(data)
+  if (sum(sapply(vars, length)) == 0) return(data)
 
-	all.combinations <- do.call(expand.grid.df, 
-		lapply(vars, function(cols) data[, cols, drop=FALSE])
-	)	
-	result <- merge_recurse(list(data, all.combinations)) 
+  all.combinations <- do.call(expand.grid.df, 
+    lapply(vars, function(cols) data[, cols, drop=FALSE])
+  )  
+  result <- merge_recurse(list(data, all.combinations)) 
 
-	# fill missings with fill value
-	if (!is.na(fill)) {
-		if (is.list(result$result)) {
-			result$result[sapply(result$result, is.null)] <- fill
-		} else {
-			data_col <- matrix(!names(result) %in% unlist(vars), nrow=nrow(result), ncol=ncol(result), byrow=TRUE)
-			result[is.na(result) & data_col] <- fill
-		}
-	}	
+  # fill missings with fill value
+  if (!is.na(fill)) {
+    if (is.list(result$result)) {
+      result$result[sapply(result$result, is.null)] <- fill
+    } else {
+      data_col <- matrix(!names(result) %in% unlist(vars), nrow=nrow(result), ncol=ncol(result), byrow=TRUE)
+      result[is.na(result) & data_col] <- fill
+    }
+  }  
 
-	sort_df(result, unlist(vars))
+  sort_df(result, unlist(vars))
 }
 
 # Add in any missing values
 # @keyword internal
-add.missing.levels <- function(data, vars=NULL, fill=NA) {	
-	if (is.null(vars)) return(data)
-	cat <- sapply(data[,vars, drop=FALSE], is.factor)
+add.missing.levels <- function(data, vars=NULL, fill=NA) {  
+  if (is.null(vars)) return(data)
+  cat <- sapply(data[,vars, drop=FALSE], is.factor)
 
-	levels <- lapply(data[,vars, drop=FALSE][,cat, drop=FALSE], levels)
-	allcombs <- do.call(expand.grid, levels)
+  levels <- lapply(data[,vars, drop=FALSE][,cat, drop=FALSE], levels)
+  allcombs <- do.call(expand.grid, levels)
 
-	current <- unique(data[,vars, drop=FALSE])
-	extras <- allcombs[!duplicated(rbind(current, allcombs))[-(1:nrow(current))], , drop=FALSE]
+  current <- unique(data[,vars, drop=FALSE])
+  extras <- allcombs[!duplicated(rbind(current, allcombs))[-(1:nrow(current))], , drop=FALSE]
 
-	result <- rbind.fill(data, extras)
-	if (!is.na(fill)) result[is.na(result)] <- fill
+  result <- rbind.fill(data, extras)
+  if (!is.na(fill)) result[is.na(result)] <- fill
 
-	result
+  result
 }
 
 
@@ -299,9 +299,9 @@ add.missing.levels <- function(data, vars=NULL, fill=NA) {
 # @arguments variables to use
 # @keyword internal
 dim_names <- function(data, vars) {
-	if (!is.null(vars) && length(vars) > 0) {
-		unique(data[,vars,drop=FALSE]) 
-	} else {
-		data.frame(value="(all)") # use fun.aggregate instead of "value"? 
-	}
+  if (!is.null(vars) && length(vars) > 0) {
+    unique(data[,vars,drop=FALSE]) 
+  } else {
+    data.frame(value="(all)") # use fun.aggregate instead of "value"? 
+  }
 }
