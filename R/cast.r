@@ -91,7 +91,8 @@ cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margin
   if (is.formula(formula))    formula <- deparse(formula)
   if (!is.character(formula)) formula <- as.character(formula)
 
-  subset <- eval(substitute(subset), data, parent.frame())  
+  subset <- eval(substitute(subset), data, parent.frame())    
+  subset <- !is.na(subset) & subset
   data <- data[subset, , drop=FALSE]  
   variables <- cast_parse_formula(formula, names(data))
 
@@ -208,7 +209,7 @@ reshape1 <- function(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins,
   margins.r <- compute.margins(data, margin.vars(vars.clean, margins), vars.clean, fun.aggregate, ..., df=df)
 
   if (ncol(margins.r) > 0) {
-    need.factorising <- !sapply(data.r, is.factor) & sapply(margins.r, is.factor)
+    need.factorising <- !sapply(data.r, is.factor) & sapply(margins.r, is.factor)             
     data.r[need.factorising] <- lapply(data.r[need.factorising], factor)
   }
   result <- sort_df(rbind.fill(data.r, margins.r), unlist(vars))

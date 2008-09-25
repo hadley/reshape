@@ -8,6 +8,7 @@ Melt
 
 Cast
 
+  * missing values in subsetting are now correctly dropped to match behaviour of subset()
   * tweaks to cast and recast to make it easier to pass in formulas created elsewhere
   * allow user to specify column used for values, guessing if necessary, and giving a warning message if value column does not exist
   * improve error messages when melt or casting parameters incorrectly specified 

@@ -21,8 +21,8 @@ condense <- function(data, variables, fun, ...) {
 
   sorted <- sort_df(data, variables)[,c(variables, "value"), drop=FALSE]
   duplicates <- duplicated(sorted[,variables, drop=FALSE])
-  index <- cumsum(!duplicates)
-
+  index <- cumsum(!duplicates) 
+  
   results <- tapply(sorted$value, index, fun, ..., simplify = FALSE)
 
   cols <- sorted[!duplicates,variables, drop=FALSE]
