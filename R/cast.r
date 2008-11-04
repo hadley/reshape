@@ -190,7 +190,7 @@ reshape1 <- function(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins,
     }
 
     if (is.null(fill)) {
-      fill <- fun.aggregate(data$value[0])
+      fill <- suppressWarnings(fun.aggregate(data$value[0]))
     }
     
     if (!df) {

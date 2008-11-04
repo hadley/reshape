@@ -21,7 +21,7 @@ Takes data frame and variable list and casts data.
 \details{}
 \seealso{\code{\link{cast}}}
 \examples{
-ffm <- melt(french_fries, id=1:4)
+ffm <- melt(french_fries, id=1:4, na.rm = TRUE)
 # Casting lists ----------------------------
 cast(ffm, treatment ~ rep | variable, mean)
 cast(ffm, treatment ~ rep | subject, mean)
