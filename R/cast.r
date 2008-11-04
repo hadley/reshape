@@ -262,17 +262,16 @@ add.all.combinations <- function(data, vars = list(NULL), fill=NA) {
   all.combinations <- do.call(expand.grid.df, 
     lapply(vars, function(cols) data[, cols, drop=FALSE])
   )  
-  result <- merge_recurse(list(data, all.combinations)) 
+  result <- merge(data, all.combinations, by = unlist(vars), 
+    sort = FALSE, all = TRUE) 
 
   # fill missings with fill value
-  if (!is.na(fill)) {
-    if (is.list(result$result)) {
-      result$result[sapply(result$result, is.null)] <- fill
-    } else {
-      data_col <- matrix(!names(result) %in% unlist(vars), nrow=nrow(result), ncol=ncol(result), byrow=TRUE)
-      result[is.na(result) & data_col] <- fill
-    }
-  }  
+  if (is.list(result$result)) {
+    result$result[sapply(result$result, is.null)] <- fill
+  } else {
+    data_col <- matrix(!names(result) %in% unlist(vars), nrow=nrow(result), ncol=ncol(result), byrow=TRUE)
+    result[is.na(result) & data_col] <- fill
+  }
 
   sort_df(result, unlist(vars))
 }
