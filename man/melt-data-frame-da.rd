@@ -21,7 +21,8 @@ Melt a data frame into form suitable for easy casting.
 are measured variables. If you only supply one of \code{id.vars} and
 \code{measure.vars}, melt will assume the remainder of the variables in the
 data set belong to the other. If you supply neither, melt will assume
-integer and factor variables are id variables, and all other are measured.}
+factor and character variables are id variables, and all others are
+measured.}
 \seealso{\url{http://had.co.nz/reshape/}}
 \examples{head(melt(tips))
 names(airquality) <- tolower(names(airquality))
