@@ -90,11 +90,7 @@
 cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NULL, add.missing=FALSE, value = guess_value(data)) {
   if (is.formula(formula))    formula <- deparse(formula)
   if (!is.character(formula)) formula <- as.character(formula)
-
-  if (is.null(fill)) {
-    fill <- fun.aggregate(data[[value]][0])
-  }
-
+  
   subset <- eval(substitute(subset), data, parent.frame())    
   subset <- !is.na(subset) & subset
   data <- data[subset, , drop=FALSE]  
@@ -137,7 +133,7 @@ cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margin
 # @seealso \code{\link{cast}}
 # @keyword internal
 #X 
-#X ffm <- melt(french_fries, id=1:4)
+#X ffm <- melt(french_fries, id=1:4, na.rm = TRUE)
 #X # Casting lists ----------------------------
 #X cast(ffm, treatment ~ rep | variable, mean)
 #X cast(ffm, treatment ~ rep | subject, mean)
@@ -192,6 +188,11 @@ reshape1 <- function(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins,
       message("Aggregation requires fun.aggregate: length used as default")
       fun.aggregate <- length
     }
+
+    if (is.null(fill)) {
+      fill <- fun.aggregate(data$value[0])
+    }
+    
     if (!df) {
       data.r <- expand(condense(data, variables, fun.aggregate, ...)) 
     } else {
@@ -203,6 +204,10 @@ reshape1 <- function(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins,
   } else {
     data.r <- data.frame(data[,c(variables), drop=FALSE], result = data$value)
     if (!is.null(fun.aggregate)) data.r$result <- sapply(data.r$result, fun.aggregate)
+    
+    if (is.null(fill)) {
+      fill <- NA
+    }
   }
 
   if (length(vars.clean) > 2 && margins) {
