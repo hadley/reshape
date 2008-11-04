@@ -39,7 +39,7 @@
 # @arguments vector of variable names (can include "grand\_col" and "grand\_row") to compute margins for, or TRUE to computer all margins
 # @arguments logical vector to subset data set with before reshaping
 # @arguments argument used internally
-# @arguments value with which to fill in structural missings
+# @arguments value with which to fill in structural missings, defaults to value from applying \code{fun.aggregate} to 0 length vector
 # @argument should all missing combinations be displayed?
 # @argument name of column which stores values, see \code{\link{guess_value}} for default strategies to figure this out
 # @seealso \code{\link{reshape1}},  \url{http://had.co.nz/reshape/}
@@ -87,9 +87,13 @@
 #X cast(ff_d, treatment ~ variable, mean, margins=c("grand_col", "grand_row"))
 #X cast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
 #X lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")
-cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NA, add.missing=FALSE, value = guess_value(data)) {
+cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NULL, add.missing=FALSE, value = guess_value(data)) {
   if (is.formula(formula))    formula <- deparse(formula)
   if (!is.character(formula)) formula <- as.character(formula)
+
+  if (is.null(fill)) {
+    fill <- fun.aggregate(data[[value]][0])
+  }
 
   subset <- eval(substitute(subset), data, parent.frame())    
   subset <- !is.na(subset) & subset

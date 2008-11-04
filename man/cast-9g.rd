@@ -6,7 +6,7 @@
 \description{
 Cast a molten data frame into the reshaped or aggregated form you want
 }
-\usage{cast(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NA, add.missing=FALSE, value = guess_value(data))}
+\usage{cast(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NULL, add.missing=FALSE, value = guess_value(data))}
 \arguments{
 \item{data}{molten data frame, see \code{\link{melt}}}
 \item{formula}{casting formula, see details for specifics}
@@ -15,7 +15,7 @@ Cast a molten data frame into the reshaped or aggregated form you want
 \item{margins}{vector of variable names (can include "grand\_col" and "grand\_row") to compute margins for, or TRUE to computer all margins}
 \item{subset}{logical vector to subset data set with before reshaping}
 \item{df}{argument used internally}
-\item{fill}{value with which to fill in structural missings}
+\item{fill}{value with which to fill in structural missings, defaults to value from applying \code{fun.aggregate} to 0 length vector}
 \item{add.missing}{}
 \item{value}{}
 }
