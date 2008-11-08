@@ -133,7 +133,20 @@ uniquedefault <- function(values, default) {
 # @keyword manip
 #X rename(mtcars, c(wt = "weight", cyl = "cylinders"))
 #X a <- list(a = 1, b = 2, c = 3)
-#X rename(a, c(b = "a", c = "b", a="c"))
+#X rename(a, c(b = "a", c = "b", a="c")) 
+#X 
+#X # Example supplied by Timothy Bates
+#X name <- c("john", "tim", "andy")
+#X ages <- c(50, 46, 25)
+#X mydata <- data.frame(names,ages)
+#X names(mydata) #-> "name",  "ages"
+#X 
+#X # lets change "ages" to singular.
+#X # nb: The operation is not done in place, so you need to set your 
+#X # data to that returned from rename
+#X 
+#X mydata <- rename(mydata, c(ages="age"))
+#X names(mydata) #-> "name",  "age"
 rename <- function(x, replace) {
   replacement <-  replace[names(x)]
   names(x)[!is.na(replacement)] <- replacement[!is.na(replacement)]
