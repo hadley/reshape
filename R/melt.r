@@ -65,7 +65,7 @@ melt.list <- function(data, ..., level=1) {
 # @arguments Id variables. If blank, will use all non measure.vars variables.  Can be integer (variable position) or string (variable name)
 # @arguments Measured variables. If blank, will use all non id.vars variables. Can be integer (variable position) or string (variable name)
 # @arguments Name of the variable that will store the names of the original variables
-# @arguments Should NAs be removed from the data set?
+# @arguments Should NA values be removed from the data set?
 # @arguments Old argument name, now deprecated
 # @value molten data
 # @keyword manip
@@ -76,13 +76,13 @@ melt.list <- function(data, ..., level=1) {
 #X names(ChickWeight) <- tolower(names(ChickWeight))
 #X melt(ChickWeight, id=2:4)
 melt.data.frame <- function(data, id.vars, measure.vars, variable_name = "variable", na.rm = !preserve.na, preserve.na = TRUE, ...) {
-  if (!missing(preserve.na)) message("Use of preserve.na is now deprecated, please use na.rm instead")
-  remove.na <- function(df) if (!na.rm) df else df[complete.cases(df),,drop=FALSE]
+  if (!missing(preserve.na)) 
+    message("Use of preserve.na is now deprecated, please use na.rm instead")
 
   var <- melt_check(data, id.vars, measure.vars)
   
   if (length(var$measure) == 0) {
-    return(remove.na(data[, var$id, drop=FALSE]))
+    return(data[, var$id, drop=FALSE])
   }
   
   ids <- data[,var$id, drop=FALSE]
@@ -92,7 +92,10 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable_name = "variab
   names(df) <- c(names(ids), variable_name, "value")
 
   df[[variable_name]] <- factor(df[[variable_name]], unique(df[[variable_name]])) 
-  df <- remove.na(df)
+
+  if (na.rm) {
+    df <- df[!is.na(df$value), , drop=FALSE]
+  }
   rownames(df) <- NULL
   df
 }
