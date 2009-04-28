@@ -1,6 +1,8 @@
-Reshape 0.8.3 (2009-XX-XX) ---------------------------------------------------
+Reshape 0.8.3 (2009-04-27) ---------------------------------------------------
 
+* better rename example
 * When removing missing values in melt, look only at measured variables, not id variables
+* Fixes to documentation bugs revealed by new parser
 
 Reshape 0.8.2 (2008-11-04) --------------------------
 

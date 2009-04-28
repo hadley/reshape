@@ -13,8 +13,8 @@ Check that input variables to melt are appropriate.
 \item{measure.vars}{Vector of Measured variable names or indexes}
 }
 \value{
- \item{id list id variable names}
- \item{measure list of measured variable names}
+  \item{id}{list id variable names}
+  \item{measure}{list of measured variable names}
 }
 \details{If id.vars or measure.vars are missing, \code{melt_check} will do its
 best to impute them.If you only

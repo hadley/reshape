@@ -136,7 +136,7 @@ uniquedefault <- function(values, default) {
 #X rename(a, c(b = "a", c = "b", a="c")) 
 #X 
 #X # Example supplied by Timothy Bates
-#X name <- c("john", "tim", "andy")
+#X names <- c("john", "tim", "andy")
 #X ages <- c(50, 46, 25)
 #X mydata <- data.frame(names,ages)
 #X names(mydata) #-> "name",  "ages"

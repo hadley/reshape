@@ -4,7 +4,8 @@
 \title{Tipping data}
 \description{
 One waiter recorded information about each tip he received over a period of a few months working in one restaurant. He collected several variables: 
-\begin{enumerate}
+
+\itemize{
  \item tip in dollars, 
  \item bill in dollars, 
  \item sex of the bill payer, 
@@ -12,7 +13,7 @@ One waiter recorded information about each tip he received over a period of a fe
  \item day of the week, 
  \item time of day, 
  \item size of the party. 
-\end{enumerate}
+}
 
 In all he recorded 244 tips. The data was reported in a collection of case studies 
 for business statistics (Bryant & Smith 1995).

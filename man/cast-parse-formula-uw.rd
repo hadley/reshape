@@ -12,9 +12,9 @@ Parse formula for casting
 \item{varnames}{}
 }
 \value{
- \item{row character vector of row names}
- \item{col character vector of column names}
- \item{aggregate boolean whether aggregation will occur}
+  \item{row}{character vector of row names}
+  \item{col}{character vector of column names}
+  \item{aggregate}{boolean whether aggregation will occur}
 }
 \details{@value row character vector of row names
 @value col character vector of column names

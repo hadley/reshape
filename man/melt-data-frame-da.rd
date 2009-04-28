@@ -12,7 +12,7 @@ Melt a data frame into form suitable for easy casting.
 \item{id.vars}{Id variables. If blank, will use all non measure.vars variables.  Can be integer (variable position) or string (variable name)}
 \item{measure.vars}{Measured variables. If blank, will use all non id.vars variables. Can be integer (variable position) or string (variable name)}
 \item{variable_name}{Name of the variable that will store the names of the original variables}
-\item{na.rm}{Should NAs be removed from the data set?}
+\item{na.rm}{Should NA values be removed from the data set?}
 \item{preserve.na}{Old argument name, now deprecated}
 \item{...}{}
 }

@@ -15,12 +15,6 @@
 # @arguments margins to compute (character vector, or \code{TRUE} for all margins), can contain \code{grand_row} or \code{grand_col} to inclue grand row or column margins respectively.
 # @arguments logical vector by which to subset the data frame, evaluated in the context of the data frame so you can 
 #@keyword manip 
-#X french_fries$time <- as.numeric(as.character(french_fries$time))
-#X stamp(french_fries, subject ~ ., function(df) coef(lm(painty ~ time, df))[2])
-#X stamp(french_fries, subject ~ treatment, function(df) coef(lm(painty ~ time, df))[2])
-#X models <- stamp(french_fries, subject ~ ., function(df) lm(painty ~ time, df))
-#X dim(models)
-#X anova(models[[3,1]])
 stamp <- function(data, formula = . ~ ., fun.aggregate, ..., margins=NULL, subset=TRUE, add.missing=FALSE) {
   if (inherits(formula, "formula")) formula <- deparse(substitute(formula)) 
   cast(data, formula, fun.aggregate, ..., margins=margins, subset=subset, df=TRUE,add.missing=add.missing, value="")

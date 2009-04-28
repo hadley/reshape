@@ -8,5 +8,5 @@ citEntry(entry = "article",
   url = "http://www.jstatsoft.org/v21/i12/paper",
   volume = "21",
   year = "2007",
-  textVersion = "H. Wickham. Reshaping data with the reshape package. Journal of Statistical Software, 21(12), 2007."
+  textVersion = "H. Wickham. Reshaping data with the reshape package. Journal of Statistical Software, 21(12), 2007."
 )

@@ -7,6 +7,7 @@ This data was collected from a sensory experiment conducted at Iowa State Univer
 
 Variables:
 
+\itemize{
 \item time in weeks from start of study.
 \item treatment (type of oil), 
 \item subject, 
@@ -16,7 +17,7 @@ Variables:
 \item grassy flavour,
 \item rancid flavour,
 \item painty flavour 
-
+}
 }
 \usage{data(french_fries)}
 \format{A data frame with 696 rows and 9 variables}

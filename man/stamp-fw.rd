@@ -24,10 +24,5 @@ Note that it's very easy to create objects that R can't print with this
 function.  You will probably want to save the results to a variable and
 then use extract the results.  See the examples.}
 
-\examples{french_fries$time <- as.numeric(as.character(french_fries$time))
-stamp(french_fries, subject ~ ., function(df) coef(lm(painty ~ time, df))[2])
-stamp(french_fries, subject ~ treatment, function(df) coef(lm(painty ~ time, df))[2])
-models <- stamp(french_fries, subject ~ ., function(df) lm(painty ~ time, df))
-dim(models)
-anova(models[[3,1]])}
+\examples{}
 \keyword{manip}
