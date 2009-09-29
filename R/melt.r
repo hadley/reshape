@@ -129,11 +129,11 @@ melt.array <- function(data, varnames = names(dimnames(data)), ...) {
   
   char <- sapply(dn, is.character)
   dn[char] <- lapply(dn[char], type.convert)
-  indicies <- do.call(expand.grid, dn)
+  indices <- do.call(expand.grid, dn)
 
-  names(indicies) <- varnames
+  names(indices) <- varnames
 
-  data.frame(indicies, value=values)
+  data.frame(indices, value=values)
 }
 
 melt.table <- melt.array
