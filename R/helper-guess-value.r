@@ -7,7 +7,7 @@
 #' }
 #' 
 #' @param df data frame to guess value column from
-#' @keyword internal
+#' @keywords internal
 guess_value <- function(df) {
   if ("value" %in% names(df)) return("value")
   if ("(all)" %in% names(df)) return("(all)")

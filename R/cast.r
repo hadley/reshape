@@ -22,7 +22,7 @@
 #' the \code{data}, so you can do something like 
 #' \code{subset = .(variable=="length")}.
 #'
-#' @keyword manip
+#' @keywords manip
 #' @param data molten data frame, see \code{\link{melt}}
 #' @param formula casting formula, see details for specifics
 #' @param fun.aggregate aggregation function

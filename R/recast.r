@@ -3,14 +3,14 @@
 #' This conveniently wraps melting and casting a data frame into
 #' a single step. 
 #'
-#' @arguments data data set to melt
-#' @arguments formula casting formula, see \link{cast} for specifics
-#' @arguments ... other arguments passed to \link{cast}
-#' @arguments id.var identifying variables. If blank, will use all non
+#' @param data data set to melt
+#' @param formula casting formula, see \link{cast} for specifics
+#' @param ... other arguments passed to \link{cast}
+#' @param id.var identifying variables. If blank, will use all non
 #'    measure.var variables
-#' @arguments measure.var measured variables. If blank, will use all non
+#' @param measure.var measured variables. If blank, will use all non
 #'    id.var variables
-#' @keyword manip
+#' @keywords manip
 #' @seealso \url{http://had.co.nz/reshape/}
 #' @examples
 #' recast(french_fries, time ~ variable, id.var = 1:4)

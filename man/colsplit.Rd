@@ -1,0 +1,24 @@
+\name{colsplit}
+\alias{colsplit}
+\title{Split a vector into multiple columns...}
+\usage{colsplit(string, pattern, names)}
+
+\description{
+  Split a vector into multiple columns
+}
+
+\details{
+  Useful for splitting variable names that a combination of multiple
+  variables.  Uses \code{\link{type.convert}} to convert each column to
+  correct type.
+}
+\keyword{manip}
+\arguments{
+  \item{string}{character vector or factor to split up}
+  \item{pattern}{regular expression to split on}
+  \item{names}{names for output columns}
+}
+\examples{x <- c("a_1", "a_2", "b_2", "c_3")
+vars <- colsplit(x, "_", c("trt", "time"))
+vars
+str(vars)}

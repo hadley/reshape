@@ -4,7 +4,7 @@
 #' @param accuracy number to round to
 #' @param f rounding function: \code{\link{floor}}, \code{\link{ceiling}} or 
 #'  \code{\link{round}}
-#' @keyword manip
+#' @keywords manip
 #' @export
 #' @examples
 #' round_any(135, 10)
