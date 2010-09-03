@@ -4,9 +4,10 @@ Compared to reshape, reshape2:
 
  * is considerably faster and more memory efficient thanks to a much better
    underlying algorithm that uses the power and speed of subsetting to the
-   fullest extent
+   fullest extent, in most cases only making a single copy of the data
 
- * only provides two functions: melt and cast
+ * splits cast in two functions: dcast (to produce data frames) and acast (to
+   produce vectors/matrices/arrays)
 
  * drops support for the | cast operator (because this is what plyr is for)
 
