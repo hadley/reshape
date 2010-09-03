@@ -33,7 +33,7 @@ parse_formula <- function(formula = "...  ~ variable", varnames) {
 
     all_vars <- unlist(formula)
     if (any(all_vars == "...")) {
-      remainder <- setdiff(varnames, all_vars)
+      remainder <- setdiff(varnames, c(all_vars, "value"))
       formula <- lapply(formula, replace.remainder)
     }
   }

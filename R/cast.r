@@ -81,21 +81,15 @@
 #' cast(ff_d, treatment ~ variable, mean, margins=c("grand_col", "grand_row"))
 #' cast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
 #' lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")
-cast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = TRUE, fill=NULL, drop = TRUE, value_var = guess_value(data)) {
+cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill = NULL, drop = TRUE, value_var = guess_value(data)) {
   
-  # if (!is.null(subset)) {
-  #   include <- data.frame(eval.quoted(subset, data))
-  #   data <- data[rowSums(include) == ncol(include), ]
-  # }
-  # 
-  # if (!is.null(margins)) {
-  #   data <- add_margins(data, margins)
-  # }
+  if (!is.null(subset)) {
+    include <- data.frame(eval.quoted(subset, data))
+    data <- data[rowSums(include) == ncol(include), ]
+  }
+
   
   formula <- parse_formula(formula)
-  # if (length(formula) > 2) {
-  #   stop("Dataframes have at most two output dimensions")
-  # }
   value <- data[[value_var]]
   
   # Need to branch here depending on whether or not we have strings or
@@ -130,9 +124,47 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subse
   }
   
   list(
-    structure(value[overall], dim = ns),
+    data = structure(value[overall], dim = ns),
     labels = labels
   )
+}
+
+dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))  {
+
+  formula <- parse_formula(formula, names(data))
+  if (length(formula) > 2) {
+    stop("Dataframes have at most two output dimensions")
+  }
+  
+  if (!is.null(margins)) {
+    data <- add_margins(data, names(formula[[1]]), names(formula[[2]]),
+      margins)
+  }
+  
+  res <- cast(data, formula, fun.aggregate, ..., 
+    subset = subset, fill = full, drop = drop, 
+    value_var = value_var)
+
+  data <- as.data.frame(res$data)
+  names(data) <- array_names(res$labels[[2]])
+  
+  cbind(res$labels[[1]], data)
+}
+
+acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))  {
+
+  res <- cast(data, formula, fun.aggregate, ..., 
+    margins = margins, subset = subset, fill = full, drop = drop, 
+    value_var = value_var)
+    
+  
+  dimnames(res$data) <- lapply(res$labels, array_names)
+  res$data
+}
+
+array_names <- function(df) {
+  rows <- split(df, seq_len(nrow(df)))
+  vapply(rows, splat(str_c), character(1), sep = "_", USE.NAMES = FALSE)
 }
 
 #X #Basic call

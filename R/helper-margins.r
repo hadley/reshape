@@ -78,15 +78,19 @@ add_margins <- function(df, rows = NULL, cols = NULL, margins = TRUE) {
   if (length(margin_vars) == 0) return(df)
   
   # Prepare data frame for addition of margins
+  addAll <- function(x) {
+    if (!is.factor(x)) x <- factor(x)
+    levels(x) <- c(levels(x), "(all)")
+    x
+  }
   vars <- unique(unlist(margin_vars))
-  df[vars] <- lapply(df[vars], function(x) 
-    factor(x, levels = c(sort(unique(x)), "(all)")))
+  df[vars] <- lapply(df[vars], addAll)
   rownames(df) <- NULL
   
   # Loop through all combinations of margin variables, setting
-  # those variable to (all)
+  # those variables to (all)
   margin_dfs <- ldply(margin_vars, function(vars) {
-    df[vars] <- "(all)"
+    df[, vars] <- factor("(all)")
     unique(df)
   })
   

@@ -15,8 +15,7 @@
 #' @examples
 #' recast(french_fries, time ~ variable, id.var = 1:4)
 recast <- function(data, formula, ..., id.var, measure.var) {
-  
-  if (any(c("id.vars", "measure.vars") %in% names(list(...)))) {
+  if (any(c("id.vars", "measure.vars") %in% names(match.call()))) {
     stop("Use var, not vars\n")
   }
   
