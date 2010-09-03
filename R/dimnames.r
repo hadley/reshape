@@ -113,7 +113,6 @@ as.matrix.cast_matrix <- function(x, ...) {
   class(x) <- class(x)[-1]
   attr(x, "rdimnames") <- NULL
   attr(x, "idvars") <- NULL
-  attr(x, "dimnames") <- NULL
   x
 }
 

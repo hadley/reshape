@@ -246,7 +246,7 @@ funstofun <- function(...) {
   
   function(x, ...) {
     results <- vector("numeric", length=n)
-    for(i in 1:n) results[[i]] <- fs[[i]](x, ...)
+    for(i in seq_len(n)) results[[i]] <- fs[[i]](x, ...)
     names(results) <- fnames
     results
   }

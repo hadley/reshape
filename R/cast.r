@@ -221,6 +221,7 @@ reshape1 <- function(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins,
     need.factorising <- !sapply(data.r, is.factor) & sapply(margins.r, is.factor)             
     data.r[need.factorising] <- lapply(data.r[need.factorising], factor)
   }
+
   result <- sort_df(rbind.fill(data.r, margins.r), unlist(vars))
   
   if (add.missing) result <- add.missing.levels(result, unlist(vars), fill=fill)

@@ -3,7 +3,7 @@
 # in a factor into one.
 # 
 # @arguments factor variable
-# @arguments either a vector of   .  See examples for more details.
+# @arguments either a character vector of levels, or a numeric vector of their positions.  See examples for more details.
 # @arguments label for other level
 # @keyword manip 
 #X df <- data.frame(a = LETTERS[sample(5, 15, replace=TRUE)], y = rnorm(15))  
