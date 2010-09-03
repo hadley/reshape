@@ -1,74 +1,46 @@
-# Cast parse formula
-# Parse formula for casting
-#
-# @value row character vector of row names
-# @value col character vector of column names
-# @value aggregate boolean whether aggregation will occur
-# @keyword internal
-#
-#X cast_parse_formula("a + ...", letters[1:6])
-#X cast_parse_formula("a | ...", letters[1:6])
-#X cast_parse_formula("a + b ~ c ~ . | ...", letters[1:6])
-cast_parse_formula <- function(formula = "...  ~ variable", varnames) {
-  check_formula(formula, varnames)
-  
-  vars <- all.vars.character(formula)
-  
-  remainder <- varnames[!(varnames %in% c(unlist(vars), "value"))]
-  replace.remainder <- function(x) if (any(x == "..."))  c(x[x != "..."], remainder) else x
-  
-  list(
-    m = lapply(vars$m, replace.remainder),
-    l = rev(replace.remainder(vars$l))
-  )
-}
-
-# Get all variables
-# All variables in character string of formula.
-# 
-# Removes .
-# 
-# @keyword internal
-# @returns list of variables in each part of formula 
-#X all.vars.character("a + b")
-#X all.vars.character("a + b | c")
-#X all.vars.character("a + b")
-#X all.vars.character(". ~ a + b")
-#X all.vars.character("a ~ b | c + d + e")
-all.vars.character <- function(formula, blank.char = ".") {
-  formula <- paste(formula, collapse="")
-  vars <- function(x) {
-    if (is.na(x)) return(NULL)
-    remove.blank(strsplit(gsub("\\s+", "", x), "[*+]")[[1]])
-  }
-  remove.blank <- function(x) {
-    x <- x[x != blank.char]
-    if(length(x) == 0) NULL else x
+#' Parse casting formulae.
+#' 
+#' There are a two ways to specify a casting formula: either as a string, or
+#' a list of quoted variables. This function converts the former to the
+#' latter. 
+#' 
+#' Casting formulas separate dimensions with \code{~} and variables within
+#' a dimension with \code{+} or \code{*}. \code{.} can be used as a 
+#' placeholder, and \code{...} represents all other variables not otherwise 
+#' used.
+#'
+#' @param formula formula to parse
+#' @param varnames names of all variables in data
+#' @examples
+#' parse_formula("a + ...", letters[1:6])
+#' parse_formula("a ~ b + d")
+#' parse_formula("a + b ~ c ~ .")
+parse_formula <- function(formula = "...  ~ variable", varnames) {
+  remove.placeholder <- function(x) x[x != "."]
+  replace.remainder <- function(x) {
+    if (any(x == "...")) c(x[x != "..."], remainder) else x
   }
   
-  parts <- strsplit(formula, "\\|")[[1]]
+  if (is.formula(formula)) {
+    formula <- str_c(deparse(formula, 500), collapse = "")
+  }
   
-  list(
-    m = lapply(strsplit(parts[1], "~")[[1]], vars),
-    l = vars(parts[2])
-  )
-}
+  if (is.character(formula)) {
+    dims <- str_split(formula, fixed("~"))[[1]]
+    formula <- lapply(str_split(dims, "[+*]"), str_trim)
 
-# Check formula
-# Checks that formula is a valid reshaping formula.
-#
-# \enumerate{
-#   \item variable names not found in molten data
-#   \item same variable used in multiple places
-# }
-# @arguments formula to check
-# @arguments vector of variable names
-# @keyword internal
-check_formula <- function(formula, varnames) {
-  vars <- unlist(all.vars.character(formula))
-  unknown <- setdiff(vars, c(".", "...","result_variable",varnames))
+    formula <- lapply(formula, remove.placeholder)
+
+    all_vars <- unlist(formula)
+    if (any(all_vars == "...")) {
+      remainder <- setdiff(varnames, all_vars)
+      formula <- lapply(formula, replace.remainder)
+    }
+  }
   
-  if (length(unknown) > 0) stop("Casting formula contains variables not found in molten data: ", paste(unknown, collapse=", "), call. = FALSE)
-  vars <- vars[vars != "."]
-  if (length(unique(vars)) < length(vars)) stop("Variable names repeated", call. = FALSE)
+  if (!is.list(formula)) {
+    stop("Don't know how to parse", formula, call. = FALSE)
+  }
+  
+  lapply(formula, as.quoted)
 }

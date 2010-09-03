@@ -87,7 +87,7 @@
 #X cast(ff_d, treatment ~ variable, mean, margins=c("grand_col", "grand_row"))
 #X cast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
 #X lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")
-acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = TRUE, fill=NULL, drop = TRUE, value_var = guess_value(data)) {
+cast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = TRUE, fill=NULL, drop = TRUE, value_var = guess_value(data)) {
   
   # if (!is.null(subset)) {
   #   include <- data.frame(eval.quoted(subset, data))
@@ -98,7 +98,7 @@ acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   #   data <- add_margins(data, margins)
   # }
   
-  # formula <- parse_formula(formula)
+  formula <- parse_formula(formula)
   # if (length(formula) > 2) {
   #   stop("Dataframes have at most two output dimensions")
   # }
@@ -107,19 +107,20 @@ acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   # Need to branch here depending on whether or not we have strings or
   # expressions - strings should avoid making copies of the data
   vars <- lapply(formula, eval.quoted, envir = data, enclos = parent.frame())
+  
+  # Compute labels and id values
+  labels <- lapply(vars, split_labels, drop = drop)
   ids <- lapply(vars, id, drop = drop)
   overall <- id(rev(ids))
   
   ns <- vapply(ids, attr, 0, "n")
   n <- attr(overall, "n")
   
-  labels <- lapply(vars, split_labels, drop = drop)
-  browser()
-  
   # Aggregate duplicates
   if (any(duplicated(overall))) {
     if (is.null(fun.aggregate)) {
-      warning("Aggregation function missing: defaulting to length")
+      message("Aggregation function missing: defaulting to length", 
+        call. = FALSE)
       fun.aggregate <- "length"
     }
     
@@ -134,8 +135,10 @@ acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
     overall <- order(overall)
   }
   
-  # Cast into final structure
-  structure(value[overall], dim = ns)
+  list(
+    structure(value[overall], dim = ns),
+    labels = labels
+  )
 }
 
 # acast(aqm, list(.(day), .(month), .(variable)))
