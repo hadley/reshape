@@ -1,35 +1,26 @@
 # Cast function
 # Cast a molten data frame into the reshaped or aggregated form you want
 #
-# Along with \code{\link{melt}}  and \link{recast}, this is the only function you should ever need to use.
-# Once you have melted your data, cast will arrange it into the form you desire
-# based on the specification given by \code{formula}.
+# The cast formula has the following format: 
+# \code{x_variable + x_2 ~ y_variable + y_2 ~ z_variable ~  ... }
+# The order of the variables makes a difference.  The first varies slowest,
+# and the last fastest.  There are a couple of special variables: "..."
+# represents all other variables not used in the formula and "." represents 
+# no variable, so you can do \code{formula = var1 ~ .}
 #
-# The cast formula has the following format: \code{x_variable + x_2 ~ y_variable + y_2 ~ z_variable ~  ... | list_variable + ... }
-# The order of the variables makes a difference.  The first varies slowest, and the last 
-# fastest.  There are a couple of special variables: "..." represents all other variables 
-# not used in the formula and "." represents no variable, so you can do \code{formula=var1 ~ .}
-#
-# Creating high-D arrays is simple, and allows a class of transformations that are hard
-# without \code{\link{apply}} and \code{\link{sweep}} 
-#
-# If the combination of variables you supply does not uniquely identify one row in the 
-# original data set, you will need to supply an aggregating function, \code{fun.aggregate}.
-# This function should take a vector of numbers and return a summary statistic(s).  It must
-# return the same number of arguments regardless of the length of the input vector.
-# If it returns multiple value you can use "result\_variable" to control where they appear.
-# By default they will appear as the last column variable.
+# If the combination of variables you supply does not uniquely identify one
+# row in the original data set, you will need to supply an aggregating
+# function, \code{fun.aggregate}. This function should take a vector of
+# numbers and return a single summary statistic.
 #
 # The margins argument should be passed a vector of variable names, eg.
-# \code{c("month","day")}.  It will silently drop any variables that can not be margined 
-# over.  You can also use "grand\_col" and "grand\_row" to get grand row and column margins
-# respectively.
+# \code{c("month","day")}.  It will silently drop any variables that can not
+# be margined over.  You can also use "grand\_col" and "grand\_row" to get
+# grand row and column margins respectively.
 #
-# Subset takes a logical vector that will be evaluated in the context of \code{data},
-# so you can do something like \code{subset = variable=="length"}
-#
-# All the actual reshaping is done by \code{\link{reshape1}}, see its documentation
-# for details of the implementation
+# Subset takes a quoted value that will be evaluated in the context of 
+# the \code{data}, so you can do something like 
+# \code{subset = .(variable=="length")}.
 #
 # @keyword manip
 # @arguments molten data frame, see \code{\link{melt}}
@@ -141,62 +132,26 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subse
   )
 }
 
-# acast(aqm, list(.(day), .(month), .(variable)))
-
-# Casting workhorse.
-# Takes data frame and variable list and casts data.
-#
-# @arguments data frame
-# @arguments variables to appear in columns
-# @arguments variables to appear in rows
-# @arguments aggregation function
-# @arguments should the aggregating function be supplied with the entire data frame, or just the relevant entries from the values column
-# @arguments vector of variable names (can include "grand\_col" and "grand\_row") to compute margins for, or TRUE to computer all margins
-# @arguments value with which to fill in structural missings
-# @arguments further arguments are passed to aggregating function
-# @seealso \code{\link{cast}}
-# @keyword internal
-#X 
-#X ffm <- melt(french_fries, id=1:4, na.rm = TRUE)
-#X # Casting lists ----------------------------
-#X cast(ffm, treatment ~ rep | variable, mean)
-#X cast(ffm, treatment ~ rep | subject, mean)
-#X cast(ffm, treatment ~ rep | time, mean)
-#X cast(ffm, treatment ~ rep | time + variable, mean)
-#X names(airquality) <- tolower(names(airquality))
-#X aqm <- melt(airquality, id=c("month", "day"), preserve=FALSE)
 #X #Basic call
-#X reshape1(aqm, list("month", NULL), mean)
-#X reshape1(aqm, list("month", "variable"), mean)
-#X reshape1(aqm, list("day", "month"), mean)
+#X cast(aqm, list("month"), mean)
+#X cast(aqm, list("month", "variable"), mean)
+#X cast(aqm, list("day", "month"), mean)
 #X 
 #X #Explore margins  ----------------------------
-#X reshape1(aqm, list("month", NULL), mean, "month")
-#X reshape1(aqm, list("month", NULL) , mean, "grand_col")
-#X reshape1(aqm, list("month", NULL) , mean, "grand_row")
+#X cast(aqm, list("month"), mean, "month")
+#X cast(aqm, list("month"), mean, "grand_col")
+#X cast(aqm, list("month"), mean, "grand_row")
 #X 
-#X reshape1(aqm, list(c("month", "day"), NULL), mean, "month")
-#X reshape1(aqm, list(c("month"), "variable"), mean, "month")
-#X reshape1(aqm, list(c("variable"), "month"), mean, "month")
-#X reshape1(aqm, list(c("month"), "variable"), mean, c("month","variable"))
+#X cast(aqm, list(c("month", "day")), mean, "month")
+#X cast(aqm, list(c("month"), "variable"), mean, "month")
+#X cast(aqm, list(c("variable"), "month"), mean, "month")
+#X cast(aqm, list(c("month"), "variable"), mean, c("month","variable"))
 #X 
-#X reshape1(aqm, list(c("month"), "variable"), mean, c("grand_row"))
-#X reshape1(aqm, list(c("month"), "variable"), mean, c("grand_col"))
-#X reshape1(aqm, list(c("month"), "variable"), mean, c("grand_row","grand_col"))
+#X cast(aqm, list(c("month"), "variable"), mean, c("grand_row"))
+#X cast(aqm, list(c("month"), "variable"), mean, c("grand_col"))
+#X cast(aqm, list(c("month"), "variable"), mean, c("grand_row","grand_col"))
 #X 
-#X reshape1(aqm, list(c("variable","day"),"month"), mean,c("variable"))
-#X reshape1(aqm, list(c("variable","day"),"month"), mean,c("variable","grand_row"))
-#X reshape1(aqm, list(c("month","day"), "variable"), mean, "month") 
-#X 
-#X # Multiple fnction returns  ----------------------------
-#X reshape1(aqm, list(c("month", "result_variable"), NULL), range) 
-#X reshape1(aqm, list(c("month"),"result_variable") , range) 
-#X reshape1(aqm, list(c("result_variable", "month"), NULL), range) 
-#X 
-#X reshape1(aqm, list(c("month", "result_variable"), "variable"), range, "month")
-#X reshape1(aqm, list(c("month", "result_variable"), "variable"), range, "variable")
-#X reshape1(aqm, list(c("month", "result_variable"), "variable"), range, c("variable","month"))
-#X reshape1(aqm, list(c("month", "result_variable"), "variable"), range, c("grand_col"))
-#X reshape1(aqm, list(c("month", "result_variable"), "variable"), range, c("grand_row"))
-#X 
-#X reshape1(aqm, list(c("month"), c("variable")), function(x) diff(range(x))) 
+#X cast(aqm, list(c("variable","day"), "month"), mean, "variable")
+#X cast(aqm, list(c("variable","day"), "month"), mean, 
+#X   c("variable","grand_row"))
+#X cast(aqm, list(c("month","day"), "variable"), mean, "month") 
