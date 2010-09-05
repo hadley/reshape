@@ -111,24 +111,23 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
       message("Aggregation function missing: defaulting to length")
       fun.aggregate <- length
     }
-    if (is.null(fill)) {
-      fill <- fun.aggregate(value[0])
-    }
     
-    value <- tapply(value, overall, fun.aggregate, ...)
-    overall <- sort(unique(overall))
-  }
-  
-  # Add in missing values, if necessary
-  if (length(overall) < n) {
-    overall <- match(seq_len(n), overall, nomatch = NA)
+    ordered <- vaggregate(.value = value, .group = overall, 
+      .fun = fun.aggregate, ...,  .default = fill, .n = n)
+    overall <- seq_len(n)
+    
   } else {
-    overall <- order(overall)
-  }
-  
-  ordered <- value[overall]
-  if (!is.null(fill)) {
-    ordered[is.na(ordered)] <- fill
+    # Add in missing values, if necessary
+    if (length(overall) < n) {
+      overall <- match(seq_len(n), overall, nomatch = NA)
+    } else {
+      overall <- order(overall)
+    } 
+    
+    ordered <- value[overall]
+    if (!is.null(fill)) {
+      ordered[is.na(ordered)] <- fill
+    }
   }
   
   list(

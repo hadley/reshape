@@ -13,8 +13,7 @@ guess_value <- function(df) {
   if ("(all)" %in% names(df)) return("(all)")
   
   last <- names(df)[ncol(df)]
-  message("Using ", last, " as value column.", "
-    Use the value_var argument to cast to override this choice")
+  message("Using ", last, " as value column: use value_var to override.")
   
   last
 }

@@ -16,4 +16,4 @@ Compared to `reshape`, `reshape2`:
  * supports a new cast syntax which allows you to reshape based on functions
    of variables (based on the same underlying syntax as plyr)
 
-Initial benchmarking has shown `melt` to be up to 10x faster, and `cast` to be up to 100x faster.
+Initial benchmarking has shown `melt` to be up to 10x faster, pure reshaping `cast` up to 100x faster, and aggregating `cast()` up to 10x faster.

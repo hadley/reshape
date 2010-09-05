@@ -53,12 +53,25 @@ test_that("margins are computed correctly", {
   
 })
 
-
 test_that("missing combinations filled correctly", {
   s2am <- subset(s2m, !(X1 == 1 & X2 == 1))
   
   expect_equal(acast(s2am, X1 ~ X2)[1, 1], NA_integer_)
   expect_equal(acast(s2am, X1 ~ X2, length)[1, 1], 0)
   expect_equal(acast(s2am, X1 ~ X2, length, fill = 1)[1, 1], 1)
+  
+})
+
+test_that("aggregated values computed correctly", {
+  ffm <- melt(french_fries, id = 1:4)
+  
+  count_c <- function(vars) as.table(acast(ffm, as.list(vars), length))
+  count_t <- function(vars) table(ffm[vars], useNA = "ifany")
+  
+  combs <- matrix(names(ffm)[1:5][t(combn(5, 2))], ncol = 2)
+  a_ply(combs, 1, function(vars) {
+    expect_that(count_c(vars), is_equivalent_to(count_t(vars)), 
+      label = paste(vars, collapse = ", "))
+  })
   
 })

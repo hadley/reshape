@@ -14,3 +14,5 @@ bdm <- subset(bdm, response != 0)
 system.time(dcast(bdm, ... ~ question))
 # Reshape1: 
 #   gave up after 40 minutes
+
+dcast(bdm, question ~ state)
