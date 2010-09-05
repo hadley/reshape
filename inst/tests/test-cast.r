@@ -41,3 +41,14 @@ test_that("aggregation is matches apply", {
   expect_equivalent(apply(s3, c(1,3), mean), acast(s3m, X1 ~ X3, mean))
   expect_equivalent(apply(s3, c(2,3), mean), acast(s3m, X2 ~ X3, mean))
 })
+
+test_that("margins are computed correctly", {
+  col <- acast(s2m, X1 ~ X2, mean, margins = "grand_col")[4, ]
+  row <- acast(s2m, X1 ~ X2, mean, margins = "grand_row")[, 5]
+  grand <- acast(s2m, X1 ~ X2, mean, margins = T)[4, 5]
+  
+  expect_equivalent(col, colMeans(s2))
+  expect_equivalent(row, rowMeans(s2))
+  expect_equivalent(grand, mean(s2))
+  
+})

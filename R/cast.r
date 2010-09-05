@@ -154,6 +154,15 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
 acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))  {
 
   formula <- parse_formula(formula, names(data), value_var)
+  
+  if (!is.null(margins)) {
+    if (length(formula) > 2) {
+      stop("Margins only work for up to two variables")
+    }
+    data <- add_margins(data, names(formula[[1]]), names(formula[[2]]),
+      margins)    
+  }
+  
   res <- cast(data, formula, fun.aggregate, ..., 
     margins = margins, subset = subset, fill = full, drop = drop, 
     value_var = value_var)
@@ -166,27 +175,3 @@ array_names <- function(df) {
   rows <- split(df, seq_len(nrow(df)))
   vapply(rows, splat(str_c), character(1), sep = "_", USE.NAMES = FALSE)
 }
-
-#X #Basic call
-#X cast(aqm, list("month"), mean)
-#X cast(aqm, list("month", "variable"), mean)
-#X cast(aqm, list("day", "month"), mean)
-#X 
-#X #Explore margins  ----------------------------
-#X cast(aqm, list("month"), mean, "month")
-#X cast(aqm, list("month"), mean, "grand_col")
-#X cast(aqm, list("month"), mean, "grand_row")
-#X 
-#X cast(aqm, list(c("month", "day")), mean, "month")
-#X cast(aqm, list(c("month"), "variable"), mean, "month")
-#X cast(aqm, list(c("variable"), "month"), mean, "month")
-#X cast(aqm, list(c("month"), "variable"), mean, c("month","variable"))
-#X 
-#X cast(aqm, list(c("month"), "variable"), mean, c("grand_row"))
-#X cast(aqm, list(c("month"), "variable"), mean, c("grand_col"))
-#X cast(aqm, list(c("month"), "variable"), mean, c("grand_row","grand_col"))
-#X 
-#X cast(aqm, list(c("variable","day"), "month"), mean, "variable")
-#X cast(aqm, list(c("variable","day"), "month"), mean, 
-#X   c("variable","grand_row"))
-#X cast(aqm, list(c("month","day"), "variable"), mean, "month") 
