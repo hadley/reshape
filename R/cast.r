@@ -95,6 +95,7 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   # expressions - strings should avoid making copies of the data
   vars <- lapply(formula, eval.quoted, envir = data, enclos = parent.frame())
   
+  
   # Compute labels and id values
   ids <- lapply(vars, id, drop = drop)
   labels <- mapply(split_labels, vars, ids, MoreArgs = list(drop = drop),
@@ -107,8 +108,7 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   # Aggregate duplicates
   if (any(duplicated(overall))) {
     if (is.null(fun.aggregate)) {
-      message("Aggregation function missing: defaulting to length", 
-        call. = FALSE)
+      message("Aggregation function missing: defaulting to length")
       fun.aggregate <- "length"
     }
     
@@ -153,11 +153,11 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
 
 acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))  {
 
+  formula <- parse_formula(formula, names(data), value_var)
   res <- cast(data, formula, fun.aggregate, ..., 
     margins = margins, subset = subset, fill = full, drop = drop, 
     value_var = value_var)
-    
-  
+
   dimnames(res$data) <- lapply(res$labels, array_names)
   res$data
 }
