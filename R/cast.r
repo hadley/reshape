@@ -88,18 +88,17 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
     data <- data[rowSums(include) == ncol(include), ]
   }
   
-  
   formula <- parse_formula(formula, names(data), value_var)
   value <- data[[value_var]]
-  
   
   # Need to branch here depending on whether or not we have strings or
   # expressions - strings should avoid making copies of the data
   vars <- lapply(formula, eval.quoted, envir = data, enclos = parent.frame())
   
   # Compute labels and id values
-  labels <- lapply(vars, split_labels, drop = drop)
   ids <- lapply(vars, id, drop = drop)
+  labels <- mapply(split_labels, vars, ids, MoreArgs = list(drop = drop),
+    SIMPLIFY = FALSE, USE.NAMES = FALSE)
   overall <- id(rev(ids))
   
   ns <- vapply(ids, attr, 0, "n")
