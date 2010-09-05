@@ -106,10 +106,13 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   n <- attr(overall, "n")
   
   # Aggregate duplicates
-  if (any(duplicated(overall))) {
+  if (any(duplicated(overall)) || !is.null(fun.aggregate)) {
     if (is.null(fun.aggregate)) {
       message("Aggregation function missing: defaulting to length")
-      fun.aggregate <- "length"
+      fun.aggregate <- length
+    }
+    if (is.null(fill)) {
+      fill <- fun.aggregate(value[0])
     }
     
     value <- tapply(value, overall, fun.aggregate, ...)
@@ -123,8 +126,13 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
     overall <- order(overall)
   }
   
+  ordered <- value[overall]
+  if (!is.null(fill)) {
+    ordered[is.na(ordered)] <- fill
+  }
+  
   list(
-    data = structure(value[overall], dim = ns),
+    data = structure(ordered, dim = ns),
     labels = labels
   )
 }
@@ -142,7 +150,7 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   }
   
   res <- cast(data, formula, fun.aggregate, ..., 
-    subset = subset, fill = full, drop = drop, 
+    subset = subset, fill = fill, drop = drop, 
     value_var = value_var)
 
   data <- as.data.frame(res$data)
@@ -164,8 +172,7 @@ acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   }
   
   res <- cast(data, formula, fun.aggregate, ..., 
-    margins = margins, subset = subset, fill = full, drop = drop, 
-    value_var = value_var)
+    subset = subset, fill = fill, drop = drop, value_var = value_var)
 
   dimnames(res$data) <- lapply(res$labels, array_names)
   res$data

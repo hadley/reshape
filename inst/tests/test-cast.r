@@ -52,3 +52,13 @@ test_that("margins are computed correctly", {
   expect_equivalent(grand, mean(s2))
   
 })
+
+
+test_that("missing combinations filled correctly", {
+  s2am <- subset(s2m, !(X1 == 1 & X2 == 1))
+  
+  expect_equal(acast(s2am, X1 ~ X2)[1, 1], NA_integer_)
+  expect_equal(acast(s2am, X1 ~ X2, length)[1, 1], 0)
+  expect_equal(acast(s2am, X1 ~ X2, length, fill = 1)[1, 1], 1)
+  
+})
