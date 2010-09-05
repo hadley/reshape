@@ -7,7 +7,7 @@ Maintainer: Hadley Wickham <hadley@rice.edu>
 Description: Reshape lets you flexibly restructure and aggregate data
     using just two functions: melt and cast.
 URL: http://had.co.nz/reshape
-Imports: plyr, stringr
+Imports: plyr (>= 1.2), stringr
 License: MIT
 LazyData: true
 Collate: 'cast.r' 'data.r' 'formula.r' 'helper-colsplit.r'
