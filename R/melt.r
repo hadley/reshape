@@ -48,12 +48,20 @@ melt.default <- function(data, ...) {
 #' melt(list(list(1:3), 1, list(as.list(3:4), as.list(1:2))))
 melt.list <- function(data, ..., level = 1) {
   parts <- lapply(data, melt, level = level + 1, ...)
+  result <- rbind.fill(parts)
   
-  labels <- data.frame(rep(amv_dimnames(data)[[1]], sapply(parts, nrow)))
-  names(labels) <- paste("L", level, sep = "")
+  # Add labels
+  names <- nulldefault(names(data), seq_along(data))
+  lengths <- vapply(parts, nrow, integer(1))
+  labels <- rep(names, lengths)
   
-  res <- cbind(labels, rbind.fill(parts))
-  res[, c(setdiff(names(res), "value"), "value")]
+  label_var <- nulldefault(attr(data, "varname"), paste("L", level, sep = ""))
+  result[[label_var]] <- labels
+  
+  # result <- cbind(labels, result)
+  # result[, c(setdiff(names(result), "value"), "value")]
+
+  result
 }
 
 #' Melt a data frame
