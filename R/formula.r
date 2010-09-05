@@ -15,7 +15,7 @@
 #' parse_formula("a + ...", letters[1:6])
 #' parse_formula("a ~ b + d")
 #' parse_formula("a + b ~ c ~ .")
-parse_formula <- function(formula = "...  ~ variable", varnames) {
+parse_formula <- function(formula = "...  ~ variable", varnames, value_var = "value") {
   remove.placeholder <- function(x) x[x != "."]
   replace.remainder <- function(x) {
     if (any(x == "...")) c(x[x != "..."], remainder) else x
@@ -33,7 +33,7 @@ parse_formula <- function(formula = "...  ~ variable", varnames) {
 
     all_vars <- unlist(formula)
     if (any(all_vars == "...")) {
-      remainder <- setdiff(varnames, c(all_vars, "value"))
+      remainder <- setdiff(varnames, c(all_vars, value_var))
       formula <- lapply(formula, replace.remainder)
     }
   }

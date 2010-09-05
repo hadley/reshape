@@ -87,10 +87,11 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
     include <- data.frame(eval.quoted(subset, data))
     data <- data[rowSums(include) == ncol(include), ]
   }
-
   
-  formula <- parse_formula(formula)
+  
+  formula <- parse_formula(formula, names(data), value_var)
   value <- data[[value_var]]
+  
   
   # Need to branch here depending on whether or not we have strings or
   # expressions - strings should avoid making copies of the data
@@ -131,7 +132,7 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
 
 dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))  {
 
-  formula <- parse_formula(formula, names(data))
+  formula <- parse_formula(formula, names(data), value_var)
   if (length(formula) > 2) {
     stop("Dataframes have at most two output dimensions")
   }
