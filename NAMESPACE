@@ -1,3 +1,4 @@
+export(dcast, acast)
 export(colsplit)
 export(add_margins)
 export(melt)

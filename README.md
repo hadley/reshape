@@ -16,7 +16,7 @@ Compared to `reshape`, `reshape2`:
    both these operations are better performed by plyr.
 
  * supports a new cast syntax which allows you to reshape based on functions
-   of variables (based on the same underlying syntax as plyr)
+   of variables (based on the same underlying syntax as plyr):
    
  * implements good development practices like namespaces, tests, and code that
    readable and understandable.

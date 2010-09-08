@@ -1,15 +1,18 @@
 \name{cast}
 \alias{cast}
-\title{Cast function...}
-\usage{cast(data, formula, fun.aggregate, ..., subset, fill, drop=TRUE,
-    value_var=guess_value(data))}
+\title{Cast functions...}
+\usage{acast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
+subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))}
 
 \description{
-  Cast function Cast a molten data frame into the reshaped or
-  aggregated form you want
+  Cast functions Cast a molten data frame into an array or data frame.
 }
 
 \details{
+  Use \code{acast} or \code{dcast} depending on whether you want
+  vector/matrix/array output or data frame output.  Data frames can
+  have at most two dimensions.
+
   The cast formula has the following format: \code{x_variable + x_2 ~
   y_variable + y_2 ~ z_variable ~ ... } The order of the variables
   makes a difference.  The first varies slowest, and the last fastest.
@@ -21,26 +24,21 @@
   one row in the original data set, you will need to supply an
   aggregating function, \code{fun.aggregate}. This function should take
   a vector of numbers and return a single summary statistic.
-
-  The margins argument should be passed a vector of variable names, eg.
-  \code{c("month","day")}.  It will silently drop any variables that
-  can not be margined over.  You can also use "grand\_col" and
-  "grand\_row" to get grand row and column margins respectively.
-
-  Subset takes a quoted value that will be evaluated in the context of
-  the \code{data}, so you can do something like \code{subset =
-  .(variable=="length")}.
 }
 \keyword{manip}
 \seealso{\code{\link{reshape1}},  \url{http://had.co.nz/reshape/}}
 \arguments{
-  \item{data}{molten data frame, see \code{\link{melt}}}
-  \item{formula}{casting formula, see details for specifics}
-  \item{fun.aggregate}{aggregation function}
+  \item{data}{molten data frame, see \code{\link{melt}}.}
+  \item{formula}{casting formula, see details for specifics.}
+  \item{fun.aggregate}{aggregation function needed if variables do not 
+identify a single observation for each output cell.  Defaults to length
+(with a message) if needed but not specified.}
   \item{...}{further arguments are passed to aggregating function}
   \item{margins}{vector of variable names (can include "grand\_col" and
-"grand\_row") to compute margins for, or TRUE to compute all margins}
-  \item{subset}{quoted expression used to subset data prior to reshaping}
+"grand\_row") to compute margins for, or TRUE to compute all margins .
+Any variables that can not be margined over will be silently dropped.}
+  \item{subset}{quoted expression used to subset data prior to reshaping,
+e.g. \code{subset = .(variable=="length")}.}
   \item{fill}{value with which to fill in structural missings, defaults to
 value from applying \code{fun.aggregate} to 0 length vector}
   \item{drop}{should missing combinations dropped or kept?}
@@ -51,43 +49,38 @@ value from applying \code{fun.aggregate} to 0 length vector}
 names(airquality) <- tolower(names(airquality))
 aqm <- melt(airquality, id=c("month", "day"), na.rm=TRUE)
 
-cast(aqm, day ~ month ~ variable)
-cast(aqm, month ~ variable, mean)
-cast(aqm, month ~ . | variable, mean)
-cast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
-cast(aqm, day ~ month, mean, subset=variable=="ozone")
-cast(aqm, month ~ variable, range)
-cast(aqm, month ~ variable + result_variable, range)
-cast(aqm, variable ~ month ~ result_variable,range)
+acast(aqm, day ~ month ~ variable)
+acast(aqm, month ~ variable, mean)
+dcast(aqm, month ~ variable, mean)
+acast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
+dcast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
+acast(aqm, variable ~ month, mean, subset = .(variable == "ozone"))
+acast(aqm, variable ~ month, mean, subset = .(month == 5))
 
 #Chick weight example
 names(ChickWeight) <- tolower(names(ChickWeight))
 chick_m <- melt(ChickWeight, id=2:4, na.rm=TRUE)
 
-cast(chick_m, time ~ variable, mean) # average effect of time
-cast(chick_m, diet ~ variable, mean) # average effect of diet
-cast(chick_m, diet ~ time ~ variable, mean) # average effect of diet & time
+dcast(chick_m, time ~ variable, mean) # average effect of time
+dcast(chick_m, diet ~ variable, mean) # average effect of diet
+acast(chick_m, diet ~ time, mean) # average effect of diet & time
 
 # How many chicks at each time? - checking for balance
-cast(chick_m, time ~ diet, length)
-cast(chick_m, chick ~ time, mean)
-cast(chick_m, chick ~ time, mean, subset=time < 10 & chick < 20)
+acast(chick_m, time ~ diet, length)
+acast(chick_m, chick ~ time, mean)
+acast(chick_m, chick ~ time, mean, subset = .(time < 10 & chick < 20))
 
-cast(chick_m, diet + chick ~ time)
-cast(chick_m, chick ~ time ~ diet)
-cast(chick_m, diet + chick ~ time, mean, margins="diet")
+dcast(chick_m, diet + chick ~ time)
+acast(chick_m, diet + chick ~ time)
+acast(chick_m, chick ~ time ~ diet)
+acast(chick_m, diet + chick ~ time, length, margins="diet")
 
 #Tips example
-cast(melt(tips), sex ~ smoker, mean, subset=variable=="total_bill")
-cast(melt(tips), sex ~ smoker | variable, mean)
+dcast(melt(tips), sex ~ smoker, mean, subset = .(variable == "total_bill"))
 
 ff_d <- melt(french_fries, id=1:4, na.rm=TRUE)
-cast(ff_d, subject ~ time, length)
-cast(ff_d, subject ~ time, length, fill=0)
-cast(ff_d, subject ~ time, function(x) 30 - length(x))
-cast(ff_d, subject ~ time, function(x) 30 - length(x), fill=30)
-cast(ff_d, variable ~ ., c(min, max))
-cast(ff_d, variable ~ ., function(x) quantile(x,c(0.25,0.5)))
-cast(ff_d, treatment ~ variable, mean, margins=c("grand_col", "grand_row"))
-cast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
+acast(ff_d, subject ~ time, length)
+acast(ff_d, subject ~ time, length, fill=0)
+dcast(ff_d, treatment ~ variable, mean, margins = T)
+dcast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
 lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")}
