@@ -1,8 +1,8 @@
 \name{cast}
 \alias{cast}
 \title{Cast function...}
-\usage{cast(data, formula, fun.aggregate, ..., margins, subset=TRUE, fill,
-    drop=TRUE, value_var=guess_value(data))}
+\usage{cast(data, formula, fun.aggregate, ..., subset, fill, drop=TRUE,
+    value_var=guess_value(data))}
 
 \description{
   Cast function Cast a molten data frame into the reshaped or

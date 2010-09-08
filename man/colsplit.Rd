@@ -9,8 +9,8 @@
 
 \details{
   Useful for splitting variable names that a combination of multiple
-  variables.  Uses \code{\link{type.convert}} to convert each column to
-  correct type.
+  variables. Uses \code{\link{type.convert}} to convert each column to
+  correct type, but will not convert character to factor.
 }
 \keyword{manip}
 \arguments{

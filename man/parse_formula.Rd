@@ -1,7 +1,7 @@
 \name{parse_formula}
 \alias{parse_formula}
 \title{Parse casting formulae.}
-\usage{parse_formula(formula="...  ~ variable", varnames)}
+\usage{parse_formula(formula="...  ~ variable", varnames, value_var="value")}
 
 \description{
   Parse casting formulae.
