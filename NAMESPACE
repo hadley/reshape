@@ -1,3 +1,4 @@
+export(colsplit)
 export(add_margins)
 export(melt)
 S3method(melt, default)

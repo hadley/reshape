@@ -8,6 +8,7 @@
 #' @param pattern regular expression to split on
 #' @param names names for output columns
 #' @keywords manip
+#' @export
 #' @examples
 #' x <- c("a_1", "a_2", "b_2", "c_3")
 #' vars <- colsplit(x, "_", c("trt", "time"))
