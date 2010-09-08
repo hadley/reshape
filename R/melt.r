@@ -51,11 +51,11 @@ melt.list <- function(data, ..., level = 1) {
   result <- rbind.fill(parts)
   
   # Add labels
-  names <- nulldefault(names(data), seq_along(data))
+  names <- names(data) %||% seq_along(data)
   lengths <- vapply(parts, nrow, integer(1))
   labels <- rep(names, lengths)
   
-  label_var <- nulldefault(attr(data, "varname"), paste("L", level, sep = ""))
+  label_var <- attr(data, "varname") %||% paste("L", level, sep = "")
   result[[label_var]] <- labels
   
   # result <- cbind(labels, result)
