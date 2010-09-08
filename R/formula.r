@@ -11,10 +11,11 @@
 #'
 #' @param formula formula to parse
 #' @param varnames names of all variables in data
+#' @param value_var name of variable containing values
 #' @examples
-#' parse_formula("a + ...", letters[1:6])
-#' parse_formula("a ~ b + d")
-#' parse_formula("a + b ~ c ~ .")
+#' reshape2:::parse_formula("a + ...", letters[1:6])
+#' reshape2:::parse_formula("a ~ b + d")
+#' reshape2:::parse_formula("a + b ~ c ~ .")
 parse_formula <- function(formula = "...  ~ variable", varnames, value_var = "value") {
   remove.placeholder <- function(x) x[x != "."]
   replace.remainder <- function(x) {

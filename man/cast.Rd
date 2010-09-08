@@ -1,5 +1,4 @@
 \name{cast}
-\alias{cast}
 \title{Cast functions...}
 \usage{acast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
 subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))}
@@ -18,7 +17,14 @@ subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))}
   makes a difference.  The first varies slowest, and the last fastest.
   There are a couple of special variables: "..." represents all other
   variables not used in the formula and "." represents no variable, so
-  you can do \code{formula = var1 ~ .}
+  you can do \code{formula = var1 ~ .}.
+
+  Alternatively, you can supply a list of quoted expressions, in the
+  form \code{list(.(x_variable, x_2), .(y_variable, y_2), .(z))}.  The
+  advantage of this form is that you can cast based on transformations
+  of the variables: \code{list(.(a + b), (c = round(c)))}.  See the
+  documentation for \code{\link[plyr]{.}} for more details and
+  alternative formats.
 
   If the combination of variables you supply does not uniquely identify
   one row in the original data set, you will need to supply an
@@ -26,7 +32,10 @@ subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))}
   a vector of numbers and return a single summary statistic.
 }
 \keyword{manip}
-\seealso{\code{\link{reshape1}},  \url{http://had.co.nz/reshape/}}
+\seealso{\code{\link{melt}},  \url{http://had.co.nz/reshape/}}
+\alias{cast}
+\alias{dcast}
+\alias{acast}
 \arguments{
   \item{data}{molten data frame, see \code{\link{melt}}.}
   \item{formula}{casting formula, see details for specifics.}
@@ -54,6 +63,8 @@ acast(aqm, month ~ variable, mean)
 dcast(aqm, month ~ variable, mean)
 acast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
 dcast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
+
+library(plyr) # needed to access . function
 acast(aqm, variable ~ month, mean, subset = .(variable == "ozone"))
 acast(aqm, variable ~ month, mean, subset = .(month == 5))
 
@@ -70,6 +81,8 @@ acast(chick_m, time ~ diet, length)
 acast(chick_m, chick ~ time, mean)
 acast(chick_m, chick ~ time, mean, subset = .(time < 10 & chick < 20))
 
+acast(chick_m, time ~ diet, length)
+
 dcast(chick_m, diet + chick ~ time)
 acast(chick_m, diet + chick ~ time)
 acast(chick_m, chick ~ time ~ diet)
@@ -81,6 +94,6 @@ dcast(melt(tips), sex ~ smoker, mean, subset = .(variable == "total_bill"))
 ff_d <- melt(french_fries, id=1:4, na.rm=TRUE)
 acast(ff_d, subject ~ time, length)
 acast(ff_d, subject ~ time, length, fill=0)
-dcast(ff_d, treatment ~ variable, mean, margins = T)
+dcast(ff_d, treatment ~ variable, mean, margins = TRUE)
 dcast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
-lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")}
+lattice::xyplot(`1` ~ `2` | variable, dcast(ff_d, ... ~ rep), aspect="iso")}

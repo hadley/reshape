@@ -44,7 +44,8 @@
 #' @param drop should missing combinations dropped or kept?
 #' @param value_var name of column which stores values, see
 #'   \code{\link{guess_value}} for default strategies to figure this out.
-#' @seealso \code{\link{reshape1}},  \url{http://had.co.nz/reshape/}
+#' @seealso \code{\link{melt}},  \url{http://had.co.nz/reshape/}
+#' @name cast
 #' @aliases cast dcast acast
 #' @export dcast acast
 #' @import plyr
@@ -59,7 +60,8 @@
 #' dcast(aqm, month ~ variable, mean)
 #' acast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
 #' dcast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
-#
+#'
+#' library(plyr) # needed to access . function
 #' acast(aqm, variable ~ month, mean, subset = .(variable == "ozone"))
 #' acast(aqm, variable ~ month, mean, subset = .(month == 5))
 #'
@@ -89,9 +91,9 @@
 #' ff_d <- melt(french_fries, id=1:4, na.rm=TRUE)
 #' acast(ff_d, subject ~ time, length)
 #' acast(ff_d, subject ~ time, length, fill=0)
-#' dcast(ff_d, treatment ~ variable, mean, margins = T)
+#' dcast(ff_d, treatment ~ variable, mean, margins = TRUE)
 #' dcast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
-#' lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")
+#' lattice::xyplot(`1` ~ `2` | variable, dcast(ff_d, ... ~ rep), aspect="iso")
 NULL
 
 cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill = NULL, drop = TRUE, value_var = guess_value(data)) {
