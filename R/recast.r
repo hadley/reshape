@@ -12,6 +12,7 @@
 #'    id.var variables
 #' @keywords manip
 #' @seealso \url{http://had.co.nz/reshape/}
+#' @export
 #' @examples
 #' recast(french_fries, time ~ variable, id.var = 1:4)
 recast <- function(data, formula, ..., id.var, measure.var) {
