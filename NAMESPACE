@@ -1,4 +1,6 @@
 export(dcast, acast)
+import(plyr)
+import(stringr)
 export(colsplit)
 export(add_margins)
 export(melt)

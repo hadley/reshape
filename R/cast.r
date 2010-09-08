@@ -47,6 +47,8 @@
 #' @seealso \code{\link{reshape1}},  \url{http://had.co.nz/reshape/}
 #' @aliases cast dcast acast
 #' @export dcast acast
+#' @import plyr
+#' @import stringr
 #' @examples
 #' #Air quality example
 #' names(airquality) <- tolower(names(airquality))
