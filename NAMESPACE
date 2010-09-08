@@ -1,5 +1,4 @@
 export(add_margins)
-export(round_any)
 export(melt)
 S3method(melt, default)
 S3method(melt, list)
