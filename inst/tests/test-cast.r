@@ -24,7 +24,7 @@ test_that("reshaping matches t and aperm", {
   expect_equivalent(aperm(s3, c(3,2,1)), acast(s3m, X3 ~ X2 ~ X1))
 })
 
-test_that("aggregation is matches apply", {
+test_that("aggregation matches apply", {
 
   # 2d -> 1d
   expect_equivalent(colMeans(s2), as.vector(acast(s2m, X2 ~ ., mean)))
@@ -42,7 +42,17 @@ test_that("aggregation is matches apply", {
   expect_equivalent(apply(s3, c(2,3), mean), acast(s3m, X2 ~ X3, mean))
 })
 
-test_that("margins are computed correctly", {
+names(ChickWeight) <- tolower(names(ChickWeight))
+chick_m <- melt(ChickWeight, id=2:4, na.rm=TRUE) 
+
+test_that("aggregation matches table", {
+  tab <- unclass(with(chick_m, table(chick, time)))
+  cst <- acast(chick_m, chick ~ time, length)
+  
+  expect_that(tab, is_equivalent_to(cst))
+})
+
+test_that("grand margins are computed correctly", {
   col <- acast(s2m, X1 ~ X2, mean, margins = "grand_col")[4, ]
   row <- acast(s2m, X1 ~ X2, mean, margins = "grand_row")[, 5]
   grand <- acast(s2m, X1 ~ X2, mean, margins = T)[4, 5]
@@ -50,8 +60,17 @@ test_that("margins are computed correctly", {
   expect_equivalent(col, colMeans(s2))
   expect_equivalent(row, rowMeans(s2))
   expect_equivalent(grand, mean(s2))
-  
 })
+# 
+# test_that("internal margins are computed correctly", {
+#     
+#   cast <- dcast(chick_m, diet + chick ~ time, length, margins="diet")
+#   marg <- subset(cast, diet == "(all)")[-(1:2), ]
+# 
+#   joint <- subset(cast, diet != "(all)")[, 1:14]
+#   expect_that(joint, equals(dcast(chick_m, diet + chick ~ time, length)))
+#   
+# })
 
 test_that("missing combinations filled correctly", {
   s2am <- subset(s2m, !(X1 == 1 & X2 == 1))

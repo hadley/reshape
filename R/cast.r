@@ -84,7 +84,8 @@
 #' acast(chick_m, diet + chick ~ time)
 #' acast(chick_m, chick ~ time ~ diet)
 #' acast(chick_m, diet + chick ~ time, length, margins="diet")
-#'
+#' acast(chick_m, diet + chick ~ time, length, drop = FALSE)
+#' 
 #' #Tips example
 #' dcast(melt(tips), sex ~ smoker, mean, subset = .(variable == "total_bill"))
 #' 
@@ -162,6 +163,7 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
     data <- add_margins(data, names(formula[[1]]), names(formula[[2]]),
       margins)
   }
+  
   
   res <- cast(data, formula, fun.aggregate, ..., 
     subset = subset, fill = fill, drop = drop, 
