@@ -53,8 +53,8 @@ test_that("aggregation matches table", {
 })
 
 test_that("grand margins are computed correctly", {
-  col <- acast(s2m, X1 ~ X2, mean, margins = "grand_col")[4, ]
-  row <- acast(s2m, X1 ~ X2, mean, margins = "grand_row")[, 5]
+  col <- acast(s2m, X1 ~ X2, mean, margins = "X1")[4, ]
+  row <- acast(s2m, X1 ~ X2, mean, margins = "X2")[, 5]
   grand <- acast(s2m, X1 ~ X2, mean, margins = T)[4, 5]
   
   expect_equivalent(col, colMeans(s2))
@@ -62,15 +62,17 @@ test_that("grand margins are computed correctly", {
   expect_equivalent(grand, mean(s2))
 })
 # 
-# test_that("internal margins are computed correctly", {
-#     
-#   cast <- dcast(chick_m, diet + chick ~ time, length, margins="diet")
-#   marg <- subset(cast, diet == "(all)")[-(1:2), ]
-# 
-#   joint <- subset(cast, diet != "(all)")[, 1:14]
-#   expect_that(joint, equals(dcast(chick_m, diet + chick ~ time, length)))
-#   
-# })
+test_that("internal margins are computed correctly", {
+  cast <- dcast(chick_m, diet + chick ~ time, length, margins="diet")
+
+  marg <- subset(cast, diet == "(all)")[-(1:2)]
+  expect_that(as.vector(as.matrix(marg)), 
+    equals(as.vector(acast(chick_m, time ~ ., length))))
+
+  joint <- subset(cast, diet != "(all)")
+  expect_that(joint, 
+    is_equivalent_to(dcast(chick_m, diet + chick ~ time, length)))
+})
 
 test_that("missing combinations filled correctly", {
   s2am <- subset(s2m, !(X1 == 1 & X2 == 1))
@@ -78,6 +80,14 @@ test_that("missing combinations filled correctly", {
   expect_equal(acast(s2am, X1 ~ X2)[1, 1], NA_integer_)
   expect_equal(acast(s2am, X1 ~ X2, length)[1, 1], 0)
   expect_equal(acast(s2am, X1 ~ X2, length, fill = 1)[1, 1], 1)
+  
+})
+
+test_that("drop = FALSE generates all combinations", {
+  df <- data.frame(x = c("a", "b"), y = c("a", "b"), value = 1:2)
+  
+  expect_that(as.vector(acast(df, x + y ~ ., drop = FALSE)),
+    is_equivalent_to(as.vector(acast(df, x ~ y))))
   
 })
 

@@ -116,7 +116,7 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   ids <- lapply(vars, id, drop = drop)
   labels <- mapply(split_labels, vars, ids, MoreArgs = list(drop = drop),
     SIMPLIFY = FALSE, USE.NAMES = FALSE)
-  overall <- id(rev(ids))
+  overall <- id(rev(ids), drop = FALSE)
   
   ns <- vapply(ids, attr, 0, "n")
   n <- attr(overall, "n")
@@ -160,10 +160,8 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   }
   
   if (!is.null(margins)) {
-    data <- add_margins(data, names(formula[[1]]), names(formula[[2]]),
-      margins)
+    data <- add_margins(data, lapply(formula, names), margins)
   }
-  
   
   res <- cast(data, formula, fun.aggregate, ..., 
     subset = subset, fill = fill, drop = drop, 
@@ -180,11 +178,7 @@ acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   formula <- parse_formula(formula, names(data), value_var)
   
   if (!is.null(margins)) {
-    if (length(formula) > 2) {
-      stop("Margins only work for up to two variables")
-    }
-    data <- add_margins(data, names(formula[[1]]), names(formula[[2]]),
-      margins)    
+    data <- add_margins(data, lapply(formula, names), margins)    
   }
   
   res <- cast(data, formula, fun.aggregate, ..., 
