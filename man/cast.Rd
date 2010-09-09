@@ -87,6 +87,7 @@ dcast(chick_m, diet + chick ~ time)
 acast(chick_m, diet + chick ~ time)
 acast(chick_m, chick ~ time ~ diet)
 acast(chick_m, diet + chick ~ time, length, margins="diet")
+acast(chick_m, diet + chick ~ time, length, drop = FALSE)
 
 #Tips example
 dcast(melt(tips), sex ~ smoker, mean, subset = .(variable == "total_bill"))
