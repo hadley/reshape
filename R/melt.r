@@ -105,7 +105,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   variable <- factor(rep(var$measure, each = nrow(data)), 
     levels = var$measure)
   
-  df <- data.frame(ids, variable, value)
+  df <- data.frame(ids, variable, value, stringsAsFactors = FALSE)
   names(df) <- c(names(ids), variable.name, value.name)
 
   if (na.rm) {
