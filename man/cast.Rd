@@ -64,12 +64,11 @@ aqm <- melt(airquality, id=c("month", "day"), na.rm=TRUE)
 
 acast(aqm, day ~ month ~ variable)
 acast(aqm, month ~ variable, mean)
-dcast(aqm, month ~ variable, mean)
-acast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
-dcast(aqm, month ~ variable, mean, margins=c("grand_row", "grand_col"))
+acast(aqm, month ~ variable, mean, margins = T)
+dcast(aqm, month ~ variable, mean, margins = c("month", "variable"))
 
 library(plyr) # needed to access . function
-acast(aqm, variable ~ month, mean, subset = .(variable == "ozone"))
+acast(aqm, variable ~ month, mean, subset = .(variable == "ozone")
 acast(aqm, variable ~ month, mean, subset = .(month == 5))
 
 #Chick weight example
