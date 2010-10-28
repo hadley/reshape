@@ -4,7 +4,8 @@
 \usage{\method{melt}{default} (data, ...)}
 
 \description{
-  Melt a vector. For vectors, makes a column of a data frame
+  Melt a vector. For vectors, makes a column of a data
+  frame
 }
 \keyword{manip}
 \arguments{

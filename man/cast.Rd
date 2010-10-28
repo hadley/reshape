@@ -4,32 +4,36 @@
 subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))}
 
 \description{
-  Cast functions Cast a molten data frame into an array or data frame.
+  Cast functions Cast a molten data frame into an array or
+  data frame.
 }
 
 \details{
-  Use \code{acast} or \code{dcast} depending on whether you want
-  vector/matrix/array output or data frame output.  Data frames can
-  have at most two dimensions.
+  Use \code{acast} or \code{dcast} depending on whether you
+  want vector/matrix/array output or data frame output.
+  Data frames can have at most two dimensions.
 
-  The cast formula has the following format: \code{x_variable + x_2 ~
-  y_variable + y_2 ~ z_variable ~ ... } The order of the variables
-  makes a difference.  The first varies slowest, and the last fastest.
-  There are a couple of special variables: "..." represents all other
-  variables not used in the formula and "." represents no variable, so
-  you can do \code{formula = var1 ~ .}.
+  The cast formula has the following format:
+  \code{x_variable + x_2 ~ y_variable + y_2 ~ z_variable ~
+  ... } The order of the variables makes a difference.  The
+  first varies slowest, and the last fastest.  There are a
+  couple of special variables: "..." represents all other
+  variables not used in the formula and "." represents no
+  variable, so you can do \code{formula = var1 ~ .}.
 
-  Alternatively, you can supply a list of quoted expressions, in the
-  form \code{list(.(x_variable, x_2), .(y_variable, y_2), .(z))}.  The
-  advantage of this form is that you can cast based on transformations
-  of the variables: \code{list(.(a + b), (c = round(c)))}.  See the
-  documentation for \code{\link[plyr]{.}} for more details and
-  alternative formats.
+  Alternatively, you can supply a list of quoted
+  expressions, in the form \code{list(.(x_variable, x_2),
+  .(y_variable, y_2), .(z))}.  The advantage of this form
+  is that you can cast based on transformations of the
+  variables: \code{list(.(a + b), (c = round(c)))}.  See
+  the documentation for \code{\link[plyr]{.}} for more
+  details and alternative formats.
 
-  If the combination of variables you supply does not uniquely identify
-  one row in the original data set, you will need to supply an
-  aggregating function, \code{fun.aggregate}. This function should take
-  a vector of numbers and return a single summary statistic.
+  If the combination of variables you supply does not
+  uniquely identify one row in the original data set, you
+  will need to supply an aggregating function,
+  \code{fun.aggregate}. This function should take a vector
+  of numbers and return a single summary statistic.
 }
 \keyword{manip}
 \seealso{\code{\link{melt}},  \url{http://had.co.nz/reshape/}}

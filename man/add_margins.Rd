@@ -8,8 +8,8 @@
 }
 
 \details{
-  Rownames are silently stripped. All margining variables will be
-  converted to factors.
+  Rownames are silently stripped. All margining variables
+  will be converted to factors.
 }
 \arguments{
   \item{df}{input data frame}

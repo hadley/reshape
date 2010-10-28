@@ -8,9 +8,10 @@
 }
 
 \details{
-  Given the variables that form the rows and columns, and a set of
-  desired margins, works out which ones are possible. Variables that
-  can't be margined over are dropped silently.
+  Given the variables that form the rows and columns, and a
+  set of desired margins, works out which ones are
+  possible. Variables that can't be margined over are
+  dropped silently.
 }
 \keyword{manip}
 \keyword{internal}

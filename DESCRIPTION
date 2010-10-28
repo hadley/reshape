@@ -1,15 +1,16 @@
 Package: reshape2
 Type: Package
-Title: Flexibly reshape data: a reboot of the reshape package.
+Title: Flexibly reshape data: a reboot of the reshape
+    package.
 Version: 1.1
 Author: Hadley Wickham <hadley@rice.edu>
 Maintainer: Hadley Wickham <hadley@rice.edu>
-Description: Reshape lets you flexibly restructure and aggregate data
-    using just two functions: melt and cast.
+Description: Reshape lets you flexibly restructure and
+    aggregate data using just two functions: melt and cast.
 URL: http://had.co.nz/reshape
 Imports: plyr (>= 1.2), stringr
 License: MIT
 LazyData: true
 Collate: 'cast.r' 'data.r' 'formula.r' 'helper-colsplit.r'
-    'helper-guess-value.r' 'helper-margins.r' 'melt.r' 'recast.r'
-    'utils.r'
+    'helper-guess-value.r' 'helper-margins.r' 'melt.r'
+    'recast.r' 'utils.r'

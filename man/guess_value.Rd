@@ -8,9 +8,9 @@
 }
 
 \details{
-  Strategy: \enumerate{ \item Is value or (all) column present? If so,
-  use that \item Otherwise, guess that last column is the value column
-  }
+  Strategy: \enumerate{ \item Is value or (all) column
+  present? If so, use that \item Otherwise, guess that last
+  column is the value column }
 }
 \keyword{internal}
 \arguments{

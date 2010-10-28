@@ -8,8 +8,8 @@
 }
 
 \details{
-  This conveniently wraps melting and casting a data frame into a
-  single step.
+  This conveniently wraps melting and casting a data frame
+  into a single step.
 }
 \keyword{manip}
 \seealso{\url{http://had.co.nz/reshape/}}

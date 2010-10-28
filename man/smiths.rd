@@ -8,8 +8,8 @@
 }
 
 \details{
-  A small demo dataset describing John and Mary Smith.  Used in the
-  introductory vignette.
+  A small demo dataset describing John and Mary Smith.
+  Used in the introductory vignette.
 }
 \docType{data}
 \keyword{datasets}
