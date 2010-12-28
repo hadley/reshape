@@ -68,7 +68,7 @@ acast(aqm, month ~ variable, mean, margins = TRUE)
 dcast(aqm, month ~ variable, mean, margins = c("month", "variable"))
 
 library(plyr) # needed to access . function
-acast(aqm, variable ~ month, mean, subset = .(variable == "ozone")
+acast(aqm, variable ~ month, mean, subset = .(variable == "ozone"))
 acast(aqm, variable ~ month, mean, subset = .(month == 5))
 
 #Chick weight example
