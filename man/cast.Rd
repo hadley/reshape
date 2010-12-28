@@ -64,7 +64,7 @@ aqm <- melt(airquality, id=c("month", "day"), na.rm=TRUE)
 
 acast(aqm, day ~ month ~ variable)
 acast(aqm, month ~ variable, mean)
-acast(aqm, month ~ variable, mean, margins = T)
+acast(aqm, month ~ variable, mean, margins = TRUE)
 dcast(aqm, month ~ variable, mean, margins = c("month", "variable"))
 
 library(plyr) # needed to access . function

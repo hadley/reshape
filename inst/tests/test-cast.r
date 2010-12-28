@@ -55,7 +55,7 @@ test_that("aggregation matches table", {
 test_that("grand margins are computed correctly", {
   col <- acast(s2m, X1 ~ X2, mean, margins = "X1")[4, ]
   row <- acast(s2m, X1 ~ X2, mean, margins = "X2")[, 5]
-  grand <- acast(s2m, X1 ~ X2, mean, margins = T)[4, 5]
+  grand <- acast(s2m, X1 ~ X2, mean, margins = TRUE)[4, 5]
   
   expect_equivalent(col, colMeans(s2))
   expect_equivalent(row, rowMeans(s2))
