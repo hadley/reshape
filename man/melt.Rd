@@ -1,7 +1,7 @@
 \name{melt}
 \alias{melt}
 \title{Convert an object into a molten data frame.}
-\usage{melt(data, na.rm=FALSE, ..., value.name="value")}
+\usage{melt(data, ..., na.rm=FALSE, value.name="value")}
 
 \description{
   Convert an object into a molten data frame.

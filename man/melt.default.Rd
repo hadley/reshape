@@ -1,7 +1,7 @@
 \name{melt.default}
 \alias{melt.default}
 \title{Melt a vector.}
-\usage{\method{melt}{default} (data, na.rm=FALSE, ...,
+\usage{\method{melt}{default} (data, ..., na.rm=FALSE,
     value.name="value")}
 
 \description{

@@ -16,7 +16,7 @@
 #' @param ... further arguments passed to or from other methods.
 #' @param value.name name of variable used to store values
 #' @export
-melt <- function(data, na.rm = FALSE, ..., value.name = "value") {
+melt <- function(data, ..., na.rm = FALSE, value.name = "value") {
   UseMethod("melt", data)
 }
 
@@ -31,7 +31,7 @@ melt <- function(data, na.rm = FALSE, ..., value.name = "value") {
 #' @S3method melt default
 #' @method melt default
 #' @keywords manip
-melt.default <- function(data, na.rm = FALSE, ..., value.name = "value") {
+melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
   if (na.rm) data <- data[!is.na(data)]
   setNames(data.frame(data), value.name)
 }
@@ -42,8 +42,6 @@ melt.default <- function(data, na.rm = FALSE, ..., value.name = "value") {
 #' @S3method melt list
 #' @method melt list
 #' @param data list to recursively melt
-#' @param na.rm Should NA values be removed from the data set? This will 
-#'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @param level list level - used for creating labels
 #' @examples
@@ -57,8 +55,8 @@ melt.default <- function(data, na.rm = FALSE, ..., value.name = "value") {
 #' melt(a)
 #' melt(list(1:5, matrix(1:4, ncol=2)))
 #' melt(list(list(1:3), 1, list(as.list(3:4), as.list(1:2))))
-melt.list <- function(data, na.rm = FALSE, ..., level = 1) {
-  parts <- lapply(data, melt, level = level + 1, na.rm = na.rm, ...)
+melt.list <- function(data, ..., level = 1) {
+  parts <- lapply(data, melt, level = level + 1, ...)
   result <- rbind.fill(parts)
   
   # Add labels
@@ -103,7 +101,7 @@ melt.list <- function(data, na.rm = FALSE, ..., level = 1) {
 #' melt(airquality, id=c("month", "day"))
 #' names(ChickWeight) <- tolower(names(ChickWeight))
 #' melt(ChickWeight, id=2:4)
-melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", na.rm = FALSE, ..., value.name = "value") {
+melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
   var <- melt_check(data, id.vars, measure.vars)
 
   ids <- unrowname(data[, var$id, drop = FALSE])
@@ -132,6 +130,9 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' @param data array to melt
 #' @param varnames variable names to use in molten data.frame
 #' @param ... further arguments passed to or from other methods.
+#' @param value.name name of variable used to store values
+#' @param na.rm Should NA values be removed from the data set? This will 
+#'   convert explicit missings to implicit missings.
 #' @keywords manip
 #' @S3method melt matrix
 #' @S3method melt array
@@ -146,7 +147,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' melt(a, varnames=c("X","Y","Z"))
 #' dimnames(a)[1] <- list(NULL)
 #' melt(a)
-melt.array <- function(data, na.rm = FALSE, varnames = names(dimnames(data)), ..., value.name = "value") {
+melt.array <- function(data, varnames = names(dimnames(data)), ..., na.rm = FALSE, value.name = "value") {
   var.convert <- function(x) if(is.character(x)) type.convert(x) else x
 
   dn <- amv_dimnames(data)

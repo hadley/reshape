@@ -2,7 +2,7 @@
 \alias{melt.data.frame}
 \title{Melt a data frame into form suitable for easy casting.}
 \usage{\method{melt}{data.frame} (data, id.vars, measure.vars,
-    variable.name="variable", na.rm=FALSE, ...,
+    variable.name="variable", ..., na.rm=FALSE,
     value.name="value")}
 
 \description{
