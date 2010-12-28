@@ -2,7 +2,8 @@
 \alias{melt.array}
 \title{Melt an array.}
 \usage{\method{melt}{array} (data, na.rm=FALSE,
-    varnames=names(dimnames(data)), ...)}
+    varnames=names(dimnames(data)), ...,
+    value.name="value")}
 
 \description{
   Melt an array.
