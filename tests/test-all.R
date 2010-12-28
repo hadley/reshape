@@ -1,4 +1,4 @@
 library(testthat)
-library(reshape)
+library(reshape2)
 
-test_package("reshape")
+test_package("reshape2")
