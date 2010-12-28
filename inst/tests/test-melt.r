@@ -19,7 +19,19 @@ test_that("Missing values removed when na.rm = TRUE", {
   
   df <- data.frame(x = v)
   expect_equal(melt(df)$value, v)
-  expect_equal(melt(df, na.rm = TRUE)$value, 1:3)
+  expect_equal(melt(df, na.rm = TRUE)$value, 1:3)  
+})
+
+test_that("value col name set by value.name", {
+  v <- c(1:3, NA)
+  expect_equal(names(melt(v, value.name = "v")), "v")
+
+  m <- matrix(v, nrow = 2)
+  expect_equal(names(melt(m, value.name = "v"))[3], "v")
+
+  l1 <- list(v)
+  expect_equal(names(melt(l1, value.name = "v"))[1], "v")
   
-  
+  df <- data.frame(x = v)
+  expect_equal(names(melt(df, value.name = "v"))[2], "v")
 })

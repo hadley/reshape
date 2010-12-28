@@ -14,8 +14,11 @@
 #' @param na.rm Should NA values be removed from the data set? This will 
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
+#' @param value.name name of variable used to store values
 #' @export
-melt <- function(data, na.rm = FALSE, ...) UseMethod("melt", data)
+melt <- function(data, na.rm = FALSE, ..., value.name = "value") {
+  UseMethod("melt", data)
+}
 
 #' Melt a vector.
 #' For vectors, makes a column of a data frame
@@ -24,12 +27,13 @@ melt <- function(data, na.rm = FALSE, ...) UseMethod("melt", data)
 #' @param na.rm Should NA values be removed from the data set? This will 
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
+#' @param value.name name of variable used to store values
 #' @S3method melt default
 #' @method melt default
 #' @keywords manip
-melt.default <- function(data, na.rm = FALSE, ...) {
+melt.default <- function(data, na.rm = FALSE, ..., value.name = "value") {
   if (na.rm) data <- data[!is.na(data)]
-  data.frame(value = data)
+  setNames(data.frame(data), value.name)
 }
 
 #' Melt a list by recursively melting each component.
@@ -99,7 +103,7 @@ melt.list <- function(data, na.rm = FALSE, ..., level = 1) {
 #' melt(airquality, id=c("month", "day"))
 #' names(ChickWeight) <- tolower(names(ChickWeight))
 #' melt(ChickWeight, id=2:4)
-melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", value.name = "value", na.rm = FALSE, ...) {
+melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", na.rm = FALSE, ..., value.name = "value") {
   var <- melt_check(data, id.vars, measure.vars)
 
   ids <- unrowname(data[, var$id, drop = FALSE])
@@ -142,7 +146,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' melt(a, varnames=c("X","Y","Z"))
 #' dimnames(a)[1] <- list(NULL)
 #' melt(a)
-melt.array <- function(data, na.rm = FALSE, varnames = names(dimnames(data)), ...) {
+melt.array <- function(data, na.rm = FALSE, varnames = names(dimnames(data)), ..., value.name = "value") {
   var.convert <- function(x) if(is.character(x)) type.convert(x) else x
 
   dn <- amv_dimnames(data)
@@ -156,7 +160,8 @@ melt.array <- function(data, na.rm = FALSE, varnames = names(dimnames(data)), ..
     labels <- labels[!missing, ]
   }
 
-  data.frame(labels, value = as.vector(data))
+  value_df <- setNames(data.frame(as.vector(data)), value.name) 
+  cbind(labels, value_df)
 }
 
 melt.table <- melt.array
