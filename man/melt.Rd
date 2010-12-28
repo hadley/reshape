@@ -1,7 +1,7 @@
 \name{melt}
 \alias{melt}
 \title{Convert an object into a molten data frame.}
-\usage{melt(data, ...)}
+\usage{melt(data, na.rm=FALSE, ...)}
 
 \description{
   Convert an object into a molten data frame.
@@ -20,5 +20,7 @@
 \keyword{manip}
 \arguments{
   \item{data}{Data set to melt}
+  \item{na.rm}{Should NA values be removed from the data set? This will 
+convert explicit missings to implicit missings.}
   \item{...}{further arguments passed to or from other methods.}
 }

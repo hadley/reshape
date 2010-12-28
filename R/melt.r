@@ -11,19 +11,24 @@
 #'
 #' @keywords manip
 #' @param data Data set to melt
+#' @param na.rm Should NA values be removed from the data set? This will 
+#'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @export
-melt <- function(data, ...) UseMethod("melt", data)
+melt <- function(data, na.rm = FALSE, ...) UseMethod("melt", data)
 
 #' Melt a vector.
 #' For vectors, makes a column of a data frame
 #'
 #' @param data vector to melt
+#' @param na.rm Should NA values be removed from the data set? This will 
+#'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @S3method melt default
 #' @method melt default
 #' @keywords manip
-melt.default <- function(data, ...) {
+melt.default <- function(data, na.rm = FALSE, ...) {
+  if (na.rm) data <- data[!is.na(data)]
   data.frame(value = data)
 }
 
@@ -33,10 +38,12 @@ melt.default <- function(data, ...) {
 #' @S3method melt list
 #' @method melt list
 #' @param data list to recursively melt
+#' @param na.rm Should NA values be removed from the data set? This will 
+#'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @param level list level - used for creating labels
 #' @examples
-#' a <- as.list(1:4)
+#' a <- as.list(c(1:4, NA))
 #' melt(a)
 #' names(a) <- letters[1:4]
 #' melt(a)
@@ -46,8 +53,8 @@ melt.default <- function(data, ...) {
 #' melt(a)
 #' melt(list(1:5, matrix(1:4, ncol=2)))
 #' melt(list(list(1:3), 1, list(as.list(3:4), as.list(1:2))))
-melt.list <- function(data, ..., level = 1) {
-  parts <- lapply(data, melt, level = level + 1, ...)
+melt.list <- function(data, na.rm = FALSE, ..., level = 1) {
+  parts <- lapply(data, melt, level = level + 1, na.rm = na.rm, ...)
   result <- rbind.fill(parts)
   
   # Add labels
@@ -60,11 +67,10 @@ melt.list <- function(data, ..., level = 1) {
   
   # result <- cbind(labels, result)
   # result[, c(setdiff(names(result), "value"), "value")]
-
+  
   result
 }
 
-#' Melt a data frame
 #' Melt a data frame into form suitable for easy casting.
 #'
 #' You need to tell melt which of your variables are id variables, and which
@@ -127,21 +133,28 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' @S3method melt array
 #' @method melt array
 #' @examples
-#' a <- array(1:24, c(2,3,4))
+#' a <- array(c(1:23, NA), c(2,3,4))
 #' melt(a)
+#' melt(a, na.rm = TRUE)
 #' melt(a, varnames=c("X","Y","Z"))
 #' dimnames(a) <- lapply(dim(a), function(x) LETTERS[1:x])
 #' melt(a)
 #' melt(a, varnames=c("X","Y","Z"))
 #' dimnames(a)[1] <- list(NULL)
 #' melt(a)
-melt.array <- function(data, varnames = names(dimnames(data)), ...) {
+melt.array <- function(data, na.rm = FALSE, varnames = names(dimnames(data)), ...) {
   var.convert <- function(x) if(is.character(x)) type.convert(x) else x
 
   dn <- amv_dimnames(data)
   names(dn) <- varnames
   labels <- expand.grid(lapply(dn, var.convert), KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE)
+    
+  if (na.rm) {
+    missing <- is.na(data)
+    data <- data[!missing]
+    labels <- labels[!missing, ]
+  }
 
   data.frame(labels, value = as.vector(data))
 }

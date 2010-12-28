@@ -2,3 +2,5 @@ Version 1.1
 -----------
 
 * `melt.data.frame` no longer turns characters into factors
+
+* All melt methods gain a `na.rm` argument.

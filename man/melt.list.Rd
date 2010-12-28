@@ -1,7 +1,7 @@
 \name{melt.list}
 \alias{melt.list}
 \title{Melt a list by recursively melting each component.}
-\usage{\method{melt}{list} (data, ..., level=1)}
+\usage{\method{melt}{list} (data, na.rm=FALSE, ..., level=1)}
 
 \description{
   Melt a list by recursively melting each component.
@@ -9,10 +9,12 @@
 \keyword{manip}
 \arguments{
   \item{data}{list to recursively melt}
+  \item{na.rm}{Should NA values be removed from the data set? This will 
+convert explicit missings to implicit missings.}
   \item{...}{further arguments passed to or from other methods.}
   \item{level}{list level - used for creating labels}
 }
-\examples{a <- as.list(1:4)
+\examples{a <- as.list(c(1:4, NA))
 melt(a)
 names(a) <- letters[1:4]
 melt(a)

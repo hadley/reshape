@@ -1,8 +1,8 @@
 \name{melt.array}
 \alias{melt.array}
 \title{Melt an array.}
-\usage{\method{melt}{array} (data, varnames=names(dimnames(data)),
-    ...)}
+\usage{\method{melt}{array} (data, na.rm=FALSE,
+    varnames=names(dimnames(data)), ...)}
 
 \description{
   Melt an array.
@@ -18,8 +18,9 @@
   \item{varnames}{variable names to use in molten data.frame}
   \item{...}{further arguments passed to or from other methods.}
 }
-\examples{a <- array(1:24, c(2,3,4))
+\examples{a <- array(c(1:23, NA), c(2,3,4))
 melt(a)
+melt(a, na.rm = TRUE)
 melt(a, varnames=c("X","Y","Z"))
 dimnames(a) <- lapply(dim(a), function(x) LETTERS[1:x])
 melt(a)
