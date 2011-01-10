@@ -1,7 +1,7 @@
 \name{cast}
 \title{Cast functions...}
 \usage{acast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
-subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))}
+subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data))}
 
 \description{
   Cast functions Cast a molten data frame into an array or
@@ -55,7 +55,7 @@ e.g. \code{subset = .(variable=="length")}.}
   \item{fill}{value with which to fill in structural missings, defaults to
 value from applying \code{fun.aggregate} to 0 length vector}
   \item{drop}{should missing combinations dropped or kept?}
-  \item{value_var}{name of column which stores values, see
+  \item{value.var}{name of column which stores values, see
 \code{\link{guess_value}} for default strategies to figure this out.}
 }
 \examples{#Air quality example

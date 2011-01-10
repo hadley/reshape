@@ -24,9 +24,9 @@
 #' numbers and return a single summary statistic.
 #'
 #' @usage acast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
-#'    subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))
+#'    subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data))
 #' @usage dcast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
-#'    subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))
+#'    subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data))
 #' @keywords manip
 #' @param data molten data frame, see \code{\link{melt}}.
 #' @param formula casting formula, see details for specifics.
@@ -42,7 +42,7 @@
 #' @param fill value with which to fill in structural missings, defaults to
 #'   value from applying \code{fun.aggregate} to 0 length vector
 #' @param drop should missing combinations dropped or kept?
-#' @param value_var name of column which stores values, see
+#' @param value.var name of column which stores values, see
 #'   \code{\link{guess_value}} for default strategies to figure this out.
 #' @seealso \code{\link{melt}},  \url{http://had.co.nz/reshape/}
 #' @name cast
@@ -96,15 +96,15 @@
 #' lattice::xyplot(`1` ~ `2` | variable, dcast(ff_d, ... ~ rep), aspect="iso")
 NULL
 
-cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill = NULL, drop = TRUE, value_var = guess_value(data)) {
+cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill = NULL, drop = TRUE, value.var = guess_value(data)) {
   
   if (!is.null(subset)) {
     include <- data.frame(eval.quoted(subset, data))
     data <- data[rowSums(include) == ncol(include), ]
   }
   
-  formula <- parse_formula(formula, names(data), value_var)
-  value <- data[[value_var]]
+  formula <- parse_formula(formula, names(data), value.var)
+  value <- data[[value.var]]
   
   # Need to branch here depending on whether or not we have strings or
   # expressions - strings should avoid making copies of the data
@@ -150,9 +150,9 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   )
 }
 
-dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data))  {
+dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data))  {
 
-  formula <- parse_formula(formula, names(data), value_var)
+  formula <- parse_formula(formula, names(data), value.var)
   if (length(formula) > 2) {
     stop("Dataframes have at most two output dimensions")
   }
@@ -163,7 +163,7 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   
   res <- cast(data, formula, fun.aggregate, ..., 
     subset = subset, fill = fill, drop = drop, 
-    value_var = value_var)
+    value.var = value.var)
 
   data <- as.data.frame(res$data)
   names(data) <- array_names(res$labels[[2]])
@@ -172,16 +172,16 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   cbind(res$labels[[1]], data)
 }
 
-acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value_var = guess_value(data)) {
+acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data)) {
 
-  formula <- parse_formula(formula, names(data), value_var)
+  formula <- parse_formula(formula, names(data), value.var)
   
   if (!is.null(margins)) {
     data <- add_margins(data, lapply(formula, names), margins)    
   }
   
   res <- cast(data, formula, fun.aggregate, ..., 
-    subset = subset, fill = fill, drop = drop, value_var = value_var)
+    subset = subset, fill = fill, drop = drop, value.var = value.var)
 
   dimnames(res$data) <- lapply(res$labels, array_names)
   res$data

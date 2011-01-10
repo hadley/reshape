@@ -1,6 +1,9 @@
 Version 1.2 
 -----------
 
+* `value_var` argument to `acast` and `dcast` renamed to `value.var` to be
+  consistent with other argument names
+
 * Order `NA` factor levels before `(all)` when creating margins
 
 Version 1.1

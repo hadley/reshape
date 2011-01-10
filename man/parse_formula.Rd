@@ -2,7 +2,7 @@
 \alias{parse_formula}
 \title{Parse casting formulae.}
 \usage{parse_formula(formula="...  ~ variable", varnames,
-    value_var="value")}
+    value.var="value")}
 
 \description{
   Parse casting formulae.
@@ -21,7 +21,7 @@
 \arguments{
   \item{formula}{formula to parse}
   \item{varnames}{names of all variables in data}
-  \item{value_var}{name of variable containing values}
+  \item{value.var}{name of variable containing values}
 }
 \examples{reshape2:::parse_formula("a + ...", letters[1:6])
 reshape2:::parse_formula("a ~ b + d")
