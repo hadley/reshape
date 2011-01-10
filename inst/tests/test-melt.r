@@ -35,3 +35,10 @@ test_that("value col name set by value.name", {
   df <- data.frame(x = v)
   expect_equal(names(melt(df, value.name = "v"))[2], "v")
 })
+
+test_that("lists can have zero element components", {
+  l <- list(a = 1:10, b = integer(0))
+  m <- melt(l)
+  
+  expect_equal(nrow(m), 10)
+})
