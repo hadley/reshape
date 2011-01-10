@@ -110,7 +110,6 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   # expressions - strings should avoid making copies of the data
   vars <- lapply(formula, eval.quoted, envir = data, enclos = parent.frame())
   
-  
   # Compute labels and id values
   ids <- lapply(vars, id, drop = drop)
   labels <- mapply(split_labels, vars, ids, MoreArgs = list(drop = drop),
@@ -169,6 +168,7 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   data <- as.data.frame(res$data)
   names(data) <- array_names(res$labels[[2]])
   
+  stopifnot(nrow(res$labels[[1]]) == nrow(data))
   cbind(res$labels[[1]], data)
 }
 
