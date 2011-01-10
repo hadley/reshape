@@ -1,6 +1,8 @@
 Version 1.2 
 -----------
 
+* Order `NA` factor levels before `(all)` when creating margins
+
 Version 1.1
 -----------
 

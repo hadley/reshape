@@ -64,13 +64,12 @@ add_margins <- function(df, vars, margins = TRUE) {
   
   # Prepare data frame for addition of margins
   addAll <- function(x) {
-    x <- as.factor(x)
-    levels(x) <- c(levels(x), "(all)")
-    x
+    x <- addNA(x, TRUE)
+    factor(x, levels = c(levels(x), "(all)"), exclude = NULL)
   }
   vars <- unique(unlist(margin_vars))
   df[vars] <- lapply(df[vars], addAll)
-  
+
   rownames(df) <- NULL
   
   # Loop through all combinations of margin variables, setting
