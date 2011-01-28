@@ -21,5 +21,4 @@ for specific details for different data structures:
 \item \code{\link{melt.list}} for lists
 }}
 
-\examples{}
 \keyword{manip}

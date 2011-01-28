@@ -15,5 +15,4 @@ Add variable to data frame containing rownames
 \details{This is useful when the thing that you want to melt by is the rownames
 of the data frame, not an explicit variable}
 
-\examples{}
 \keyword{manip}

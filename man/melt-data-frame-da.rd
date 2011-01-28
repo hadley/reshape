@@ -14,7 +14,7 @@ Melt a data frame into form suitable for easy casting.
 \item{variable_name}{Name of the variable that will store the names of the original variables}
 \item{na.rm}{Should NA values be removed from the data set?}
 \item{preserve.na}{Old argument name, now deprecated}
-\item{...}{}
+\item{...}{other arguments ignored}
 }
 \value{molten data}
 \details{You need to tell melt which of your variables are id variables, and which

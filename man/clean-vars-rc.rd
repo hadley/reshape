@@ -11,7 +11,5 @@ Clean variable list for reshaping.
 \item{vars}{vector of variable names}
 }
 \value{Vector of "real" variable names (excluding result\_variable etc.)}
-\details{}
 
-\examples{}
 \keyword{internal}

@@ -14,5 +14,4 @@ Update a list, but don't create new entries
 
 \details{Don't know what this is used for!}
 
-\examples{}
 \keyword{internal}

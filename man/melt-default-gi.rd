@@ -8,11 +8,9 @@ For vectors, make a column of a data frame
 }
 \usage{melt.default(data, ...)}
 \arguments{
-\item{data}{}
-\item{...}{}
+\item{data}{data frame}
+\item{...}{arguments}
 }
 
-\details{}
 
-\examples{}
 \keyword{internal}

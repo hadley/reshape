@@ -11,7 +11,5 @@ Strips out duplicates from data.frame and replace them with blanks.
 \item{df}{data.frame to modify}
 }
 \value{character matrix}
-\details{}
 
-\examples{}
 \keyword{internal}

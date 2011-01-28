@@ -14,5 +14,4 @@ Convert cast data.frame into a matrix
 
 \details{Strips off cast related attributes so data frame becomes a normal data frame}
 
-\examples{}
 \keyword{internal}

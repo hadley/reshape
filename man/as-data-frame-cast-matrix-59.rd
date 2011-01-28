@@ -17,5 +17,4 @@ Convert cast matrix into a data frame
 \details{Converts a matrix produced by cast into a data frame with
 appropriate id columns.}
 
-\examples{}
 \keyword{internal}

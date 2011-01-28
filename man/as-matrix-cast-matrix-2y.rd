@@ -14,5 +14,4 @@ Convert cast matrix into a matrix
 
 \details{Strips off cast related attributes so matrix becomes a normal matrix}
 
-\examples{}
 \keyword{internal}

@@ -12,7 +12,5 @@ Recursively merge data frames
 \item{...}{}
 }
 
-\details{}
 \seealso{\code{\link{merge_all}}}
-\examples{}
 \keyword{internal}

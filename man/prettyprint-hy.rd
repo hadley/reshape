@@ -17,5 +17,4 @@ Print reshaped data frame
 \details{This will always work on the direct output from cast, but may not
 if you have manipulated (e.g. subsetted) the results.}
 
-\examples{}
 \keyword{internal}

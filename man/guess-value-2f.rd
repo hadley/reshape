@@ -17,5 +17,4 @@ Guess name of value column
 \item Otherwise, guess that last column is the value column
 }}
 
-\examples{}
 \keyword{internal}

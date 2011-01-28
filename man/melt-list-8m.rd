@@ -9,11 +9,10 @@ Melting a list recursively melts each component of the list and joins the result
 \usage{melt.list(data, ..., level=1)}
 \arguments{
 \item{data}{}
-\item{...}{}
+\item{...}{other arguments passed down}
 \item{level}{}
 }
 
-\details{}
 
 \examples{a <- as.list(1:4)
 melt(a)

@@ -16,7 +16,5 @@ Compute marginal values.
 \item{df}{}
 }
 
-\details{}
 
-\examples{}
 \keyword{internal}

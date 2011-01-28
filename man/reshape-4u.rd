@@ -18,7 +18,6 @@ Takes data frame and variable list and casts data.
 \item{...}{further arguments are passed to aggregating function}
 }
 
-\details{}
 \seealso{\code{\link{cast}}}
 \examples{
 ffm <- melt(french_fries, id=1:4, na.rm = TRUE)

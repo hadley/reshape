@@ -16,5 +16,4 @@ Nest series of by statements returning nested list
 
 \details{Work horse for producing cast lists.}
 
-\examples{}
 \keyword{internal}

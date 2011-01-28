@@ -9,10 +9,9 @@ Melt the results of a cast
 \usage{melt.cast_matrix(data, ...)}
 \arguments{
 \item{data}{}
-\item{...}{}
+\item{...}{other arguments ignored}
 }
 
 \details{Converts to a data frame and then uses \code{\link{melt.cast_df}}}
 
-\examples{}
 \keyword{internal}

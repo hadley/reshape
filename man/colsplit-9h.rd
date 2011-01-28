@@ -15,7 +15,5 @@ This function can be used to split up a column that has been pasted together.
 \item{names}{names for output columns}
 }
 
-\details{}
 
-\examples{}
 \keyword{manip}

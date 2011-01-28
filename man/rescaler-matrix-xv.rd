@@ -13,7 +13,5 @@ Rescales matrix by columns
 \item{...}{other arguments passed to rescaler}
 }
 
-\details{}
 
-\examples{}
 \keyword{internal}

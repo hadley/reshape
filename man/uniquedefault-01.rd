@@ -14,5 +14,4 @@ Convenience function for setting default if not unique
 
 \details{Used by ggplot2}
 
-\examples{}
 \keyword{manip}

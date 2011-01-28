@@ -10,12 +10,11 @@ Melt the results of a cast
 \arguments{
 \item{data}{}
 \item{drop.margins}{}
-\item{...}{}
+\item{...}{other arguments ignored}
 }
 
 \details{This can be useful when performning complex aggregations - melting
 the result of a cast will do it's best to figure out the correct variables
 to use as id and measured.}
 
-\examples{}
 \keyword{internal}

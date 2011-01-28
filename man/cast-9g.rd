@@ -11,13 +11,13 @@ Cast a molten data frame into the reshaped or aggregated form you want
 \item{data}{molten data frame, see \code{\link{melt}}}
 \item{formula}{casting formula, see details for specifics}
 \item{fun.aggregate}{aggregation function}
+\item{add.missing}{fill in missing combinations?}
+\item{value}{name of value column}
 \item{...}{further arguments are passed to aggregating function}
 \item{margins}{vector of variable names (can include "grand\_col" and "grand\_row") to compute margins for, or TRUE to computer all margins}
 \item{subset}{logical vector to subset data set with before reshaping}
 \item{df}{argument used internally}
 \item{fill}{value with which to fill in structural missings, defaults to value from applying \code{fun.aggregate} to 0 length vector}
-\item{add.missing}{}
-\item{value}{}
 }
 
 \details{Along with \code{\link{melt}}  and \link{recast}, this is the only function you should ever need to use.
@@ -93,5 +93,6 @@ cast(ff_d, variable ~ ., c(min, max))
 cast(ff_d, variable ~ ., function(x) quantile(x,c(0.25,0.5)))
 cast(ff_d, treatment ~ variable, mean, margins=c("grand_col", "grand_row"))
 cast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
-lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")}
+}
+
 \keyword{manip}

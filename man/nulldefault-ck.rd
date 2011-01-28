@@ -14,5 +14,4 @@ Use default value when null
 
 \details{Handy method when argument defaults aren't good enough.}
 
-\examples{}
 \keyword{internal}

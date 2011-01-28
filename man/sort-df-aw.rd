@@ -14,5 +14,4 @@ Convenience method for sorting a data frame using the given variables.
 
 \details{Simple wrapper around order}
 
-\examples{}
 \keyword{manip}

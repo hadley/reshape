@@ -17,6 +17,5 @@ function "melts" it again, creating a new column called result\_variable.
 If the aggregating funtion is a named vector, then those names will be used,
 otherwise will be number X1, X2, ..., Xn etc.}
 
-\examples{}
 \keyword{manip}
 \keyword{internal}

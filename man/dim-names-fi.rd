@@ -12,7 +12,5 @@ Convenience method for extracting row and column names
 \item{vars}{variables to use}
 }
 
-\details{}
 
-\examples{}
 \keyword{internal}

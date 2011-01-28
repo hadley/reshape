@@ -21,5 +21,4 @@ Variables:
 }
 \usage{data(french_fries)}
 \format{A data frame with 696 rows and 9 variables}
-\references{}
 \keyword{datasets}

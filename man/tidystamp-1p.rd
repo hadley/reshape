@@ -11,7 +11,5 @@
 \item{x}{}
 }
 
-\details{}
 
-\examples{}
 \keyword{internal}

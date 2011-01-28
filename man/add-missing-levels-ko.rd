@@ -13,7 +13,5 @@
 \item{fill}{}
 }
 
-\details{}
 
-\examples{}
 \keyword{internal}

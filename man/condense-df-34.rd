@@ -14,7 +14,5 @@ Condense
 \item{...}{arguments passed to condensing function}
 }
 
-\details{}
 
-\examples{}
 \keyword{manip}

@@ -17,5 +17,4 @@ Printing methods
 
 \details{Used for printing.}
 
-\examples{}
 \keyword{internal}

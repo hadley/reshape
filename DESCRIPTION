@@ -1,7 +1,7 @@
 Package: reshape
 Type: Package
 Title: Flexibly reshape data.
-Version: 0.8.3
+Version: 0.8.4
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: Reshape lets you flexibly restructure and aggregate data using just two functions: melt and cast.

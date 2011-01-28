@@ -12,7 +12,7 @@ This function melts a high-dimensional array into a form that you can use \code{
 \arguments{
 \item{data}{array to melt}
 \item{varnames}{variable names to use in molten data.frame}
-\item{...}{}
+\item{...}{other arguments ignored}
 }
 
 \details{This code is conceptually similar to \code{\link{as.data.frame.table}}}

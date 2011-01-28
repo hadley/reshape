@@ -15,5 +15,4 @@ Convert cast data.frame into a matrix
 \details{Converts a data frame produced by cast into a matrix with
 appropriate dimnames.}
 
-\examples{}
 \keyword{internal}

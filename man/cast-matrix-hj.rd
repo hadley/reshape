@@ -14,5 +14,4 @@ Createa a new cast matrix
 \value{object of type \code{\link{cast_matrix}}}
 \details{For internal use only}
 
-\examples{}
 \keyword{internal}

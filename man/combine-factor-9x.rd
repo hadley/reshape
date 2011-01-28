@@ -13,7 +13,6 @@ Convenience function to make it easy to combine multiple levels
 \item{other.label}{label for other level}
 }
 
-\details{}
 
 \examples{df <- data.frame(a = LETTERS[sample(5, 15, replace=TRUE)], y = rnorm(15))  
 combine_factor(df$a, c(1,2,2,1,2))

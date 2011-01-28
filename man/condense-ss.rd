@@ -19,6 +19,5 @@ Results column is a list, so that each cell may contain an object or a vector et
 Assumes data is in molten format. Aggregating function must return the
 same number of arguments for all input.}
 
-\examples{}
 \keyword{manip}
 \keyword{internal}

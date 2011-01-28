@@ -14,7 +14,7 @@ Stamp is like reshape but the "stamping" function is passed the entire data fram
 \item{...}{arguments passed to the aggregation function}
 \item{margins}{margins to compute (character vector, or \code{TRUE} for all margins), can contain \code{grand_row} or \code{grand_col} to inclue grand row or column margins respectively.}
 \item{subset}{logical vector by which to subset the data frame, evaluated in the context of the data frame so you can}
-\item{add.missing}{}
+\item{add.missing}{fill in missing combinations?}
 }
 
 \details{It is very similar to the \code{\link{by}} function except in the form
@@ -24,5 +24,4 @@ Note that it's very easy to create objects that R can't print with this
 function.  You will probably want to save the results to a variable and
 then use extract the results.  See the examples.}
 
-\examples{}
 \keyword{manip}

@@ -12,7 +12,5 @@ Checks that formula is a valid reshaping formula.
 \item{varnames}{vector of variable names}
 }
 
-\details{}
 
-\examples{}
 \keyword{internal}

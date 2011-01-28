@@ -86,7 +86,6 @@
 #X cast(ff_d, variable ~ ., function(x) quantile(x,c(0.25,0.5)))
 #X cast(ff_d, treatment ~ variable, mean, margins=c("grand_col", "grand_row"))
 #X cast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
-#X lattice::xyplot(`1` ~ `2` | variable, cast(ff_d, ... ~ rep), aspect="iso")
 cast <- function(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NULL, add.missing=FALSE, value = guess_value(data)) {
   if (is.formula(formula))    formula <- deparse(formula)
   if (!is.character(formula)) formula <- as.character(formula)

@@ -25,5 +25,4 @@ Currently, five rescaling options are implemented:
 \item \code{sd}: subtract mean and divide by standard deviation
 }}
 \seealso{\code{\link{rescaler.default}}}
-\examples{}
 \keyword{manip}

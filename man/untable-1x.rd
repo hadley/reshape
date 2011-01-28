@@ -15,5 +15,4 @@ Inverse of table
 \details{Given a tabulated dataset (or matrix) this will untabulate it
 by repeating each row by the number of times it was repeated}
 
-\examples{}
 \keyword{manip}
