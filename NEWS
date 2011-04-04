@@ -6,6 +6,8 @@ Version 1.2
 
 * Order `NA` factor levels before `(all)` when creating margins
 
+* Corrected reshape citation.
+
 Version 1.1
 -----------
 
