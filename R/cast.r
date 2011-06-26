@@ -182,12 +182,11 @@ acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   
   res <- cast(data, formula, fun.aggregate, ..., 
     subset = subset, fill = fill, drop = drop, value.var = value.var)
-
+    
   dimnames(res$data) <- lapply(res$labels, array_names)
   res$data
 }
 
 array_names <- function(df) {
-  rows <- split(df, seq_len(nrow(df)))
-  vapply(rows, splat(str_c), character(1), sep = "_", USE.NAMES = FALSE)
+  do.call(paste, c(df, list(sep = "_")))
 }

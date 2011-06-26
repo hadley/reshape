@@ -1,6 +1,9 @@
 Version 1.2 
 -----------
 
+* `acast` is now much faster, due to fixing a very slow way of naming the 
+   output. (Thanks to José Bartolomei Díaz for the bug report)
+
 * `value_var` argument to `acast` and `dcast` renamed to `value.var` to be
   consistent with other argument names
 
