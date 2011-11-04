@@ -133,3 +133,32 @@ test_that("labels are correct when missing combinations dropped/kept", {
 
   
 })
+
+test_that("factor value columns are handled", {
+  df <- data.frame(fac1 = letters[1:4], fac2 = LETTERS[1:4], x = factor(1:4))
+  mx <- melt(df, id = c("fac1", "fac2"), measure.var = "x")
+
+  c1 <- dcast(mx, fac1 + fac2 ~ variable)
+  expect_that(nrow(c1), equals(4))
+  expect_that(ncol(c1), equals(3))
+  expect_is(c1$x, "character")
+  
+  c2 <- dcast(mx, fac1 ~ fac2 + variable)
+  expect_that(nrow(c2), equals(4))
+  expect_that(ncol(c2), equals(5))
+  expect_is(c2$A_x, "character")
+  expect_is(c2$B_x, "character")
+  expect_is(c2$C_x, "character")
+  expect_is(c2$D_x, "character")
+
+  c3 <- acast(mx, fac1 + fac2 ~ variable)
+  expect_that(nrow(c3), equals(4))
+  expect_that(ncol(c3), equals(1))
+  expect_is(c3, "factor")
+  
+  c4 <- acast(mx, fac1 ~ fac2 + variable)
+  expect_that(nrow(c4), equals(4))
+  expect_that(ncol(c4), equals(4))
+  expect_is(c4, "factor")
+  
+})
