@@ -3,7 +3,7 @@ Version 1.2
 
 * When the measure variable is a factor, `dcast` now converts it to a
   character rather than throwing an error. `acast` still returns a factor
-  matrix.
+  matrix. (Thanks to Brian Diggs.)
 
 * `acast` is now much faster, due to fixing a very slow way of naming the 
    output. (Thanks to José Bartolomei Díaz for the bug report)
