@@ -1,10 +1,10 @@
-* Fix bug in melt where factors where converted to integers, instead of to
-  characters
-
 Version 1.2 
 -----------
 
-* When the measure variable is a factor, `dcast` now converts it to a
+* Fixed bug in melt where factors were converted to integers, instead of to
+  characters
+
+* When the measured variable is a factor, `dcast` now converts it to a
   character rather than throwing an error. `acast` still returns a factor
   matrix. (Thanks to Brian Diggs.)
 
