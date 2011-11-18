@@ -165,7 +165,7 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
     subset = subset, fill = fill, drop = drop, 
     value.var = value.var)
 
-  data <- as.data.frame.matrix(res$data)
+  data <- as.data.frame.matrix(res$data, stringsAsFactors = FALSE)
   names(data) <- array_names(res$labels[[2]])
   
   stopifnot(nrow(res$labels[[1]]) == nrow(data))

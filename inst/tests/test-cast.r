@@ -154,11 +154,11 @@ test_that("factor value columns are handled", {
   c3 <- acast(mx, fac1 + fac2 ~ variable)
   expect_that(nrow(c3), equals(4))
   expect_that(ncol(c3), equals(1))
-  expect_is(c3, "factor")
+  expect_true(is.character(c3))
   
   c4 <- acast(mx, fac1 ~ fac2 + variable)
   expect_that(nrow(c4), equals(4))
   expect_that(ncol(c4), equals(4))
-  expect_is(c4, "factor")
+  expect_true(is.character(c4))
   
 })
