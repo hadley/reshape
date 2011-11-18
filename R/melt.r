@@ -109,6 +109,10 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
     return(ids)
   }
   
+  # Turn factors to characters
+  factors <- vapply(data, is.factor, logical(1))
+  data[factors] <- lapply(data[factors], as.character)
+  
   value <- unlist(unname(data[var$measure]))
   variable <- factor(rep(var$measure, each = nrow(data)), 
     levels = var$measure)
