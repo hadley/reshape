@@ -138,6 +138,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' @param na.rm Should NA values be removed from the data set? This will 
 #'   convert explicit missings to implicit missings.
 #' @keywords manip
+#' @S3method melt table
 #' @S3method melt matrix
 #' @S3method melt array
 #' @method melt array
