@@ -18,6 +18,5 @@
   grassy flavour, \item rancid flavour, \item painty
   flavour }
 }
-\keyword{dataset}
 \keyword{datasets}
 

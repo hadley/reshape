@@ -23,6 +23,5 @@
   Analysis: Case Studies in Business Statistics}.
   Homewood, IL: Richard D.  Irwin Publishing:
 }
-\keyword{dataset}
 \keyword{datasets}
 
