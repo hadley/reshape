@@ -18,11 +18,15 @@ test_that("margins intersect", {
 })
 
 test_that("(all) comes after NA", {
-  df <- data.frame(a = c("a", "b", NA), value = 1)
+  df <- data.frame(a = c("a", "b", NA), b = c("a", "b", NA), value = 1)
 
   df2 <- add_margins(df, "a")
   expect_that(levels(df2$a), equals(c("a", "b", NA, "(all)")))
-  
+
+  df3 <- add_margins(df, c("a", "b"))
+  expect_that(levels(df3$a), equals(c("a", "b", NA, "(all)")))
+  expect_that(levels(df3$b), equals(c("a", "b", NA, "(all)")))
+
   dc <- dcast(df, a ~ ., margins = TRUE, fun = length)
   expect_that(levels(dc$a), equals(c("a", "b", NA, "(all)")))
   expect_that(as.character(dc$a), equals(c("a", "b", NA, "(all)")))

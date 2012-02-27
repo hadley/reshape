@@ -1,3 +1,9 @@
+Version 1.2.1
+-------------
+
+* Fix bug in multiple margins revealed by plyr 1.7, but caused by mis-use of
+  data frame subsetting.
+
 Version 1.2 
 -----------
 
