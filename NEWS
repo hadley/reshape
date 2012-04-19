@@ -1,3 +1,5 @@
+* Fix evaluation bug revealed by knitr. (Fixes #18)
+
 Version 1.2.1
 -------------
 

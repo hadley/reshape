@@ -108,7 +108,7 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   
   # Need to branch here depending on whether or not we have strings or
   # expressions - strings should avoid making copies of the data
-  vars <- lapply(formula, eval.quoted, envir = data, enclos = parent.frame())
+  vars <- lapply(formula, eval.quoted, envir = data, enclos = parent.frame(2))
   
   # Compute labels and id values
   ids <- lapply(vars, id, drop = drop)

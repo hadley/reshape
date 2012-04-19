@@ -162,3 +162,16 @@ test_that("factor value columns are handled", {
   expect_true(is.character(c4))
   
 })
+
+test_that("dcast evaluated in correct argument", {
+  g <- c("a", "b")
+  expr <- quote({
+    df <- data.frame(x = letters[1:2], y = letters[1:3], z = rnorm(6))
+    g <- c('b', 'a')
+    dcast(df, y ~ ordered(x, levels = g))
+  })
+  
+  res <- eval(expr, envir = new.env())
+  expect_equal(names(res), c("y", "b", "a"))
+  
+})
