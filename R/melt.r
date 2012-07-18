@@ -103,7 +103,6 @@ melt.list <- function(data, ..., level = 1) {
 #' melt(ChickWeight, id=2:4)
 melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
   var <- melt_check(data, id.vars, measure.vars)
-
   ids <- unrowname(data[, var$id, drop = FALSE])
   if (length(var$measure) == 0) {
     return(ids)
@@ -112,8 +111,16 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   # Turn factors to characters
   factors <- vapply(data, is.factor, logical(1))
   data[factors] <- lapply(data[factors], as.character)
-  
-  value <- unlist(unname(data[var$measure]))
+
+  first_class <- class(data[[var$measure[1]]])
+  all_same <- all(vapply(data[var$measure],
+                         function(col) identical(class(col), first_class), logical(1)))
+  value <-
+      if(all_same)
+          do.call(c, unname(data[var$measure]))
+      else
+          unlist(unname(data[var$measure]))
+
   variable <- factor(rep(var$measure, each = nrow(data)), 
     levels = var$measure)
   
