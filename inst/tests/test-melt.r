@@ -51,5 +51,40 @@ test_that("factors coerced to characters, not integers", {
   dfm <- melt(df, 1)
 
   expect_equal(dfm$value, c(1:3, letters[1:3]))
+})
 
+test_that("dimnames are preserved with arrays and tables", {
+  a <- array(c(1:12), c(2,3,2))
+
+  # Plain array with no dimnames
+  am <- melt(a)
+  expect_equal(names(am), c("Var1", "Var2", "Var3", "value"))
+  # Also check values
+  expect_equal(unique(am$Var1), 1:2)
+  expect_equal(unique(am$Var2), 1:3)
+  expect_equal(unique(am$Var3), 1:2)
+
+  # Explicitly set varnames
+  am <- melt(a, varnames = c("X", "Y", "Z"))
+  expect_equal(names(am), c("X", "Y", "Z", "value"))
+
+  # Set the dimnames for the array
+  b <- a
+  dimnames(b) <- list(X = c("A", "B"), Y = c("A", "B", "C"), Z = c("A", "B"))
+  bm <- melt(b)
+  expect_equal(names(bm), c("X", "Y", "Z", "value"))
+  # Also check values
+  expect_equal(levels(bm$X), c("A", "B"))
+  expect_equal(levels(bm$Y), c("A", "B", "C"))
+  expect_equal(levels(bm$Z), c("A", "B"))
+
+  # Make sure the same works for contingency tables
+  b <- as.table(a)
+  dimnames(b) <- list(X = c("A", "B"), Y = c("A", "B", "C"), Z = c("A", "B"))
+  bm <- melt(b)
+  expect_equal(names(bm), c("X", "Y", "Z", "value"))
+  # Also check values
+  expect_equal(levels(bm$X), c("A", "B"))
+  expect_equal(levels(bm$Y), c("A", "B", "C"))
+  expect_equal(levels(bm$Z), c("A", "B"))
 })
