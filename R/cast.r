@@ -1,16 +1,16 @@
 #' Cast functions
 #' Cast a molten data frame into an array or data frame.
 #'
-#' Use \code{acast} or \code{dcast} depending on whether you want 
-#' vector/matrix/array output or data frame output.  Data frames can have at 
+#' Use \code{acast} or \code{dcast} depending on whether you want
+#' vector/matrix/array output or data frame output.  Data frames can have at
 #' most two dimensions.
 #'
-#' The cast formula has the following format: 
+#' The cast formula has the following format:
 #' \code{x_variable + x_2 ~ y_variable + y_2 ~ z_variable ~  ... }
 #' The order of the variables makes a difference.  The first varies slowest,
 #' and the last fastest.  There are a couple of special variables: "..."
-#' represents all other variables not used in the formula and "." represents 
-#' no variable, so you can do \code{formula = var1 ~ .}.  
+#' represents all other variables not used in the formula and "." represents
+#' no variable, so you can do \code{formula = var1 ~ .}.
 #'
 #' Alternatively, you can supply a list of quoted expressions, in the form
 #' \code{list(.(x_variable, x_2), .(y_variable, y_2), .(z))}.  The advantage
@@ -30,7 +30,7 @@
 #' @keywords manip
 #' @param data molten data frame, see \code{\link{melt}}.
 #' @param formula casting formula, see details for specifics.
-#' @param fun.aggregate aggregation function needed if variables do not 
+#' @param fun.aggregate aggregation function needed if variables do not
 #'   identify a single observation for each output cell.  Defaults to length
 #'   (with a message) if needed but not specified.
 #' @param ... further arguments are passed to aggregating function
@@ -54,7 +54,7 @@
 #' #Air quality example
 #' names(airquality) <- tolower(names(airquality))
 #' aqm <- melt(airquality, id=c("month", "day"), na.rm=TRUE)
-#' 
+#'
 #' acast(aqm, day ~ month ~ variable)
 #' acast(aqm, month ~ variable, mean)
 #' acast(aqm, month ~ variable, mean, margins = TRUE)
@@ -67,27 +67,27 @@
 #' #Chick weight example
 #' names(ChickWeight) <- tolower(names(ChickWeight))
 #' chick_m <- melt(ChickWeight, id=2:4, na.rm=TRUE)
-#' 
+#'
 #' dcast(chick_m, time ~ variable, mean) # average effect of time
 #' dcast(chick_m, diet ~ variable, mean) # average effect of diet
 #' acast(chick_m, diet ~ time, mean) # average effect of diet & time
-#' 
+#'
 #' # How many chicks at each time? - checking for balance
 #' acast(chick_m, time ~ diet, length)
 #' acast(chick_m, chick ~ time, mean)
 #' acast(chick_m, chick ~ time, mean, subset = .(time < 10 & chick < 20))
-#' 
+#'
 #' acast(chick_m, time ~ diet, length)
-#' 
+#'
 #' dcast(chick_m, diet + chick ~ time)
 #' acast(chick_m, diet + chick ~ time)
 #' acast(chick_m, chick ~ time ~ diet)
 #' acast(chick_m, diet + chick ~ time, length, margins="diet")
 #' acast(chick_m, diet + chick ~ time, length, drop = FALSE)
-#' 
+#'
 #' #Tips example
 #' dcast(melt(tips), sex ~ smoker, mean, subset = .(variable == "total_bill"))
-#' 
+#'
 #' ff_d <- melt(french_fries, id=1:4, na.rm=TRUE)
 #' acast(ff_d, subject ~ time, length)
 #' acast(ff_d, subject ~ time, length, fill=0)
@@ -97,53 +97,53 @@
 NULL
 
 cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill = NULL, drop = TRUE, value.var = guess_value(data)) {
-  
+
   if (!is.null(subset)) {
     include <- data.frame(eval.quoted(subset, data))
     data <- data[rowSums(include) == ncol(include), ]
   }
-  
+
   formula <- parse_formula(formula, names(data), value.var)
   value <- data[[value.var]]
-  
+
   # Need to branch here depending on whether or not we have strings or
   # expressions - strings should avoid making copies of the data
   vars <- lapply(formula, eval.quoted, envir = data, enclos = parent.frame(2))
-  
+
   # Compute labels and id values
   ids <- lapply(vars, id, drop = drop)
   labels <- mapply(split_labels, vars, ids, MoreArgs = list(drop = drop),
     SIMPLIFY = FALSE, USE.NAMES = FALSE)
   overall <- id(rev(ids), drop = FALSE)
-  
+
   ns <- vapply(ids, attr, 0, "n")
   n <- attr(overall, "n")
-  
+
   # Aggregate duplicates
   if (any(duplicated(overall)) || !is.null(fun.aggregate)) {
     if (is.null(fun.aggregate)) {
       message("Aggregation function missing: defaulting to length")
       fun.aggregate <- length
     }
-    
-    ordered <- vaggregate(.value = value, .group = overall, 
+
+    ordered <- vaggregate(.value = value, .group = overall,
       .fun = fun.aggregate, ...,  .default = fill, .n = n)
     overall <- seq_len(n)
-    
+
   } else {
     # Add in missing values, if necessary
     if (length(overall) < n) {
       overall <- match(seq_len(n), overall, nomatch = NA)
     } else {
       overall <- order(overall)
-    } 
-    
+    }
+
     ordered <- value[overall]
     if (!is.null(fill)) {
       ordered[is.na(ordered)] <- fill
     }
   }
-  
+
   list(
     data = structure(ordered, dim = ns),
     labels = labels
@@ -156,18 +156,18 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   if (length(formula) > 2) {
     stop("Dataframes have at most two output dimensions")
   }
-  
+
   if (!is.null(margins)) {
     data <- add_margins(data, lapply(formula, names), margins)
   }
-  
-  res <- cast(data, formula, fun.aggregate, ..., 
-    subset = subset, fill = fill, drop = drop, 
+
+  res <- cast(data, formula, fun.aggregate, ...,
+    subset = subset, fill = fill, drop = drop,
     value.var = value.var)
 
   data <- as.data.frame.matrix(res$data, stringsAsFactors = FALSE)
   names(data) <- array_names(res$labels[[2]])
-  
+
   stopifnot(nrow(res$labels[[1]]) == nrow(data))
   cbind(res$labels[[1]], data)
 }
@@ -175,14 +175,14 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
 acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data)) {
 
   formula <- parse_formula(formula, names(data), value.var)
-  
+
   if (!is.null(margins)) {
-    data <- add_margins(data, lapply(formula, names), margins)    
+    data <- add_margins(data, lapply(formula, names), margins)
   }
-  
-  res <- cast(data, formula, fun.aggregate, ..., 
+
+  res <- cast(data, formula, fun.aggregate, ...,
     subset = subset, fill = fill, drop = drop, value.var = value.var)
-    
+
   dimnames(res$data) <- lapply(res$labels, array_names)
   res$data
 }

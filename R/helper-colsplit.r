@@ -1,9 +1,9 @@
 #' Split a vector into multiple columns
-#' 
-#' Useful for splitting variable names that a combination of multiple 
+#'
+#' Useful for splitting variable names that a combination of multiple
 #' variables. Uses \code{\link{type.convert}} to convert each column to
 #' correct type, but will not convert character to factor.
-#' 
+#'
 #' @param string character vector or factor to split up
 #' @param pattern regular expression to split on
 #' @param names names for output columns
@@ -20,7 +20,7 @@ colsplit <- function(string, pattern, names) {
   df <- data.frame(alply(vars, 2, type.convert, as.is = TRUE),
     stringsAsFactors = FALSE)
   names(df) <- names
-  
+
   df
 }
 

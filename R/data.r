@@ -3,21 +3,21 @@
 #' This data was collected from a sensory experiment conducted at Iowa State
 #' University in 2004.  The investigators were interested in the effect of
 #' using three different fryer oils had on the taste of the fries.
-#' 
+#'
 #' Variables:
-#' 
+#'
 #' \itemize{
 #'   \item time in weeks from start of study.
-#'   \item treatment (type of oil), 
-#'   \item subject, 
-#'   \item replicate, 
-#'   \item potato-y flavour, 
-#'   \item buttery flavour, 
+#'   \item treatment (type of oil),
+#'   \item subject,
+#'   \item replicate,
+#'   \item potato-y flavour,
+#'   \item buttery flavour,
 #'   \item grassy flavour,
 #'   \item rancid flavour,
-#'   \item painty flavour 
+#'   \item painty flavour
 #' }
-#' 
+#'
 #' @docType data
 #' @name french_fries
 #' @usage data(french_fries)
@@ -39,22 +39,22 @@ NULL
 
 
 #' Tipping data
-#' 
-#' 
-#' One waiter recorded information about each tip he received over a 
+#'
+#'
+#' One waiter recorded information about each tip he received over a
 #' period of a few months working in one restaurant. He collected several
-#' variables: 
-#' 
+#' variables:
+#'
 #' \itemize{
-#'  \item tip in dollars, 
-#'  \item bill in dollars, 
-#'  \item sex of the bill payer, 
-#'  \item whether there were smokers in the party, 
-#'  \item day of the week, 
-#'  \item time of day, 
-#'  \item size of the party. 
+#'  \item tip in dollars,
+#'  \item bill in dollars,
+#'  \item sex of the bill payer,
+#'  \item whether there were smokers in the party,
+#'  \item day of the week,
+#'  \item time of day,
+#'  \item size of the party.
 #' }
-#' 
+#'
 #' In all he recorded 244 tips. The data was reported in a collection of
 #' case studies for business statistics (Bryant & Smith 1995).
 #'

@@ -11,7 +11,7 @@
 #'
 #' @keywords manip
 #' @param data Data set to melt
-#' @param na.rm Should NA values be removed from the data set? This will 
+#' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @param value.name name of variable used to store values
@@ -24,7 +24,7 @@ melt <- function(data, ..., na.rm = FALSE, value.name = "value") {
 #' For vectors, makes a column of a data frame
 #'
 #' @param data vector to melt
-#' @param na.rm Should NA values be removed from the data set? This will 
+#' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @param value.name name of variable used to store values
@@ -37,7 +37,7 @@ melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
 }
 
 #' Melt a list by recursively melting each component.
-#' 
+#'
 #' @keywords manip
 #' @S3method melt list
 #' @method melt list
@@ -58,18 +58,18 @@ melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
 melt.list <- function(data, ..., level = 1) {
   parts <- lapply(data, melt, level = level + 1, ...)
   result <- rbind.fill(parts)
-  
+
   # Add labels
   names <- names(data) %||% seq_along(data)
   lengths <- vapply(parts, nrow, integer(1))
   labels <- rep(names, lengths)
-  
+
   label_var <- attr(data, "varname") %||% paste("L", level, sep = "")
   result[[label_var]] <- labels
-  
+
   # result <- cbind(labels, result)
   # result[, c(setdiff(names(result), "value"), "value")]
-  
+
   result
 }
 
@@ -84,13 +84,13 @@ melt.list <- function(data, ..., level = 1) {
 #'
 #' @param data data frame to melt
 #' @param id.vars vector of id variables. Can be integer (variable position)
-#'   or string (variable name)If blank, will use all non-measured variables. 
+#'   or string (variable name)If blank, will use all non-measured variables.
 #' @param measure.vars vector of measured variables. Can be integer (variable
 #'   position) or string (variable name)If blank, will use all non id.vars
-#    variables. 
+#    variables.
 #' @param variable.name name of variable used to store measured variable names
 #' @param value.name name of variable used to store values
-#' @param na.rm Should NA values be removed from the data set? This will 
+#' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @keywords manip
@@ -108,15 +108,15 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   if (length(var$measure) == 0) {
     return(ids)
   }
-  
+
   # Turn factors to characters
   factors <- vapply(data, is.factor, logical(1))
   data[factors] <- lapply(data[factors], as.character)
-  
+
   value <- unlist(unname(data[var$measure]))
-  variable <- factor(rep(var$measure, each = nrow(data)), 
+  variable <- factor(rep(var$measure, each = nrow(data)),
     levels = var$measure)
-  
+
   df <- data.frame(ids, variable, value, stringsAsFactors = FALSE)
   names(df) <- c(names(ids), variable.name, value.name)
 
@@ -130,12 +130,12 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' Melt an array.
 #'
 #' This code is conceptually similar to \code{\link{as.data.frame.table}}
-#' 
+#'
 #' @param data array to melt
 #' @param varnames variable names to use in molten data.frame
 #' @param ... further arguments passed to or from other methods.
 #' @param value.name name of variable used to store values
-#' @param na.rm Should NA values be removed from the data set? This will 
+#' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
 #' @keywords manip
 #' @S3method melt table
@@ -159,14 +159,14 @@ melt.array <- function(data, varnames = names(dimnames(data)), ..., na.rm = FALS
   names(dn) <- varnames
   labels <- expand.grid(lapply(dn, var.convert), KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE)
-    
+
   if (na.rm) {
     missing <- is.na(data)
     data <- data[!missing]
     labels <- labels[!missing, ]
   }
 
-  value_df <- setNames(data.frame(as.vector(data)), value.name) 
+  value_df <- setNames(data.frame(as.vector(data)), value.name)
   cbind(labels, value_df)
 }
 
@@ -175,7 +175,7 @@ melt.matrix <- melt.array
 
 #' Check that input variables to melt are appropriate.
 #'
-#' If id.vars or measure.vars are missing, \code{melt_check} will do its 
+#' If id.vars or measure.vars are missing, \code{melt_check} will do its
 #' best to impute them. If you only supply one of id.vars and measure.vars,
 #' melt will assume the remainder of the variables in the data set belong to
 #' the other. If you supply neither, melt will assume discrete variables are
@@ -187,7 +187,7 @@ melt.matrix <- melt.array
 #' @return a list giving id and measure variables names.
 melt_check <- function(data, id.vars, measure.vars) {
   varnames <- names(data)
-  
+
   # Convert positions to names
   if (!missing(id.vars) && is.numeric(id.vars)) {
     id.vars <- varnames[id.vars]
@@ -195,7 +195,7 @@ melt_check <- function(data, id.vars, measure.vars) {
   if (!missing(measure.vars) && is.numeric(measure.vars)) {
     measure.vars <- varnames[measure.vars]
   }
-  
+
   # Check that variables exist
   if (!missing(id.vars)) {
     unknown <- setdiff(id.vars, varnames)
@@ -203,15 +203,15 @@ melt_check <- function(data, id.vars, measure.vars) {
       vars <- paste(unknown, collapse=", ")
       stop("id variables not found in data: ", vars, call. = FALSE)
     }
-  } 
-  
+  }
+
   if (!missing(measure.vars)) {
     unknown <- setdiff(measure.vars, varnames)
     if (length(unknown) > 0) {
       vars <- paste(unknown, collapse=", ")
       stop("measure variables not found in data: ", vars, call. = FALSE)
     }
-  } 
+  }
 
   # Fill in missing pieces
   if (missing(id.vars) && missing(measure.vars)) {
@@ -224,6 +224,6 @@ melt_check <- function(data, id.vars, measure.vars) {
   } else if (missing(measure.vars)) {
     measure.vars <- setdiff(varnames, id.vars)
   }
-  
-  list(id = id.vars, measure = measure.vars)  
+
+  list(id = id.vars, measure = measure.vars)
 }
