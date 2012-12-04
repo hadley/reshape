@@ -117,6 +117,8 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   overall <- id(rev(ids), drop = FALSE)
 
   ns <- vapply(ids, attr, 0, "n")
+  # Replace zeros (empty inputs) with 1 for dimensions of output
+  ns[ns == 0] <- 1
   n <- attr(overall, "n")
 
   # Aggregate duplicates

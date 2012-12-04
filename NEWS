@@ -1,3 +1,5 @@
+* Fix incompatibility with plyr 1.8
+
 * Fix evaluation bug revealed by knitr. (Fixes #18)
 
 * Fixed a bug in `melt` where it didn't automatically get variable names
