@@ -1,0 +1,54 @@
+# Korean translation for R reshape package
+# /po/R-ko.po
+# This file is distributed under the same license as the R reshape package.
+# R Development Translation Team - Korean
+# Chel Hee Lee <gnustats@korea.gnu.org>, 2013.
+# Chel Hee Lee <gnustats@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: reshape 1.2.2\n"
+"Report-Msgid-Bugs-To: bugs@r-project.org\n"
+"POT-Creation-Date: 2013-03-29 14:37\n"
+"PO-Revision-Date: 2013-03-22 22:56-0600\n"
+"Last-Translator: Chel Hee Lee <gnustats@korea.gnu.org>\n"
+"Language-Team: R Development Translation Teams (Korean) <gnustats@korea.gnu."
+"org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Aggregation function missing: defaulting to length"
+msgstr ""
+
+msgid "Dataframes have at most two output dimensions"
+msgstr ""
+
+msgid "Don't know how to parse"
+msgstr ""
+
+msgid "Using"
+msgstr ""
+
+msgid "as value column: use value.var to override."
+msgstr ""
+
+msgid "id variables not found in data:"
+msgstr ""
+
+msgid "measure variables not found in data:"
+msgstr ""
+
+msgid ","
+msgstr ""
+
+msgid "as id variables"
+msgstr ""
+
+msgid "Use var, not vars"
+msgstr ""
