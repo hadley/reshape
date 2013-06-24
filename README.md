@@ -24,6 +24,10 @@ What's new in `reshape2`:
 
  * better development practices like namespaces and tests.
 
+ * the function `melt` now names the columns of its returned data frame `Var1`, `Var2`, ..., `VarN`  instead of `X1`, `X2`, ..., `XN`.
+
+ * the argument `variable.name` of `melt` replaces the old argument `variable_name`.
+
 Initial benchmarking has shown `melt` to be up to 10x faster, pure reshaping `cast` up to 100x faster, and aggregating `cast()` up to 10x faster.
 
 This work has been generously supported by BD (Becton Dickinson).
