@@ -15,6 +15,7 @@
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @param value.name name of variable used to store values
+#' @seealso \code{\link{cast}}
 #' @export
 melt <- function(data, ..., na.rm = FALSE, value.name = "value") {
   UseMethod("melt", data)
@@ -31,6 +32,7 @@ melt <- function(data, ..., na.rm = FALSE, value.name = "value") {
 #' @S3method melt default
 #' @method melt default
 #' @keywords manip
+#' @seealso \code{\link{melt}}, \code{\link{cast}}
 melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
   if (na.rm) data <- data[!is.na(data)]
   setNames(data.frame(data), value.name)
@@ -44,6 +46,7 @@ melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
 #' @param data list to recursively melt
 #' @param ... further arguments passed to or from other methods.
 #' @param level list level - used for creating labels
+#' @seealso \code{\link{cast}}
 #' @examples
 #' a <- as.list(c(1:4, NA))
 #' melt(a)
@@ -96,6 +99,7 @@ melt.list <- function(data, ..., level = 1) {
 #' @keywords manip
 #' @method melt data.frame
 #' @S3method melt data.frame
+#' @seealso \code{\link{cast}}
 #' @examples
 #' names(airquality) <- tolower(names(airquality))
 #' melt(airquality, id=c("month", "day"))
@@ -142,6 +146,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' @S3method melt matrix
 #' @S3method melt array
 #' @method melt array
+#' @seealso \code{\link{cast}}
 #' @examples
 #' a <- array(c(1:23, NA), c(2,3,4))
 #' melt(a)
