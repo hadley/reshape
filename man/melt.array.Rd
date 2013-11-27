@@ -35,5 +35,8 @@ melt(a, varnames=c("X","Y","Z"))
 dimnames(a)[1] <- list(NULL)
 melt(a)
 }
+\seealso{
+\code{\link{cast}}
+}
 \keyword{manip}
 

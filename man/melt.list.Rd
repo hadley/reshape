@@ -27,5 +27,8 @@ melt(a)
 melt(list(1:5, matrix(1:4, ncol=2)))
 melt(list(list(1:3), 1, list(as.list(3:4), as.list(1:2))))
 }
+\seealso{
+\code{\link{cast}}
+}
 \keyword{manip}
 

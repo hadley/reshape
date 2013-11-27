@@ -43,5 +43,8 @@ melt(airquality, id=c("month", "day"))
 names(ChickWeight) <- tolower(names(ChickWeight))
 melt(ChickWeight, id=2:4)
 }
+\seealso{
+\code{\link{cast}}
+}
 \keyword{manip}
 

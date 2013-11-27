@@ -26,5 +26,8 @@ data.frames \item \code{\link{melt.array}} for arrays,
 matrices and tables \item \code{\link{melt.list}} for lists
 }
 }
+\seealso{
+\code{\link{cast}}
+}
 \keyword{manip}
 

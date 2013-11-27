@@ -20,5 +20,8 @@ For vectors, makes a column of a data frame}
 \description{
 Melt a vector. For vectors, makes a column of a data frame
 }
+\seealso{
+\code{\link{melt}}, \code{\link{cast}}
+}
 \keyword{manip}
 
