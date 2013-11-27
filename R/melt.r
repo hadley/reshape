@@ -141,6 +141,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' @param value.name name of variable used to store values
 #' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
+#' @param is.convert whether to convert character into other type
 #' @keywords manip
 #' @S3method melt table
 #' @S3method melt matrix
@@ -157,14 +158,18 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' melt(a, varnames=c("X","Y","Z"))
 #' dimnames(a)[1] <- list(NULL)
 #' melt(a)
-melt.array <- function(data, varnames = names(dimnames(data)), ..., na.rm = FALSE, value.name = "value") {
+melt.array <- function(data, varnames = names(dimnames(data)), ..., na.rm = FALSE, value.name = "value", is.convert=TRUE) {
   var.convert <- function(x) if(is.character(x)) type.convert(x) else x
 
   dn <- amv_dimnames(data)
   names(dn) <- varnames
-  labels <- expand.grid(lapply(dn, var.convert), KEEP.OUT.ATTRS = FALSE,
-    stringsAsFactors = FALSE)
-
+  labels <- NULL
+  if (is.convert)
+    labels <- expand.grid(lapply(dn, var.convert), KEEP.OUT.ATTRS = FALSE,
+		stringsAsFactors = FALSE)
+  else
+	  labels <- expand.grid(dn, KEEP.OUT.ATTRS = FALSE,
+		stringsAsFactors = FALSE)
   if (na.rm) {
     missing <- is.na(data)
     data <- data[!missing]
