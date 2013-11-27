@@ -29,10 +29,10 @@ melt <- function(data, ..., na.rm = FALSE, value.name = "value") {
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @param value.name name of variable used to store values
-#' @S3method melt default
-#' @method melt default
 #' @keywords manip
 #' @seealso \code{\link{melt}}, \code{\link{cast}}
+#' @family melt methods
+#' @export
 melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
   if (na.rm) data <- data[!is.na(data)]
   setNames(data.frame(data), value.name)
@@ -41,12 +41,12 @@ melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
 #' Melt a list by recursively melting each component.
 #'
 #' @keywords manip
-#' @S3method melt list
-#' @method melt list
 #' @param data list to recursively melt
 #' @param ... further arguments passed to or from other methods.
 #' @param level list level - used for creating labels
 #' @seealso \code{\link{cast}}
+#' @family melt methods
+#' @export
 #' @examples
 #' a <- as.list(c(1:4, NA))
 #' melt(a)
@@ -96,10 +96,10 @@ melt.list <- function(data, ..., level = 1) {
 #' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
+#' @family melt methods
 #' @keywords manip
-#' @method melt data.frame
-#' @S3method melt data.frame
 #' @seealso \code{\link{cast}}
+#' @export
 #' @examples
 #' names(airquality) <- tolower(names(airquality))
 #' melt(airquality, id=c("month", "day"))
@@ -142,11 +142,9 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
 #' @keywords manip
-#' @S3method melt table
-#' @S3method melt matrix
-#' @S3method melt array
-#' @method melt array
+#' @export
 #' @seealso \code{\link{cast}}
+#' @family melt methods
 #' @examples
 #' a <- array(c(1:23, NA), c(2,3,4))
 #' melt(a)
@@ -175,7 +173,12 @@ melt.array <- function(data, varnames = names(dimnames(data)), ..., na.rm = FALS
   cbind(labels, value_df)
 }
 
+#' @rdname melt.array
+#' @export
 melt.table <- melt.array
+
+#' @rdname melt.array
+#' @export
 melt.matrix <- melt.array
 
 #' Check that input variables to melt are appropriate.

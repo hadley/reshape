@@ -1,8 +1,16 @@
 \name{melt.array}
 \alias{melt.array}
+\alias{melt.matrix}
+\alias{melt.table}
 \title{Melt an array.}
 \usage{
 \method{melt}{array}(data, varnames = names(dimnames(data)), ...,
+  na.rm = FALSE, value.name = "value")
+
+\method{melt}{table}(data, varnames = names(dimnames(data)), ...,
+  na.rm = FALSE, value.name = "value")
+
+\method{melt}{matrix}(data, varnames = names(dimnames(data)), ...,
   na.rm = FALSE, value.name = "value")
 }
 \arguments{
@@ -37,6 +45,9 @@ melt(a)
 }
 \seealso{
 \code{\link{cast}}
+
+Other melt.methods: \code{\link{melt.data.frame}},
+\code{\link{melt.default}}, \code{\link{melt.list}}
 }
 \keyword{manip}
 
