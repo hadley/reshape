@@ -2,7 +2,7 @@ Package: reshape2
 Type: Package
 Title: Flexibly reshape data: a reboot of the reshape
     package.
-Version: 1.2.2
+Version: 1.3.0.99
 Author: Hadley Wickham <hadley@rice.edu>
 Maintainer: Hadley Wickham <hadley@rice.edu>
 Description: Reshape lets you flexibly restructure and
