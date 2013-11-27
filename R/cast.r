@@ -23,10 +23,6 @@
 #' function, \code{fun.aggregate}. This function should take a vector of
 #' numbers and return a single summary statistic.
 #'
-#' @usage acast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
-#'    subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data))
-#' @usage dcast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
-#'    subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data))
 #' @keywords manip
 #' @param data molten data frame, see \code{\link{melt}}.
 #' @param formula casting formula, see details for specifics.
@@ -45,9 +41,6 @@
 #' @param value.var name of column which stores values, see
 #'   \code{\link{guess_value}} for default strategies to figure this out.
 #' @seealso \code{\link{melt}},  \url{http://had.co.nz/reshape/}
-#' @name cast
-#' @aliases cast dcast acast
-#' @export dcast acast
 #' @import plyr
 #' @import stringr
 #' @examples
@@ -94,6 +87,7 @@
 #' dcast(ff_d, treatment ~ variable, mean, margins = TRUE)
 #' dcast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
 #' lattice::xyplot(`1` ~ `2` | variable, dcast(ff_d, ... ~ rep), aspect="iso")
+#' @name cast
 NULL
 
 cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill = NULL, drop = TRUE, value.var = guess_value(data)) {
@@ -159,6 +153,8 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   )
 }
 
+#' @rdname cast
+#' @export
 dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data))  {
 
   formula <- parse_formula(formula, names(data), value.var)
@@ -181,6 +177,8 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subs
   cbind(res$labels[[1]], data)
 }
 
+#' @rdname cast
+#' @export
 acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data)) {
 
   formula <- parse_formula(formula, names(data), value.var)
