@@ -175,3 +175,17 @@ test_that("dcast evaluated in correct argument", {
   expect_equal(names(res), c("y", "b", "a"))
 
 })
+
+test_that(". ~ . returns single value", {
+  one <- acast(s2m, . ~ .,  sum)
+  expect_equal(as.vector(one), 78)
+  expect_equal(dimnames(one), list(".", "."))
+})
+
+test_that("drop = TRUE retains NA values", {
+  df <- data.frame(x = 1:5, y = c(letters[1:4], NA), value = 5:1)
+  out <- dcast(df, x + y ~ .)
+  
+  expect_equal(dim(out), c(5, 3))
+  expect_equal(out$., 5:1)  
+})

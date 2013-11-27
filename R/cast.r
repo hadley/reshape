@@ -112,15 +112,19 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
 
   # Compute labels and id values
   ids <- lapply(vars, id, drop = drop)
+  
+  # Empty specifications (.) get repeated id
+  is_empty <- vapply(ids, length, integer(1)) == 0
+  empty <- structure(rep(1, nrow(data)), n = 1L)
+  ids[is_empty] <- rep(list(empty), sum(is_empty))
+  
   labels <- mapply(split_labels, vars, ids, MoreArgs = list(drop = drop),
     SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  labels[is_empty] <- rep(list(data.frame(. = ".")), sum(is_empty))
+  
   overall <- id(rev(ids), drop = FALSE)
-
-  ns <- vapply(ids, attr, 0, "n")
-  # Replace zeros (empty inputs) with 1 for dimensions of output
-  ns[ns == 0] <- 1
   n <- attr(overall, "n")
-
+  
   # Aggregate duplicates
   if (any(duplicated(overall)) || !is.null(fun.aggregate)) {
     if (is.null(fun.aggregate)) {
@@ -145,9 +149,12 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
       ordered[is.na(ordered)] <- fill
     }
   }
-
+  
+  ns <- vapply(ids, attr, double(1), "n")
+  dim(ordered) <- ns
+  
   list(
-    data = structure(ordered, dim = ns),
+    data = ordered,
     labels = labels
   )
 }
