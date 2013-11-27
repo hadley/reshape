@@ -88,3 +88,13 @@ test_that("dimnames are preserved with arrays and tables", {
   expect_equal(levels(bm$Y), c("A", "B", "C"))
   expect_equal(levels(bm$Z), c("A", "B"))
 })
+
+test_that("as.is = TRUE suppresses dimnname conversion", {
+  x <- matrix(nrow = 2, ncol = 2)
+  dimnames(x) <- list(x = 1:2, y = 3:4)
+  
+  out <- melt(x, as.is = TRUE)
+  expect_true(is.character(out$x))
+  expect_true(is.character(out$y))
+
+})

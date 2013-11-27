@@ -138,6 +138,9 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' @param data array to melt
 #' @param varnames variable names to use in molten data.frame
 #' @param ... further arguments passed to or from other methods.
+#' @param as.is if \code{FALSE}, the default, dimnames will be converted
+#'   using \code{\link{type.convert}}. If \code{TRUE}, they will be left
+#'   as strings.
 #' @param value.name name of variable used to store values
 #' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
@@ -155,12 +158,17 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' melt(a, varnames=c("X","Y","Z"))
 #' dimnames(a)[1] <- list(NULL)
 #' melt(a)
-melt.array <- function(data, varnames = names(dimnames(data)), ..., na.rm = FALSE, value.name = "value") {
+melt.array <- function(data, varnames = names(dimnames(data)), ..., 
+                       na.rm = FALSE, as.is = FALSE, value.name = "value") {
   var.convert <- function(x) if(is.character(x)) type.convert(x) else x
 
   dn <- amv_dimnames(data)
   names(dn) <- varnames
-  labels <- expand.grid(lapply(dn, var.convert), KEEP.OUT.ATTRS = FALSE,
+  if (!as.is) {
+    dn <- lapply(dn, var.convert)
+  }
+  
+  labels <- expand.grid(dn, KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE)
 
   if (na.rm) {

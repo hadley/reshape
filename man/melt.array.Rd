@@ -5,13 +5,13 @@
 \title{Melt an array.}
 \usage{
 \method{melt}{array}(data, varnames = names(dimnames(data)), ...,
-  na.rm = FALSE, value.name = "value")
+  na.rm = FALSE, as.is = FALSE, value.name = "value")
 
 \method{melt}{table}(data, varnames = names(dimnames(data)), ...,
-  na.rm = FALSE, value.name = "value")
+  na.rm = FALSE, as.is = FALSE, value.name = "value")
 
 \method{melt}{matrix}(data, varnames = names(dimnames(data)), ...,
-  na.rm = FALSE, value.name = "value")
+  na.rm = FALSE, as.is = FALSE, value.name = "value")
 }
 \arguments{
   \item{data}{array to melt}
@@ -21,6 +21,10 @@
 
   \item{...}{further arguments passed to or from other
   methods.}
+
+  \item{as.is}{if \code{FALSE}, the default, dimnames will
+  be converted using \code{\link{type.convert}}. If
+  \code{TRUE}, they will be left as strings.}
 
   \item{value.name}{name of variable used to store values}
 
