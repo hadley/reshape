@@ -84,7 +84,7 @@ melt.list <- function(data, ..., level = 1) {
 #'
 #' @param data data frame to melt
 #' @param id.vars vector of id variables. Can be integer (variable position)
-#'   or string (variable name)If blank, will use all non-measured variables.
+#'   or string (variable name). If blank, will use all non-measured variables.
 #' @param measure.vars vector of measured variables. Can be integer (variable
 #'   position) or string (variable name)If blank, will use all non id.vars
 #    variables.
