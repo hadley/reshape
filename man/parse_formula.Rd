@@ -2,8 +2,7 @@
 \alias{parse_formula}
 \title{Parse casting formulae.}
 \usage{
-  parse_formula(formula = "...  ~ variable", varnames,
-    value.var = "value")
+parse_formula(formula = "...  ~ variable", varnames, value.var = "value")
 }
 \arguments{
   \item{formula}{formula to parse}
@@ -13,15 +12,15 @@
   \item{value.var}{name of variable containing values}
 }
 \description{
-  There are a two ways to specify a casting formula: either
-  as a string, or a list of quoted variables. This function
-  converts the former to the latter.
+There are a two ways to specify a casting formula: either
+as a string, or a list of quoted variables. This function
+converts the former to the latter.
 }
 \details{
-  Casting formulas separate dimensions with \code{~} and
-  variables within a dimension with \code{+} or \code{*}.
-  \code{.} can be used as a placeholder, and \code{...}
-  represents all other variables not otherwise used.
+Casting formulas separate dimensions with \code{~} and
+variables within a dimension with \code{+} or \code{*}.
+\code{.} can be used as a placeholder, and \code{...}
+represents all other variables not otherwise used.
 }
 \examples{
 reshape2:::parse_formula("a + ...", letters[1:6])

@@ -3,8 +3,7 @@
 \title{Melt a vector.
 For vectors, makes a column of a data frame}
 \usage{
-  \method{melt}{default} (data, ..., na.rm = FALSE,
-    value.name = "value")
+\method{melt}{default}(data, ..., na.rm = FALSE, value.name = "value")
 }
 \arguments{
   \item{data}{vector to melt}
@@ -19,8 +18,7 @@ For vectors, makes a column of a data frame}
   \item{value.name}{name of variable used to store values}
 }
 \description{
-  Melt a vector. For vectors, makes a column of a data
-  frame
+Melt a vector. For vectors, makes a column of a data frame
 }
 \keyword{manip}
 

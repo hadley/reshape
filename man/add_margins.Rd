@@ -2,7 +2,7 @@
 \alias{add_margins}
 \title{Add margins to a data frame.}
 \usage{
-  add_margins(df, vars, margins = TRUE)
+add_margins(df, vars, margins = TRUE)
 }
 \arguments{
   \item{df}{input data frame}
@@ -15,7 +15,7 @@
   possible margins.}
 }
 \description{
-  Rownames are silently stripped. All margining variables
-  will be converted to factors.
+Rownames are silently stripped. All margining variables
+will be converted to factors.
 }
 

@@ -2,7 +2,7 @@
 \alias{colsplit}
 \title{Split a vector into multiple columns}
 \usage{
-  colsplit(string, pattern, names)
+colsplit(string, pattern, names)
 }
 \arguments{
   \item{string}{character vector or factor to split up}
@@ -12,10 +12,10 @@
   \item{names}{names for output columns}
 }
 \description{
-  Useful for splitting variable names that a combination of
-  multiple variables. Uses \code{\link{type.convert}} to
-  convert each column to correct type, but will not convert
-  character to factor.
+Useful for splitting variable names that a combination of
+multiple variables. Uses \code{\link{type.convert}} to
+convert each column to correct type, but will not convert
+character to factor.
 }
 \examples{
 x <- c("a_1", "a_2", "b_2", "c_3")

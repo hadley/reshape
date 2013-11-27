@@ -2,9 +2,8 @@
 \alias{melt.array}
 \title{Melt an array.}
 \usage{
-  \method{melt}{array} (data,
-    varnames = names(dimnames(data)), ..., na.rm = FALSE,
-    value.name = "value")
+\method{melt}{array}(data, varnames = names(dimnames(data)), ...,
+  na.rm = FALSE, value.name = "value")
 }
 \arguments{
   \item{data}{array to melt}
@@ -22,8 +21,8 @@
   missings.}
 }
 \description{
-  This code is conceptually similar to
-  \code{\link{as.data.frame.table}}
+This code is conceptually similar to
+\code{\link{as.data.frame.table}}
 }
 \examples{
 a <- array(c(1:23, NA), c(2,3,4))

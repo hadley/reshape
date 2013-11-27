@@ -16,13 +16,3 @@ Suggests:
     testthat
 License: MIT
 LazyData: true
-Collate:
-    'cast.r'
-    'data.r'
-    'formula.r'
-    'helper-colsplit.r'
-    'helper-guess-value.r'
-    'helper-margins.r'
-    'melt.r'
-    'recast.r'
-    'utils.r'

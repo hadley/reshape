@@ -2,15 +2,14 @@
 \alias{melt.data.frame}
 \title{Melt a data frame into form suitable for easy casting.}
 \usage{
-  \method{melt}{data.frame} (data, id.vars, measure.vars,
-    variable.name = "variable", ..., na.rm = FALSE,
-    value.name = "value")
+\method{melt}{data.frame}(data, id.vars, measure.vars,
+  variable.name = "variable", ..., na.rm = FALSE, value.name = "value")
 }
 \arguments{
   \item{data}{data frame to melt}
 
   \item{id.vars}{vector of id variables. Can be integer
-  (variable position) or string (variable name)If blank,
+  (variable position) or string (variable name). If blank,
   will use all non-measured variables.}
 
   \item{measure.vars}{vector of measured variables. Can be
@@ -30,13 +29,13 @@
   methods.}
 }
 \description{
-  You need to tell melt which of your variables are id
-  variables, and which are measured variables. If you only
-  supply one of \code{id.vars} and \code{measure.vars},
-  melt will assume the remainder of the variables in the
-  data set belong to the other. If you supply neither, melt
-  will assume factor and character variables are id
-  variables, and all others are measured.
+You need to tell melt which of your variables are id
+variables, and which are measured variables. If you only
+supply one of \code{id.vars} and \code{measure.vars}, melt
+will assume the remainder of the variables in the data set
+belong to the other. If you supply neither, melt will
+assume factor and character variables are id variables, and
+all others are measured.
 }
 \examples{
 names(airquality) <- tolower(names(airquality))
