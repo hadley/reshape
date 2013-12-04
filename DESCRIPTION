@@ -15,5 +15,5 @@ Roxygen: list(wrap = FALSE)
 Suggests:
     testthat,
     lattice
-License: MIT
+License: MIT + file LICENSE
 LazyData: true
