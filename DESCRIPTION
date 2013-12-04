@@ -10,10 +10,10 @@ Description: Reshape lets you flexibly restructure and
 URL: http://had.co.nz/reshape
 Imports:
     plyr (>= 1.5),
-    stringr,
-    lattice
+    stringr
 Roxygen: list(wrap = FALSE)
 Suggests:
-    testthat
+    testthat,
+    lattice
 License: MIT
 LazyData: true

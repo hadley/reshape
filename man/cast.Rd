@@ -113,7 +113,9 @@ acast(ff_d, subject ~ time, length)
 acast(ff_d, subject ~ time, length, fill=0)
 dcast(ff_d, treatment ~ variable, mean, margins = TRUE)
 dcast(ff_d, treatment + subject ~ variable, mean, margins="treatment")
-lattice::xyplot(`1` ~ `2` | variable, dcast(ff_d, ... ~ rep), aspect="iso")
+if (require("lattice")) {
+ lattice::xyplot(`1` ~ `2` | variable, dcast(ff_d, ... ~ rep), aspect="iso")
+}
 }
 \seealso{
 \code{\link{melt}},  \url{http://had.co.nz/reshape/}
