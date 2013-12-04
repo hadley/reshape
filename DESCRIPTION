@@ -12,6 +12,7 @@ Imports:
     plyr (>= 1.5),
     stringr,
     lattice
+Roxygen: list(wrap = FALSE)
 Suggests:
     testthat
 License: MIT

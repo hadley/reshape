@@ -29,13 +29,12 @@
   methods.}
 }
 \description{
-You need to tell melt which of your variables are id
-variables, and which are measured variables. If you only
-supply one of \code{id.vars} and \code{measure.vars}, melt
-will assume the remainder of the variables in the data set
-belong to the other. If you supply neither, melt will
-assume factor and character variables are id variables, and
-all others are measured.
+You need to tell melt which of your variables are id variables, and which
+are measured variables. If you only supply one of \code{id.vars} and
+\code{measure.vars}, melt will assume the remainder of the variables in the
+data set belong to the other. If you supply neither, melt will assume
+factor and character variables are id variables, and all others are
+measured.
 }
 \examples{
 names(airquality) <- tolower(names(airquality))
@@ -47,8 +46,8 @@ melt(ChickWeight, id=2:4)
 \code{\link{cast}}
 
 Other melt.methods: \code{\link{melt.array}},
-\code{\link{melt.matrix}}, \code{\link{melt.table}};
-\code{\link{melt.default}}; \code{\link{melt.list}}
+  \code{\link{melt.matrix}}, \code{\link{melt.table}};
+  \code{\link{melt.default}}; \code{\link{melt.list}}
 }
 \keyword{manip}
 

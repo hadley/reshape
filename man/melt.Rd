@@ -21,9 +21,10 @@ This the generic melt function. See the following functions
 for the details about different data structures:
 }
 \details{
-\itemize{ \item \code{\link{melt.data.frame}} for
-data.frames \item \code{\link{melt.array}} for arrays,
-matrices and tables \item \code{\link{melt.list}} for lists
+\itemize{
+  \item \code{\link{melt.data.frame}} for data.frames
+  \item \code{\link{melt.array}} for arrays, matrices and tables
+  \item \code{\link{melt.list}} for lists
 }
 }
 \seealso{

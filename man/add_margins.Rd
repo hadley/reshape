@@ -15,7 +15,7 @@ add_margins(df, vars, margins = TRUE)
   possible margins.}
 }
 \description{
-Rownames are silently stripped. All margining variables
-will be converted to factors.
+Rownames are silently stripped. All margining variables will be converted
+to factors.
 }
 

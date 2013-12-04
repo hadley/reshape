@@ -13,14 +13,14 @@ margins(vars, margins = NULL)
   possible margins.}
 }
 \value{
-list of margining combinations, or \code{NULL} if none.
-These are the combinations of variables that should have
-their values set to \code{(all)}
+list of margining combinations, or \code{NULL} if none. These are
+  the combinations of variables that should have their values set to
+  \code{(all)}
 }
 \description{
-Given the variables that form the rows and columns, and a
-set of desired margins, works out which ones are possible.
-Variables that can't be margined over are dropped silently.
+Given the variables that form the rows and columns, and a set of desired
+margins, works out which ones are possible. Variables that can't be
+margined over are dropped silently.
 }
 \keyword{internal}
 \keyword{manip}
