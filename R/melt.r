@@ -234,7 +234,11 @@ melt_check <- function(data, id.vars, measure.vars) {
     discrete <- sapply(data, is.discrete)
     id.vars <- varnames[discrete]
     measure.vars <- varnames[!discrete]
-    message("Using ", paste(id.vars, collapse = ", "), " as id variables")
+    if (length(id.vars) != 0) {
+      message("Using ", paste(id.vars, collapse = ", "), " as id variables")
+    } else {
+      message("Using all variables as measure variables")  
+    }
   } else if (missing(id.vars)) {
     id.vars <- setdiff(varnames, measure.vars)
   } else if (missing(measure.vars)) {
