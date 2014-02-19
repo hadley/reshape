@@ -7,11 +7,75 @@ using namespace Rcpp;
 // for printing a message out to the R console in interactive sessions
 Function message("message");
 
+// An optimized rep
+#define DO_REP(RTYPE, CTYPE, ACCESSOR) { \
+  SEXP output = PROTECT( Rf_allocVector(RTYPE, nout) ); \
+  for (int i=0; i < n; ++i) { \
+    memcpy( \
+      (char*) ACCESSOR(output) + i * xn * sizeof(CTYPE), \
+      (char*) ACCESSOR(x), \
+      sizeof(CTYPE) * xn \
+    ); \
+  } \
+  UNPROTECT(1); \
+  return output; \
+  break; \
+}
+  
+SEXP rep_(SEXP x, int n) {
+  int xn = Rf_length(x);
+  int nout = xn * n;
+  switch (TYPEOF(x)) {
+  case INTSXP: DO_REP(INTSXP, int, INTEGER);
+  case REALSXP: DO_REP(REALSXP, double, REAL);
+  case STRSXP: DO_REP(STRSXP, SEXP, STRING_PTR);
+  case LGLSXP: DO_REP(LGLSXP, int, LOGICAL);
+  case CPLXSXP: DO_REP(CPLXSXP, Rcomplex, COMPLEX);
+  default: {
+    stop("Unhandled RTYPE");
+    return R_NilValue;
+  }
+  }
+}
+
+// An optimized rep_each
+#define DO_REP_EACH(RTYPE, CTYPE, ACCESSOR) { \
+  int counter = 0; \
+  SEXP output = PROTECT( Rf_allocVector(RTYPE, nout) ); \
+  CTYPE* x_ptr = ACCESSOR(x); \
+  CTYPE* output_ptr = ACCESSOR(output); \
+  for (int i=0; i < xn; ++i) { \
+    for (int j=0; j < n; ++j) { \
+      output_ptr[counter] = x_ptr[i]; \
+      ++counter; \
+    } \
+  } \
+  UNPROTECT(1); \
+  return output; \
+  break; \
+}
+  
+SEXP rep_each_(SEXP x, int n) {
+  int xn = Rf_length(x);
+  int nout = xn * n;
+  switch (TYPEOF(x)) {
+  case INTSXP: DO_REP_EACH(INTSXP, int, INTEGER);
+  case REALSXP: DO_REP_EACH(REALSXP, double, REAL);
+  case STRSXP: DO_REP_EACH(STRSXP, SEXP, STRING_PTR);
+  case LGLSXP: DO_REP_EACH(LGLSXP, int, LOGICAL);
+  case CPLXSXP: DO_REP_EACH(CPLXSXP, Rcomplex, COMPLEX);
+  default: {
+    stop("Unhandled RTYPE");
+    return R_NilValue;
+  }
+  }
+}
+
 // Optimized factor routine for the case where we want to make
 // a factor from a vector of names
 IntegerVector make_variable_column(CharacterVector x, int nrow) {
   IntegerVector fact = seq(1, x.size());
-  IntegerVector output = rep_each(fact, nrow);
+  IntegerVector output = rep_each_(fact, nrow);
   output.attr("levels") = x;
   output.attr("class") = "factor";
   return output;
@@ -220,7 +284,7 @@ List melt_dataframe(const DataFrame& data,
   // A define to handle the different possible types
   #define REP(RTYPE) \
   case RTYPE: { \
-    output[i] = rep( as< Vector<RTYPE> >(data[ id_ind[i] ]), n_measure); \
+    output[i] = rep_( data[ id_ind[i] ], n_measure); \
     Rf_copyMostAttrib( data[ id_ind[i] ], output[i] ); \
     break; \
   } \
