@@ -105,29 +105,20 @@ melt.list <- function(data, ..., level = 1) {
 #' melt(airquality, id=c("month", "day"))
 #' names(ChickWeight) <- tolower(names(ChickWeight))
 #' melt(ChickWeight, id=2:4)
-melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
-  var <- melt_check(data, id.vars, measure.vars)
-
-  ids <- unrowname(data[, var$id, drop = FALSE])
-  if (length(var$measure) == 0) {
-    return(ids)
-  }
-
-  # Turn factors to characters
-  factors <- vapply(data, is.factor, logical(1))
-  data[factors] <- lapply(data[factors], as.character)
-
-  value <- unlist(unname(data[var$measure]))
-  variable <- factor(rep(var$measure, each = nrow(data)),
-    levels = var$measure)
-
-  df <- data.frame(ids, variable, value, stringsAsFactors = FALSE)
-  names(df) <- c(names(ids), variable.name, value.name)
-
+melt.data.frame <- function(data, id.vars=NULL, measure.vars=NULL, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
+  
+  df <- .Call(C_melt_dataframe, 
+    data, 
+    id.vars,
+    measure.vars,
+    as.character(variable.name),
+    as.character(value.name)
+  )
+  
   if (na.rm) {
-    subset(df, !is.na(value))
+    return(df[ !is.na(df[[value.name]]), ])
   } else {
-    df
+    return(df)
   }
 }
 

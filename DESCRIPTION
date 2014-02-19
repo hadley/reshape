@@ -8,10 +8,12 @@ Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: Reshape lets you flexibly restructure and
     aggregate data using just two functions: melt and cast.
 URL: http://had.co.nz/reshape
+LinkingTo: Rcpp
 Imports:
     plyr (>= 1.5),
     stringr,
-    lattice
+    lattice,
+    Rcpp
 Suggests:
     testthat
 License: MIT
