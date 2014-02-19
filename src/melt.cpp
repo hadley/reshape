@@ -4,9 +4,6 @@ using namespace Rcpp;
 // A debug macro -- change to 'debug(x) x' for debug output
 #define debug(x)
 
-// for printing a message out to the R console in interactive sessions
-Function message("message");
-
 // An optimized rep
 #define DO_REP(RTYPE, CTYPE, ACCESSOR)                        \
   {                                                           \
@@ -113,15 +110,6 @@ void check_indices(IntegerVector ind, int ncol, std::string msg) {
   }
 }
 
-// returns a 0-based index
-IntegerVector match_helper(SEXP x, CharacterVector names) {
-  if (TYPEOF(x) == STRSXP or Rf_isFactor(x)) {
-    return match(as<CharacterVector>(x), names) - 1;
-  } else {
-    return as<IntegerVector>(x) - 1;
-  }
-}
-
 // a concatenate helper macro
 #define DO_CONCATENATE(CTYPE)                                \
   {                                                          \
@@ -151,7 +139,7 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind) {
 
   debug(printf("Max type of value variables is %s\n", Rf_type2char(max_type)));
 
-  Armor<SEXP> tmp(R_NilValue);
+  Armor<SEXP> tmp;
   Shield<SEXP> output(Rf_allocVector(max_type, nrow * n_ind));
   for (int i = 0; i < n_ind; ++i) {
 
@@ -253,7 +241,7 @@ List melt_dataframe(const DataFrame& data,
   // 'value' is made by concatenating each of the 'value' variables
 
   // TODO: handle in a cleaner fashion
-  SET_VECTOR_ELT(output, n_id + 1, concatenate(data, measure_ind));
+  output[n_id + 1] = concatenate(data, measure_ind);
 
   // Make the List more data.frame like
   output.attr("row.names") =
