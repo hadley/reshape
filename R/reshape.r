@@ -1,3 +1,3 @@
 ##' @importFrom Rcpp evalCpp
-##' @useDynLib reshape2, .registration=TRUE
+##' @useDynLib reshape2
 NULL

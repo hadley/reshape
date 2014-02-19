@@ -107,15 +107,19 @@ melt.list <- function(data, ..., level = 1) {
 #' melt(ChickWeight, id=2:4)
 melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
   
-  if (missing(id.vars)) id.vars <- NULL
-  if (missing(measure.vars)) measure.vars <- NULL
+  ## Get the names of id.vars, measure.vars
+  vars <- melt_check(data, id.vars, measure.vars)
   
-  df <- .Call(C_melt_dataframe, 
-    data, 
-    id.vars,
-    measure.vars,
-    as.character(variable.name),
-    as.character(value.name)
+  ## Match them to indices in the data
+  id.ind <- match(vars$id, names(data))
+  measure.ind <- match(vars$measure, names(data))
+  
+  df <- melt_dataframe(
+    data,
+    as.integer(id.ind-1),
+    as.integer(measure.ind-1),
+    variable.name,
+    value.name
   )
   
   if (na.rm) {
