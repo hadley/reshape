@@ -9,7 +9,7 @@ Function message("message");
 
 // An optimized rep
 #define DO_REP(RTYPE, CTYPE, ACCESSOR) { \
-  SEXP output = PROTECT( Rf_allocVector(RTYPE, nout) ); \
+  Shield<SEXP> output( Rf_allocVector(RTYPE, nout) ); \
   for (int i=0; i < n; ++i) { \
     memcpy( \
       (char*) ACCESSOR(output) + i * xn * sizeof(CTYPE), \
@@ -17,7 +17,6 @@ Function message("message");
       sizeof(CTYPE) * xn \
     ); \
   } \
-  UNPROTECT(1); \
   return output; \
   break; \
 }
@@ -31,6 +30,7 @@ SEXP rep_(SEXP x, int n) {
   case STRSXP: DO_REP(STRSXP, SEXP, STRING_PTR);
   case LGLSXP: DO_REP(LGLSXP, int, LOGICAL);
   case CPLXSXP: DO_REP(CPLXSXP, Rcomplex, COMPLEX);
+  case RAWSXP: DO_REP(RAWSXP, Rbyte, RAW);
   default: {
     stop("Unhandled RTYPE");
     return R_NilValue;
@@ -41,7 +41,7 @@ SEXP rep_(SEXP x, int n) {
 // An optimized rep_each
 #define DO_REP_EACH(RTYPE, CTYPE, ACCESSOR) { \
   int counter = 0; \
-  SEXP output = PROTECT( Rf_allocVector(RTYPE, nout) ); \
+  Shield<SEXP> output( Rf_allocVector(RTYPE, nout) ); \
   CTYPE* x_ptr = ACCESSOR(x); \
   CTYPE* output_ptr = ACCESSOR(output); \
   for (int i=0; i < xn; ++i) { \
@@ -50,7 +50,6 @@ SEXP rep_(SEXP x, int n) {
       ++counter; \
     } \
   } \
-  UNPROTECT(1); \
   return output; \
   break; \
 }
@@ -64,6 +63,7 @@ SEXP rep_each_(SEXP x, int n) {
   case STRSXP: DO_REP_EACH(STRSXP, SEXP, STRING_PTR);
   case LGLSXP: DO_REP_EACH(LGLSXP, int, LOGICAL);
   case CPLXSXP: DO_REP_EACH(CPLXSXP, Rcomplex, COMPLEX);
+  case RAWSXP: DO_REP_EACH(RAWSXP, Rbyte, RAW);
   default: {
     stop("Unhandled RTYPE");
     return R_NilValue;
@@ -140,18 +140,18 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind) {
   
   debug( printf("Max type of value variables is %s\n", Rf_type2char(max_type) ));
   
-  SEXP tmp;
+  Armor<SEXP> tmp(R_NilValue);
   Shield<SEXP> output( Rf_allocVector(max_type, nrow * n_ind) );
   for (int i=0; i < n_ind; ++i) {
     
     // a 'tmp' pointer to the current column being iterated over, or 
     // a coerced version if necessary
     if (TYPEOF( x[ ind[i] ] ) == max_type) {
-      tmp = PROTECT(x[ ind[i] ]);
+      tmp = x[ ind[i] ];
     } else if (Rf_isFactor( x[ ind[i] ] )) {
-      tmp = PROTECT(Rf_asCharacterFactor( x[ ind[i] ] ));
+      tmp = Rf_asCharacterFactor( x[ ind[i] ] );
     } else {
-      tmp = PROTECT(Rf_coerceVector( x[ ind[i] ], max_type ));
+      tmp = Rf_coerceVector( x[ ind[i] ], max_type );
     }
     
     switch (max_type) {
@@ -165,9 +165,8 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind) {
       }
       break;
     }
+    case RAWSXP: DO_CONCATENATE(Rbyte);
     }
-    
-    UNPROTECT(1);
     
   }
   
@@ -318,7 +317,9 @@ List melt_dataframe(const DataFrame& data,
   SET_VECTOR_ELT(output, n_id + 1, concatenate(data, measure_ind));
   
   // Make the List more data.frame like
-  output.attr("row.names") = seq(1, nrow * n_measure);
+  output.attr("row.names") = Rcpp::IntegerVector::create(
+    Rcpp::IntegerVector::get_na(), -nrow
+  );
   
   CharacterVector out_names = no_init(n_id + 2);
   for (int i=0; i < n_id; ++i) {
