@@ -105,7 +105,10 @@ melt.list <- function(data, ..., level = 1) {
 #' melt(airquality, id=c("month", "day"))
 #' names(ChickWeight) <- tolower(names(ChickWeight))
 #' melt(ChickWeight, id=2:4)
-melt.data.frame <- function(data, id.vars=NULL, measure.vars=NULL, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
+melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
+  
+  if (missing(id.vars)) id.vars <- NULL
+  if (missing(measure.vars)) measure.vars <- NULL
   
   df <- .Call(C_melt_dataframe, 
     data, 

@@ -31,8 +31,8 @@ melt(list(list(1:3), 1, list(as.list(3:4), as.list(1:2))))
 \code{\link{cast}}
 
 Other melt.methods: \code{\link{melt.array}},
-\code{\link{melt.data.frame}}, \code{\link{melt.default}},
-\code{\link{melt.matrix}}, \code{\link{melt.table}}
+\code{\link{melt.matrix}}, \code{\link{melt.table}};
+\code{\link{melt.data.frame}}; \code{\link{melt.default}}
 }
 \keyword{manip}
 

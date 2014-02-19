@@ -47,8 +47,8 @@ melt(ChickWeight, id=2:4)
 \code{\link{cast}}
 
 Other melt.methods: \code{\link{melt.array}},
-\code{\link{melt.default}}, \code{\link{melt.list}},
-\code{\link{melt.matrix}}, \code{\link{melt.table}}
+\code{\link{melt.matrix}}, \code{\link{melt.table}};
+\code{\link{melt.default}}; \code{\link{melt.list}}
 }
 \keyword{manip}
 
