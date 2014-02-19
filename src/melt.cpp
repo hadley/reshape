@@ -7,8 +7,15 @@ using namespace Rcpp;
 // for printing a message out to the R console in interactive sessions
 Function message("message");
 
-// convert the 'variable' column to factor
-Function as_factor("as.factor");
+// Optimized factor routine for the case where we want to make
+// a factor from a vector of names
+IntegerVector make_variable_column(CharacterVector x, int nrow) {
+  IntegerVector fact = seq(1, x.size());
+  IntegerVector output = rep_each(fact, nrow);
+  output.attr("levels") = x;
+  output.attr("class") = "factor";
+  return output;
+}
 
 // helper for the id.vars, measure.vars passed -- we match
 // character vectors to the names (getting an integer index);
@@ -239,7 +246,7 @@ List melt_dataframe(const DataFrame& data,
   for (int i=0; i < n_measure; ++i) {
     id_names[i] = data_names[ measure_ind[i] ];
   }
-  output[n_id] = as_factor( rep_each(id_names, nrow) );
+  output[n_id] = make_variable_column(id_names, nrow);
   
   // 'value' is made by concatenating each of the 'value' variables
   
