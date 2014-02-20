@@ -33,8 +33,7 @@
   missings.}
 }
 \description{
-This code is conceptually similar to
-\code{\link{as.data.frame.table}}
+This code is conceptually similar to \code{\link{as.data.frame.table}}
 }
 \examples{
 a <- array(c(1:23, NA), c(2,3,4))
@@ -51,7 +50,7 @@ melt(a)
 \code{\link{cast}}
 
 Other melt.methods: \code{\link{melt.data.frame}};
-\code{\link{melt.default}}; \code{\link{melt.list}}
+  \code{\link{melt.default}}; \code{\link{melt.list}}
 }
 \keyword{manip}
 

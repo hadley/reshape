@@ -12,9 +12,10 @@ LinkingTo: Rcpp
 Imports:
     plyr (>= 1.5),
     stringr,
-    lattice,
     Rcpp
+Roxygen: list(wrap = FALSE)
 Suggests:
-    testthat
-License: MIT
+    testthat,
+    lattice
+License: MIT + file LICENSE
 LazyData: true

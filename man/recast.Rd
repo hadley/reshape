@@ -19,8 +19,8 @@ recast(data, formula, ..., id.var, measure.var)
   all non id.var variables}
 }
 \description{
-This conveniently wraps melting and casting a data frame
-into a single step.
+This conveniently wraps melting and casting a data frame into
+a single step.
 }
 \examples{
 recast(french_fries, time ~ variable, id.var = 1:4)
