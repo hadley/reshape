@@ -5,16 +5,16 @@ using namespace Rcpp;
 #define debug(x)
 
 // An optimized rep
-#define DO_REP(RTYPE, CTYPE, ACCESSOR)                        \
-  {                                                           \
-    Shield<SEXP> output(Rf_allocVector(RTYPE, nout));         \
-    for (int i = 0; i < n; ++i) {                             \
-      memcpy((char*)ACCESSOR(output) + i* xn * sizeof(CTYPE), \
-             (char*)ACCESSOR(x),                              \
-             sizeof(CTYPE) * xn);                             \
-    }                                                         \
-    return output;                                            \
-    break;                                                    \
+#define DO_REP(RTYPE, CTYPE, ACCESSOR)                         \
+  {                                                            \
+    Shield<SEXP> output(Rf_allocVector(RTYPE, nout));          \
+    for (int i = 0; i < n; ++i) {                              \
+      memcpy((char*)ACCESSOR(output) + i * xn * sizeof(CTYPE), \
+             (char*)ACCESSOR(x),                               \
+             sizeof(CTYPE) * xn);                              \
+    }                                                          \
+    return output;                                             \
+    break;                                                     \
   }
 
 SEXP rep_(SEXP x, int n) {
@@ -81,7 +81,8 @@ SEXP rep_each_(SEXP x, int n) {
 }
 
 // Optimized factor routine for the case where we want to make
-// a factor from a vector of names
+// a factor from a vector of names -- used for generating the
+// 'variable' column in the melted data.frame
 IntegerVector make_variable_column(CharacterVector x, int nrow) {
   IntegerVector fact = seq(1, x.size());
   IntegerVector output = rep_each_(fact, nrow);
@@ -90,11 +91,8 @@ IntegerVector make_variable_column(CharacterVector x, int nrow) {
   return output;
 }
 
-// helper for the id.vars, measure.vars passed -- we match
-// character vectors to the names (getting an integer index);
-// or coerce to integer otherwise
-
-// ensure that we index in the column range of the data
+// Ensure that we index in the column range of the data --
+// just to double-check everything went okay upstream
 void check_indices(IntegerVector ind, int ncol, std::string msg) {
   int n = ind.size();
   for (int i = 0; i < n; ++i) {
@@ -110,7 +108,7 @@ void check_indices(IntegerVector ind, int ncol, std::string msg) {
   }
 }
 
-// a concatenate helper macro
+// Concatenate vectors for the 'value' column
 #define DO_CONCATENATE(CTYPE)                                \
   {                                                          \
     memcpy((char*)dataptr(output) + i* nrow * sizeof(CTYPE), \
@@ -119,13 +117,13 @@ void check_indices(IntegerVector ind, int ncol, std::string msg) {
     break;                                                   \
   }
 
-// Concatenate vectors for the 'value' column
-// Note: we convert factors to characters if necessary
 SEXP concatenate(const DataFrame& x, IntegerVector ind) {
   int nrow = x.nrows();
   int n_ind = ind.size();
 
-  // We coerce up to the 'max type' if necessary
+  // We coerce up to the 'max type' if necessary, using the fact
+  // that R's SEXPTYPEs are also ordered in terms of 'precision'
+  // Note: we convert factors to characters if necessary
   int max_type = 0;
   int ctype = 0;
   for (int i = 0; i < n_ind; ++i) {
@@ -188,7 +186,7 @@ List melt_dataframe(const DataFrame& data,
   
   CharacterVector data_names = as<CharacterVector>( data.attr("names") );
 
-  // we only melt data.frames that contain only atomic elements
+  // We only melt data.frames that contain only atomic elements
   for (int i = 0; i < ncol; ++i) {
     if (!Rf_isVectorAtomic(data[i])) {
       stop("Can't melt data.frames with non-atomic columns");
@@ -206,16 +204,16 @@ List melt_dataframe(const DataFrame& data,
   // with number of rows == data.nrow() * number of value vars
   List output = no_init(n_id + 2);
 
-// First, allocate the ID variables
-// we repeat each ID vector n_measure times
-
-// A define to handle the different possible types
-#define REP(RTYPE)                                 \
-  case RTYPE: {                                    \
-    output[i] = rep_(data[id_ind[i]], n_measure);  \
-    Rf_copyMostAttrib(data[id_ind[i]], output[i]); \
-    break;                                         \
-  }
+  // First, allocate the ID variables
+  // we repeat each ID vector n_measure times
+  
+  // A define to handle the different possible types
+  #define REP(RTYPE)                                 \
+    case RTYPE: {                                    \
+      output[i] = rep_(data[id_ind[i]], n_measure);  \
+      Rf_copyMostAttrib(data[id_ind[i]], output[i]); \
+      break;                                         \
+    }
 
   for (int i = 0; i < n_id; ++i) {
     switch (TYPEOF(data[id_ind[i]])) {
@@ -224,7 +222,8 @@ List melt_dataframe(const DataFrame& data,
       REP(REALSXP);
       REP(STRSXP);
       REP(CPLXSXP);
-      default: { stop("Error: Unhandled vector type"); }
+      REP(RAWSXP);
+      default: { stop("internal error: unnhandled vector type in REP"); }
     }
   }
 
@@ -244,9 +243,12 @@ List melt_dataframe(const DataFrame& data,
   output[n_id + 1] = concatenate(data, measure_ind);
 
   // Make the List more data.frame like
+  
+  // Set the row names
   output.attr("row.names") =
       Rcpp::IntegerVector::create(Rcpp::IntegerVector::get_na(), -nrow);
 
+  // Set the names
   CharacterVector out_names = no_init(n_id + 2);
   for (int i = 0; i < n_id; ++i) {
     out_names[i] = data_names[id_ind[i]];
@@ -254,7 +256,8 @@ List melt_dataframe(const DataFrame& data,
   out_names[n_id] = variable_name;
   out_names[n_id + 1] = value_name;
   output.attr("names") = out_names;
-
+  
+  // Set the class
   output.attr("class") = "data.frame";
 
   return output;
