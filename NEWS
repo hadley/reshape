@@ -1,6 +1,9 @@
 Version 1.3.0.99
 ----------------
 
+* `melt.data.frame()` gains an internal Rcpp / C++ implementation, and
+  is now many orders of magnitudes faster. (Thanks to Kevin Ushey)
+
 * `melt.array()` gains a `as.is` argument which can be used to prevent 
   dimnames being converted with `type.convert()`
 
