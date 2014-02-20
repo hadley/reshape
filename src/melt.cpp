@@ -246,7 +246,9 @@ List melt_dataframe(const DataFrame& data,
   
   // Set the row names
   output.attr("row.names") =
-      IntegerVector::create(Rcpp::IntegerVector::get_na(), -(nrow * n_measure));
+      IntegerVector::create(
+        IntegerVector::get_na(), -(nrow * n_measure)
+      );
 
   // Set the names
   CharacterVector out_names = no_init(n_id + 2);
