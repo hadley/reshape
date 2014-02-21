@@ -108,7 +108,7 @@ test_that("aggregated values computed correctly", {
 test_that("value.var overrides value col", {
   df <- data.frame(
     id1 = rep(letters[1:2],2),
-    id2 = rep(LETTERS [1:2],each=2), var1=1:4)
+    id2 = rep(LETTERS[1:2],each=2), var1=1:4)
 
   df.m <- melt(df)
   df.m$value2 <- df.m$value * 2

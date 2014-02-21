@@ -98,3 +98,9 @@ test_that("as.is = TRUE suppresses dimnname conversion", {
   expect_true(is.character(out$y))
 
 })
+
+test_that("The 'variable' column is a factor after melting a data.frame", {
+  df <- data.frame(x=1:3, y=4:6)
+  df.m <- melt(df)
+  expect_true( is.factor(df.m$variable) )
+})

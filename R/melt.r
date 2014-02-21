@@ -106,28 +106,26 @@ melt.list <- function(data, ..., level = 1) {
 #' names(ChickWeight) <- tolower(names(ChickWeight))
 #' melt(ChickWeight, id=2:4)
 melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
-  var <- melt_check(data, id.vars, measure.vars)
-
-  ids <- unrowname(data[, var$id, drop = FALSE])
-  if (length(var$measure) == 0) {
-    return(ids)
-  }
-
-  # Turn factors to characters
-  factors <- vapply(data, is.factor, logical(1))
-  data[factors] <- lapply(data[factors], as.character)
-
-  value <- unlist(unname(data[var$measure]))
-  variable <- factor(rep(var$measure, each = nrow(data)),
-    levels = var$measure)
-
-  df <- data.frame(ids, variable, value, stringsAsFactors = FALSE)
-  names(df) <- c(names(ids), variable.name, value.name)
-
+  
+  ## Get the names of id.vars, measure.vars
+  vars <- melt_check(data, id.vars, measure.vars)
+  
+  ## Match them to indices in the data
+  id.ind <- match(vars$id, names(data))
+  measure.ind <- match(vars$measure, names(data))
+  
+  df <- melt_dataframe(
+    data,
+    as.integer(id.ind-1),
+    as.integer(measure.ind-1),
+    variable.name,
+    value.name
+  )
+  
   if (na.rm) {
-    subset(df, !is.na(value))
+    return(df[ !is.na(df[[value.name]]), ])
   } else {
-    df
+    return(df)
   }
 }
 
