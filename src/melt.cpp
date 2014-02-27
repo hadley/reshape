@@ -25,8 +25,18 @@ SEXP rep_(SEXP x, int n) {
       DO_REP(INTSXP, int, INTEGER);
     case REALSXP:
       DO_REP(REALSXP, double, REAL);
-    case STRSXP:
-      DO_REP(STRSXP, SEXP, STRING_PTR);
+    case STRSXP: {
+      int counter = 0;
+      Shield<SEXP> output(Rf_allocVector(STRSXP, nout));
+      for (int i=0; i < n; ++i) {
+        for (int j=0; j < xn; ++j) {
+          SET_STRING_ELT(output, counter, STRING_ELT(x, j));
+          ++counter;
+        }
+      }
+      return output;
+      break;
+    }
     case LGLSXP:
       DO_REP(LGLSXP, int, LOGICAL);
     case CPLXSXP:
@@ -65,7 +75,18 @@ SEXP rep_each_(SEXP x, int n) {
       DO_REP_EACH(INTSXP, int, INTEGER);
     case REALSXP:
       DO_REP_EACH(REALSXP, double, REAL);
-    case STRSXP:
+    case STRSXP: {
+      int counter = 0;
+      Shield<SEXP> output(Rf_allocVector(STRSXP, nout));
+      for (int i=0; i < xn; ++i) {
+        for (int j=0; j < n; ++j) {
+          SET_STRING_ELT(output, counter, STRING_ELT(x, i));
+          ++counter;
+        }
+      }
+      return output;
+      break;
+    }
       DO_REP_EACH(STRSXP, SEXP, STRING_PTR);
     case LGLSXP:
       DO_REP_EACH(LGLSXP, int, LOGICAL);
@@ -238,8 +259,6 @@ List melt_dataframe(const DataFrame& data,
   output[n_id] = make_variable_column(id_names, nrow);
 
   // 'value' is made by concatenating each of the 'value' variables
-
-  // TODO: handle in a cleaner fashion
   output[n_id + 1] = concatenate(data, measure_ind);
 
   // Make the List more data.frame like
