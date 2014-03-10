@@ -1,17 +1,15 @@
-Version 1.3.0.99
-----------------
+# Version 1.3.0.99
 
 * `melt.data.frame()` gains an internal Rcpp / C++ implementation, and
   is now many orders of magnitudes faster. (Thanks to Kevin Ushey)
 
-* `melt.array()` gains a `as.is` argument which can be used to prevent 
+* `melt.array()` gains a `as.is` argument which can be used to prevent
   dimnames being converted with `type.convert()`
 
-* Reshape now works better with `.` in specification, like `. ~ .` or 
+* Reshape now works better with `.` in specification, like `. ~ .` or
   `x + y ~ .`
 
-Version 1.2.2
--------------
+# Version 1.2.2
 
 * Fix incompatibility with plyr 1.8
 
@@ -20,14 +18,12 @@ Version 1.2.2
 * Fixed a bug in `melt` where it didn't automatically get variable names
   when used with tables. (Thanks to Winston Chang)
 
-Version 1.2.1
--------------
+# Version 1.2.1
 
 * Fix bug in multiple margins revealed by plyr 1.7, but caused by mis-use of
   data frame subsetting.
 
-Version 1.2 
------------
+# Version 1.2
 
 * Fixed bug in melt where factors were converted to integers, instead of to
   characters
@@ -36,7 +32,7 @@ Version 1.2
   character rather than throwing an error. `acast` still returns a factor
   matrix. (Thanks to Brian Diggs.)
 
-* `acast` is now much faster, due to fixing a very slow way of naming the 
+* `acast` is now much faster, due to fixing a very slow way of naming the
    output. (Thanks to José Bartolomei Díaz for the bug report)
 
 * `value_var` argument to `acast` and `dcast` renamed to `value.var` to be
@@ -46,8 +42,7 @@ Version 1.2
 
 * Corrected reshape citation.
 
-Version 1.1
------------
+# Version 1.1
 
 * `melt.data.frame` no longer turns characters into factors
 
