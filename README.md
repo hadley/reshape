@@ -1,4 +1,8 @@
-Reshape2 is a reboot of the reshape package. It's been over five years since the first release of the package, and in that time I've learned a tremendous amount about R programming, and how to work with data in R. Reshape2 uses that knowledge to make a new package for reshaping data that is much more focussed and much much faster.
+# Reshape2
+
+[![Build Status](https://travis-ci.org/hadley/reshape.png)](https://travis-ci.org/hadley/reshape)
+
+Reshape2 is a reboot of the reshape package. It's been over five years since the first release of reshape, and in that time I've learned a tremendous amount about R programming, and how to work with data in R. Reshape2 uses that knowledge to make a new package for reshaping data that is much more focussed and much much faster.
 
 This version improves speed at the cost of functionality, so I have renamed it to `reshape2` to avoid causing problems for existing users.  Based on user feedback I may reintroduce some of these features.
 
@@ -10,7 +14,7 @@ What's new in `reshape2`:
 
  * cast is replaced by two functions depending on the output type: `dcast`
    produces data frames, and `acast` produces matrices/arrays.
-   
+
  * multidimensional margins are now possible: `grand_row` and `grand_col` have
    been dropped: now the name of the margin refers to the variable that has
    its value set to (all).
@@ -31,3 +35,8 @@ What's new in `reshape2`:
 Initial benchmarking has shown `melt` to be up to 10x faster, pure reshaping `cast` up to 100x faster, and aggregating `cast()` up to 10x faster.
 
 This work has been generously supported by BD (Becton Dickinson).
+
+## Installation
+
+* Get the released version from cran: `install.packages("reshape2")`
+* Get the dev version from github: `devtools::install_github("hadley/reshape2")`
