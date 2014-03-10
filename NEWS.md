@@ -10,7 +10,8 @@
   `x + y ~ .`
 
 * `dcast()` and `acast()` gain a useful error message if you use `value_var`
-  intead of `value.var` (#16).
+  intead of `value.var` (#16), and if `value.var` doesn't exist (#9).
+
 
 # Version 1.2.2
 

@@ -196,3 +196,8 @@ test_that("useful error message if you use value_var", {
   expect_equal(dim(dcast(mtcars, vs ~ am, value.var = "cyl")), c(2, 3))
 
 })
+
+test_that("useful error message if value.var doesn't exist", {
+  expect_error(dcast(airquality, month ~ day, value.var = "test"),
+    "value.var (test) not found in input", fixed = TRUE)
+})

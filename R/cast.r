@@ -97,6 +97,9 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
   if (!missing(value_var)) {
     stop("Please use value.var instead of value_var.", call. = FALSE)
   }
+  if (!(value.var %in% names(data))) {
+    stop("value.var (", value.var, ") not found in input", call. = FALSE)
+  }
 
   if (!is.null(subset)) {
     include <- data.frame(eval.quoted(subset, data))
