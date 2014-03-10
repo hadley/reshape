@@ -106,14 +106,14 @@ melt.list <- function(data, ..., level = 1) {
 #' names(ChickWeight) <- tolower(names(ChickWeight))
 #' melt(ChickWeight, id=2:4)
 melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
-  
+
   ## Get the names of id.vars, measure.vars
   vars <- melt_check(data, id.vars, measure.vars)
-  
+
   ## Match them to indices in the data
   id.ind <- match(vars$id, names(data))
   measure.ind <- match(vars$measure, names(data))
-  
+
   df <- melt_dataframe(
     data,
     as.integer(id.ind-1),
@@ -121,7 +121,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
     variable.name,
     value.name
   )
-  
+
   if (na.rm) {
     return(df[ !is.na(df[[value.name]]), ])
   } else {
@@ -156,7 +156,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' melt(a, varnames=c("X","Y","Z"))
 #' dimnames(a)[1] <- list(NULL)
 #' melt(a)
-melt.array <- function(data, varnames = names(dimnames(data)), ..., 
+melt.array <- function(data, varnames = names(dimnames(data)), ...,
                        na.rm = FALSE, as.is = FALSE, value.name = "value") {
   var.convert <- function(x) if(is.character(x)) type.convert(x) else x
 
@@ -165,7 +165,7 @@ melt.array <- function(data, varnames = names(dimnames(data)), ...,
   if (!as.is) {
     dn <- lapply(dn, var.convert)
   }
-  
+
   labels <- expand.grid(dn, KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE)
 
@@ -235,7 +235,7 @@ melt_check <- function(data, id.vars, measure.vars) {
     if (length(id.vars) != 0) {
       message("Using ", paste(id.vars, collapse = ", "), " as id variables")
     } else {
-      message("Using all variables as measure variables")  
+      message("No id variables; using all as measure variables")
     }
   } else if (missing(id.vars)) {
     id.vars <- setdiff(varnames, measure.vars)
