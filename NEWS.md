@@ -9,6 +9,9 @@
 * Reshape now works better with `.` in specification, like `. ~ .` or
   `x + y ~ .`
 
+* `dcast()` and `acast()` gain a useful error message if you use `value_var`
+  intead of `value.var` (#16).
+
 # Version 1.2.2
 
 * Fix incompatibility with plyr 1.8

@@ -92,7 +92,11 @@
 #' @name cast
 NULL
 
-cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill = NULL, drop = TRUE, value.var = guess_value(data)) {
+cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill = NULL, drop = TRUE, value.var = guess_value(data), value_var) {
+
+  if (!missing(value_var)) {
+    stop("Please use value.var instead of value_var.", call. = FALSE)
+  }
 
   if (!is.null(subset)) {
     include <- data.frame(eval.quoted(subset, data))
@@ -108,19 +112,19 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
 
   # Compute labels and id values
   ids <- lapply(vars, id, drop = drop)
-  
+
   # Empty specifications (.) get repeated id
   is_empty <- vapply(ids, length, integer(1)) == 0
   empty <- structure(rep(1, nrow(data)), n = 1L)
   ids[is_empty] <- rep(list(empty), sum(is_empty))
-  
+
   labels <- mapply(split_labels, vars, ids, MoreArgs = list(drop = drop),
     SIMPLIFY = FALSE, USE.NAMES = FALSE)
   labels[is_empty] <- rep(list(data.frame(. = ".")), sum(is_empty))
-  
+
   overall <- id(rev(ids), drop = FALSE)
   n <- attr(overall, "n")
-  
+
   # Aggregate duplicates
   if (any(duplicated(overall)) || !is.null(fun.aggregate)) {
     if (is.null(fun.aggregate)) {
@@ -145,10 +149,10 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
       ordered[is.na(ordered)] <- fill
     }
   }
-  
+
   ns <- vapply(ids, attr, double(1), "n")
   dim(ordered) <- ns
-  
+
   list(
     data = ordered,
     labels = labels

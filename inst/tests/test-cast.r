@@ -185,7 +185,14 @@ test_that(". ~ . returns single value", {
 test_that("drop = TRUE retains NA values", {
   df <- data.frame(x = 1:5, y = c(letters[1:4], NA), value = 5:1)
   out <- dcast(df, x + y ~ .)
-  
+
   expect_equal(dim(out), c(5, 3))
-  expect_equal(out$., 5:1)  
+  expect_equal(out$., 5:1)
+})
+
+test_that("useful error message if you use value_var", {
+  expect_error(dcast(mtcars, vs ~ am, value_var = "cyl"),
+    "Please use value.var", fixed = TRUE)
+  expect_equal(dim(dcast(mtcars, vs ~ am, value.var = "cyl")), c(2, 3))
+
 })
