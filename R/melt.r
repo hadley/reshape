@@ -114,12 +114,21 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   id.ind <- match(vars$id, names(data))
   measure.ind <- match(vars$measure, names(data))
 
+  ## Get the common classes from the measure variables
+  measure.classes <- Reduce(intersect, lapply(measure.ind, function(i) {
+    attr( data[[i]], "class" )
+  }))
+
+  ## Factors can muck things up
+  measure.classes <- setdiff(measure.classes, c("ordered", "factor"))
+
   df <- melt_dataframe(
     data,
     as.integer(id.ind-1),
     as.integer(measure.ind-1),
     variable.name,
-    value.name
+    value.name,
+    measure.classes
   )
 
   if (na.rm) {

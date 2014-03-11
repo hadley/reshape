@@ -200,11 +200,12 @@ List melt_dataframe(const DataFrame& data,
                     const IntegerVector& id_ind,
                     const IntegerVector& measure_ind,
                     String variable_name,
-                    String value_name) {
+                    String value_name,
+                    SEXP measure_classes) {
 
   int nrow = data.nrows();
   int ncol = data.size();
-  
+
   CharacterVector data_names = as<CharacterVector>( data.attr("names") );
 
   // We only melt data.frames that contain only atomic elements
@@ -227,7 +228,7 @@ List melt_dataframe(const DataFrame& data,
 
   // First, allocate the ID variables
   // we repeat each ID vector n_measure times
-  
+
   // A define to handle the different possible types
   #define REP(RTYPE)                                 \
     case RTYPE: {                                    \
@@ -260,9 +261,12 @@ List melt_dataframe(const DataFrame& data,
 
   // 'value' is made by concatenating each of the 'value' variables
   output[n_id + 1] = concatenate(data, measure_ind);
+  if (!Rf_isNull(measure_classes)) {
+    Rf_setAttrib( output[n_id + 1], R_ClassSymbol, measure_classes );
+  }
 
   // Make the List more data.frame like
-  
+
   // Set the row names
   output.attr("row.names") =
       IntegerVector::create(
@@ -277,7 +281,7 @@ List melt_dataframe(const DataFrame& data,
   out_names[n_id] = variable_name;
   out_names[n_id + 1] = value_name;
   output.attr("names") = out_names;
-  
+
   // Set the class
   output.attr("class") = "data.frame";
 

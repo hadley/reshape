@@ -92,7 +92,7 @@ test_that("dimnames are preserved with arrays and tables", {
 test_that("as.is = TRUE suppresses dimnname conversion", {
   x <- matrix(nrow = 2, ncol = 2)
   dimnames(x) <- list(x = 1:2, y = 3:4)
-  
+
   out <- melt(x, as.is = TRUE)
   expect_true(is.character(out$x))
   expect_true(is.character(out$y))
@@ -103,4 +103,10 @@ test_that("The 'variable' column is a factor after melting a data.frame", {
   df <- data.frame(x=1:3, y=4:6)
   df.m <- melt(df)
   expect_true( is.factor(df.m$variable) )
+})
+
+test_that("Common classes are preserved in measure variables", {
+  df <- data.frame(id = 1:2, date1 = Sys.Date(), date2 = Sys.Date() + 10)
+  m <- melt(df, measure.vars=c("date1", "date2"))
+  expect_true( class(m$value) == "Date" )
 })
