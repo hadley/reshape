@@ -48,7 +48,7 @@ test_that("factors coerced to characters, not integers", {
     id = 1:3,
     v1 = 1:3,
     v2 = factor(letters[1:3]))
-  dfm <- melt(df, 1)
+  expect_warning(dfm <- melt(df, 1))
 
   expect_equal(dfm$value, c(1:3, letters[1:3]))
 })

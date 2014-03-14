@@ -133,11 +133,6 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
     measure.attributes <- NULL
   }
 
-  ## Factors can muck things up
-  if (any(measure.attributes$class %in% c("ordered", "factor"))) {
-    measure.attributes <- NULL
-  }
-
   df <- melt_dataframe(
     data,
     as.integer(id.ind-1),
