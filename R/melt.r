@@ -118,35 +118,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   measure.ind <- match(vars$measure, names(data))
 
   ## Get the attributes if common, NULL if not
-  measure.attributes <- lapply(measure.ind, function(i) {
-    attributes(data[[i]])
-  })
-
-  ## Determine if all measure.attributes are equal
-  measure.attrs.equal <- all_identical(measure.attributes)
-
-  if (measure.attrs.equal) {
-    measure.attributes <- measure.attributes[[1]]
-  } else {
-    warning("attributes are not identical across measure variables; ",
-      "they will be dropped")
-    measure.attributes <- NULL
-  }
-
-  if (!factorsAsStrings && !measure.attrs.equal) {
-    warning("cannot avoid coercion of factors when measure attributes not identical")
-    factorsAsStrings <- FALSE
-  }
-
-  ## If we are going to be coercing any factors to strings, we don't want to
-  ## copy the attributes
-  any.factors <- any( sapply( measure.ind, function(i) {
-    is.factor( data[[i]] )
-  }))
-
-  if (factorsAsStrings && any.factors) {
-    measure.attributes <- NULL
-  }
+  measure.attributes <- get_measure_attributes(data, measure.ind, factorsAsStrings)
 
   df <- melt_dataframe(
     data,
