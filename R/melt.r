@@ -96,6 +96,9 @@ melt.list <- function(data, ..., level = 1) {
 #' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
+#' @param factorsAsStrings Control whether factors are converted to character
+#'   when melted as measure variables. When \code{FALSE}, coercion is forced if
+#'   levels are not identical across the \code{measure.vars}.
 #' @family melt methods
 #' @keywords manip
 #' @seealso \code{\link{cast}}
@@ -105,7 +108,7 @@ melt.list <- function(data, ..., level = 1) {
 #' melt(airquality, id=c("month", "day"))
 #' names(ChickWeight) <- tolower(names(ChickWeight))
 #' melt(ChickWeight, id=2:4)
-melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
+melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value", factorsAsStrings = TRUE) {
 
   ## Get the names of id.vars, measure.vars
   vars <- melt_check(data, id.vars, measure.vars)
@@ -120,16 +123,31 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   })
 
   ## Determine if all measure.attributes are equal
-  measure.equal <- identical(
+  measure.attrs.equal <- identical(
     Reduce(intersect, measure.attributes),
     Reduce(union, measure.attributes)
   )
 
-  if (measure.equal) {
+  if (measure.attrs.equal) {
     measure.attributes <- measure.attributes[[1]]
   } else {
     warning("attributes are not identical across measure variables; ",
       "they will be dropped")
+    measure.attributes <- NULL
+  }
+
+  if (!factorsAsStrings && !measure.attrs.equal) {
+    warning("cannot avoid coercion of factors when measure attributes not identical")
+    factorsAsStrings <- FALSE
+  }
+
+  ## If we are going to be coercing any factors to strings, we don't want to
+  ## copy the attributes
+  any.factors <- any( sapply( measure.ind, function(i) {
+    is.factor( data[[i]] )
+  }))
+
+  if (factorsAsStrings && any.factors) {
     measure.attributes <- NULL
   }
 
@@ -139,7 +157,8 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
     as.integer(measure.ind-1),
     variable.name,
     value.name,
-    as.pairlist(measure.attributes)
+    as.pairlist(measure.attributes),
+    as.logical(factorsAsStrings)
   )
 
   if (na.rm) {

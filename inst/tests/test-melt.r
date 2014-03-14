@@ -128,3 +128,16 @@ test_that("A warning is thrown when attributes are dropped in measure variables"
   )
   expect_warning( melt(df, measure.vars=c("date1", "date2")) )
 })
+
+test_that("factorsAsStrings behaves as expected", {
+  df <- data.frame(
+    id=1:2,
+    f1=factor(c("a", "b")),
+    f2=factor(c("b", "a"))
+  )
+  m1 <- melt(df, 1, factorsAsStrings=TRUE)
+  expect_identical( class(m1$value), "character" )
+
+  m2 <- melt(df, 1, factorsAsStrings=FALSE)
+  expect_identical( class(m2$value), "factor" )
+})
