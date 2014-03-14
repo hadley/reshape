@@ -123,10 +123,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   })
 
   ## Determine if all measure.attributes are equal
-  measure.attrs.equal <- identical(
-    Reduce(intersect, measure.attributes),
-    Reduce(union, measure.attributes)
-  )
+  measure.attrs.equal <- all_identical(measure.attributes)
 
   if (measure.attrs.equal) {
     measure.attributes <- measure.attributes[[1]]
