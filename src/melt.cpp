@@ -201,7 +201,7 @@ List melt_dataframe(const DataFrame& data,
                     const IntegerVector& measure_ind,
                     String variable_name,
                     String value_name,
-                    SEXP measure_classes) {
+                    SEXP measure_attributes) {
 
   int nrow = data.nrows();
   int ncol = data.size();
@@ -261,8 +261,8 @@ List melt_dataframe(const DataFrame& data,
 
   // 'value' is made by concatenating each of the 'value' variables
   output[n_id + 1] = concatenate(data, measure_ind);
-  if (!Rf_isNull(measure_classes)) {
-    Rf_setAttrib( output[n_id + 1], R_ClassSymbol, measure_classes );
+  if (!Rf_isNull(measure_attributes)) {
+    SET_ATTRIB( output[n_id + 1], measure_attributes );
   }
 
   // Make the List more data.frame like

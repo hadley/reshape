@@ -114,13 +114,29 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   id.ind <- match(vars$id, names(data))
   measure.ind <- match(vars$measure, names(data))
 
-  ## Get the common classes from the measure variables
-  measure.classes <- Reduce(intersect, lapply(measure.ind, function(i) {
-    attr( data[[i]], "class" )
-  }))
+  ## Get the attributes if common, NULL if not
+  measure.attributes <- lapply(measure.ind, function(i) {
+    attributes(data[[i]])
+  })
+
+  ## Determine if all measure.attributes are equal
+  measure.equal <- identical(
+    Reduce(intersect, measure.attributes),
+    Reduce(union, measure.attributes)
+  )
+
+  if (measure.equal) {
+    measure.attributes <- measure.attributes[[1]]
+  } else {
+    warning("attributes are not identical across measure variables; ",
+      "they will be dropped")
+    measure.attributes <- NULL
+  }
 
   ## Factors can muck things up
-  measure.classes <- setdiff(measure.classes, c("ordered", "factor"))
+  if (any(measure.attributes$class %in% c("ordered", "factor"))) {
+    measure.attributes <- NULL
+  }
 
   df <- melt_dataframe(
     data,
@@ -128,7 +144,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
     as.integer(measure.ind-1),
     variable.name,
     value.name,
-    measure.classes
+    as.pairlist(measure.attributes)
   )
 
   if (na.rm) {

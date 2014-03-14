@@ -110,3 +110,21 @@ test_that("Common classes are preserved in measure variables", {
   m <- melt(df, measure.vars=c("date1", "date2"))
   expect_true( class(m$value) == "Date" )
 })
+
+test_that("Common attributes are preserved in measure variables", {
+  df <- data.frame(
+    id = 1:2,
+    date1 = as.POSIXct( Sys.Date() ),
+    date2 = as.POSIXct( Sys.Date() + 10)
+  )
+  m <- melt(df, measure.vars=c("date1", "date2"))
+})
+
+test_that("A warning is thrown when attributes are dropped in measure variables", {
+  df <- data.frame(
+    id=1:2,
+    date1 = as.POSIXct( Sys.Date() ),
+    date2 = Sys.Date() + 10
+  )
+  expect_warning( melt(df, measure.vars=c("date1", "date2")) )
+})

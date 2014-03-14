@@ -1,6 +1,7 @@
 # Version 1.3.0.99
 
-* `melt.data.frame()` preserves shared classes for measure variables.
+* `melt.data.frame()` preserves identical attributes for measure variables,
+  and now throws a warning if they are dropped.
 
 * `melt.data.frame()` gains an internal Rcpp / C++ implementation, and
   is now many orders of magnitudes faster. (Thanks to Kevin Ushey)
