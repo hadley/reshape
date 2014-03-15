@@ -3,7 +3,7 @@
 \alias{melt_check}
 \title{Check that input variables to melt are appropriate.}
 \usage{
-melt_check(data, id.vars, measure.vars)
+melt_check(data, id.vars, measure.vars, variable.name, value.name)
 }
 \arguments{
   \item{data}{data frame}

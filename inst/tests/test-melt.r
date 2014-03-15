@@ -149,4 +149,8 @@ test_that("factorsAsStrings behaves as expected", {
     f2=factor(c("c", "d"))
   )
   expect_warning(melt(df, 1))
+
+  expect_warning(m <- melt(df, 1, factorsAsStrings = FALSE))
+  expect_identical( class(m$value), "character" )
+
 })

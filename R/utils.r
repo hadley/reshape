@@ -9,7 +9,7 @@ all_identical <- function(xs) {
 }
 
 ## Get the attributes if common, NULL if not.
-get_measure_attributes <- function(data, measure.ind, factorsAsStrings) {
+normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
 
   measure.attributes <- lapply(measure.ind, function(i) {
     attributes(data[[i]])
@@ -42,6 +42,13 @@ get_measure_attributes <- function(data, measure.ind, factorsAsStrings) {
     measure.attributes <- NULL
   }
 
-  return(measure.attributes)
+  list(
+    measure.attributes = measure.attributes,
+    factorsAsStrings = factorsAsStrings
+  )
 
+}
+
+is.string <- function(x) {
+  is.character(x) && length(x) == 1
 }
