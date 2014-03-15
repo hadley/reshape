@@ -22,13 +22,14 @@ get_measure_attributes <- function(data, measure.ind, factorsAsStrings) {
     measure.attributes <- measure.attributes[[1]]
   } else {
     warning("attributes are not identical across measure variables; ",
-      "they will be dropped")
+      "they will be dropped", call. = FALSE)
     measure.attributes <- NULL
   }
 
   if (!factorsAsStrings && !measure.attrs.equal) {
-    warning("cannot avoid coercion of factors when measure attributes not identical")
-    factorsAsStrings <- FALSE
+    warning("cannot avoid coercion of factors when measure attributes not identical",
+      call. = FALSE)
+    factorsAsStrings <- TRUE
   }
 
   ## If we are going to be coercing any factors to strings, we don't want to
