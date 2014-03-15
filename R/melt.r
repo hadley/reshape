@@ -119,8 +119,8 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 
   ## Get the attributes if common, NULL if not.
   args <- normalize_melt_arguments(data, measure.ind, factorsAsStrings)
-  measure.attributes <- args[["measure.attributes"]]
-  factorsAsStrings <- args[["factorsAsStrings"]]
+  measure.attributes <- args$measure.attributes
+  factorsAsStrings <- args$factorsAsStrings
 
   df <- melt_dataframe(
     data,
