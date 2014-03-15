@@ -13,6 +13,11 @@ melt_check(data, id.vars, measure.vars, variable.name, value.name)
 
   \item{measure.vars}{vector of Measured variable names or
   indexes}
+
+  \item{variable.name}{name of variable used to store
+  measured variable names}
+
+  \item{value.name}{name of variable used to store values}
 }
 \value{
 a list giving id and measure variables names.

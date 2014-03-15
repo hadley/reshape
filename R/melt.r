@@ -208,6 +208,8 @@ melt.matrix <- melt.array
 #' @param data data frame
 #' @param id.vars vector of identifying variable names or indexes
 #' @param measure.vars vector of Measured variable names or indexes
+#' @param variable.name name of variable used to store measured variable names
+#' @param value.name name of variable used to store values
 #' @return a list giving id and measure variables names.
 melt_check <- function(data, id.vars, measure.vars, variable.name, value.name) {
   varnames <- names(data)
