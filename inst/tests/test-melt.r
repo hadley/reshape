@@ -48,7 +48,7 @@ test_that("factors coerced to characters, not integers", {
     id = 1:3,
     v1 = 1:3,
     v2 = factor(letters[1:3]))
-  dfm <- melt(df, 1)
+  expect_warning(dfm <- melt(df, 1))
 
   expect_equal(dfm$value, c(1:3, letters[1:3]))
 })
@@ -92,7 +92,7 @@ test_that("dimnames are preserved with arrays and tables", {
 test_that("as.is = TRUE suppresses dimnname conversion", {
   x <- matrix(nrow = 2, ncol = 2)
   dimnames(x) <- list(x = 1:2, y = 3:4)
-  
+
   out <- melt(x, as.is = TRUE)
   expect_true(is.character(out$x))
   expect_true(is.character(out$y))
@@ -103,4 +103,54 @@ test_that("The 'variable' column is a factor after melting a data.frame", {
   df <- data.frame(x=1:3, y=4:6)
   df.m <- melt(df)
   expect_true( is.factor(df.m$variable) )
+})
+
+test_that("Common classes are preserved in measure variables", {
+  df <- data.frame(id = 1:2, date1 = Sys.Date(), date2 = Sys.Date() + 10)
+  m <- melt(df, measure.vars=c("date1", "date2"))
+  expect_true( class(m$value) == "Date" )
+})
+
+test_that("Common attributes are preserved in measure variables", {
+  df <- data.frame(
+    id = 1:2,
+    date1 = as.POSIXct( Sys.Date() ),
+    date2 = as.POSIXct( Sys.Date() + 10)
+  )
+  m <- melt(df, measure.vars=c("date1", "date2"))
+})
+
+test_that("A warning is thrown when attributes are dropped in measure variables", {
+  df <- data.frame(
+    id=1:2,
+    date1 = as.POSIXct( Sys.Date() ),
+    date2 = Sys.Date() + 10
+  )
+  expect_warning( melt(df, measure.vars=c("date1", "date2")) )
+})
+
+test_that("factorsAsStrings behaves as expected", {
+  ## factors with identical levels -> staying as factor is okay
+  df <- data.frame(
+    id=1:2,
+    f1=factor(c("a", "b")),
+    f2=factor(c("b", "a"))
+  )
+  m1 <- melt(df, 1, factorsAsStrings=TRUE)
+  expect_identical( class(m1$value), "character" )
+
+  m2 <- melt(df, 1, factorsAsStrings=FALSE)
+  expect_identical( class(m2$value), "factor" )
+
+  ## factors with different levels -> convert to character to be safe
+  df <- data.frame(
+    id=1:2,
+    f1=factor(c("a", "b")),
+    f2=factor(c("c", "d"))
+  )
+  expect_warning(melt(df, 1))
+
+  expect_warning(m <- melt(df, 1, factorsAsStrings = FALSE))
+  expect_identical( class(m$value), "character" )
+
 })

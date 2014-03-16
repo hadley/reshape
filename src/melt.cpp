@@ -28,8 +28,8 @@ SEXP rep_(SEXP x, int n) {
     case STRSXP: {
       int counter = 0;
       Shield<SEXP> output(Rf_allocVector(STRSXP, nout));
-      for (int i=0; i < n; ++i) {
-        for (int j=0; j < xn; ++j) {
+      for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < xn; ++j) {
           SET_STRING_ELT(output, counter, STRING_ELT(x, j));
           ++counter;
         }
@@ -78,8 +78,8 @@ SEXP rep_each_(SEXP x, int n) {
     case STRSXP: {
       int counter = 0;
       Shield<SEXP> output(Rf_allocVector(STRSXP, nout));
-      for (int i=0; i < xn; ++i) {
-        for (int j=0; j < n; ++j) {
+      for (int i = 0; i < xn; ++i) {
+        for (int j = 0; j < n; ++j) {
           SET_STRING_ELT(output, counter, STRING_ELT(x, i));
           ++counter;
         }
@@ -138,7 +138,8 @@ void check_indices(IntegerVector ind, int ncol, std::string msg) {
     break;                                                   \
   }
 
-SEXP concatenate(const DataFrame& x, IntegerVector ind) {
+SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
+
   int nrow = x.nrows();
   int n_ind = ind.size();
 
@@ -148,7 +149,8 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind) {
   int max_type = 0;
   int ctype = 0;
   for (int i = 0; i < n_ind; ++i) {
-    if (Rf_isFactor(x[ind[i]])) {
+
+    if (Rf_isFactor(x[ind[i]]) and factorsAsStrings) {
       ctype = STRSXP;
     } else {
       ctype = TYPEOF(x[ind[i]]);
@@ -166,7 +168,7 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind) {
     // a coerced version if necessary
     if (TYPEOF(x[ind[i]]) == max_type) {
       tmp = x[ind[i]];
-    } else if (Rf_isFactor(x[ind[i]])) {
+    } else if (Rf_isFactor(x[ind[i]]) and factorsAsStrings) {
       tmp = Rf_asCharacterFactor(x[ind[i]]);
     } else {
       tmp = Rf_coerceVector(x[ind[i]], max_type);
@@ -200,12 +202,14 @@ List melt_dataframe(const DataFrame& data,
                     const IntegerVector& id_ind,
                     const IntegerVector& measure_ind,
                     String variable_name,
-                    String value_name) {
+                    String value_name,
+                    SEXP measure_attributes,
+                    bool factorsAsStrings) {
 
   int nrow = data.nrows();
   int ncol = data.size();
-  
-  CharacterVector data_names = as<CharacterVector>( data.attr("names") );
+
+  CharacterVector data_names = as<CharacterVector>(data.attr("names"));
 
   // We only melt data.frames that contain only atomic elements
   for (int i = 0; i < ncol; ++i) {
@@ -227,7 +231,7 @@ List melt_dataframe(const DataFrame& data,
 
   // First, allocate the ID variables
   // we repeat each ID vector n_measure times
-  
+
   // A define to handle the different possible types
   #define REP(RTYPE)                                 \
     case RTYPE: {                                    \
@@ -259,15 +263,16 @@ List melt_dataframe(const DataFrame& data,
   output[n_id] = make_variable_column(id_names, nrow);
 
   // 'value' is made by concatenating each of the 'value' variables
-  output[n_id + 1] = concatenate(data, measure_ind);
+  output[n_id + 1] = concatenate(data, measure_ind, factorsAsStrings);
+  if (!Rf_isNull(measure_attributes)) {
+    SET_ATTRIB(output[n_id + 1], measure_attributes);
+  }
 
   // Make the List more data.frame like
-  
+
   // Set the row names
   output.attr("row.names") =
-      IntegerVector::create(
-        IntegerVector::get_na(), -(nrow * n_measure)
-      );
+      IntegerVector::create(IntegerVector::get_na(), -(nrow * n_measure));
 
   // Set the names
   CharacterVector out_names = no_init(n_id + 2);
@@ -277,7 +282,7 @@ List melt_dataframe(const DataFrame& data,
   out_names[n_id] = variable_name;
   out_names[n_id + 1] = value_name;
   output.attr("names") = out_names;
-  
+
   // Set the class
   output.attr("class") = "data.frame";
 

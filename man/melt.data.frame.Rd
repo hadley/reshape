@@ -4,7 +4,8 @@
 \title{Melt a data frame into form suitable for easy casting.}
 \usage{
 \method{melt}{data.frame}(data, id.vars, measure.vars,
-  variable.name = "variable", ..., na.rm = FALSE, value.name = "value")
+  variable.name = "variable", ..., na.rm = FALSE, value.name = "value",
+  factorsAsStrings = TRUE)
 }
 \arguments{
   \item{data}{data frame to melt}
@@ -28,6 +29,11 @@
 
   \item{...}{further arguments passed to or from other
   methods.}
+
+  \item{factorsAsStrings}{Control whether factors are
+  converted to character when melted as measure variables.
+  When \code{FALSE}, coercion is forced if levels are not
+  identical across the \code{measure.vars}.}
 }
 \description{
 You need to tell melt which of your variables are id variables, and which

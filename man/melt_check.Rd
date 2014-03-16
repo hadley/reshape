@@ -3,7 +3,7 @@
 \alias{melt_check}
 \title{Check that input variables to melt are appropriate.}
 \usage{
-melt_check(data, id.vars, measure.vars)
+melt_check(data, id.vars, measure.vars, variable.name, value.name)
 }
 \arguments{
   \item{data}{data frame}
@@ -13,6 +13,11 @@ melt_check(data, id.vars, measure.vars)
 
   \item{measure.vars}{vector of Measured variable names or
   indexes}
+
+  \item{variable.name}{name of variable used to store
+  measured variable names}
+
+  \item{value.name}{name of variable used to store values}
 }
 \value{
 a list giving id and measure variables names.

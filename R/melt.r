@@ -96,6 +96,9 @@ melt.list <- function(data, ..., level = 1) {
 #' @param na.rm Should NA values be removed from the data set? This will
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
+#' @param factorsAsStrings Control whether factors are converted to character
+#'   when melted as measure variables. When \code{FALSE}, coercion is forced if
+#'   levels are not identical across the \code{measure.vars}.
 #' @family melt methods
 #' @keywords manip
 #' @seealso \code{\link{cast}}
@@ -105,21 +108,28 @@ melt.list <- function(data, ..., level = 1) {
 #' melt(airquality, id=c("month", "day"))
 #' names(ChickWeight) <- tolower(names(ChickWeight))
 #' melt(ChickWeight, id=2:4)
-melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value") {
+melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variable", ..., na.rm = FALSE, value.name = "value", factorsAsStrings = TRUE) {
 
   ## Get the names of id.vars, measure.vars
-  vars <- melt_check(data, id.vars, measure.vars)
+  vars <- melt_check(data, id.vars, measure.vars, variable.name, value.name)
 
   ## Match them to indices in the data
   id.ind <- match(vars$id, names(data))
   measure.ind <- match(vars$measure, names(data))
 
+  ## Get the attributes if common, NULL if not.
+  args <- normalize_melt_arguments(data, measure.ind, factorsAsStrings)
+  measure.attributes <- args$measure.attributes
+  factorsAsStrings <- args$factorsAsStrings
+
   df <- melt_dataframe(
     data,
     as.integer(id.ind-1),
     as.integer(measure.ind-1),
-    variable.name,
-    value.name
+    as.character(variable.name),
+    as.character(value.name),
+    as.pairlist(measure.attributes),
+    as.logical(factorsAsStrings)
   )
 
   if (na.rm) {
@@ -198,8 +208,10 @@ melt.matrix <- melt.array
 #' @param data data frame
 #' @param id.vars vector of identifying variable names or indexes
 #' @param measure.vars vector of Measured variable names or indexes
+#' @param variable.name name of variable used to store measured variable names
+#' @param value.name name of variable used to store values
 #' @return a list giving id and measure variables names.
-melt_check <- function(data, id.vars, measure.vars) {
+melt_check <- function(data, id.vars, measure.vars, variable.name, value.name) {
   varnames <- names(data)
 
   # Convert positions to names
@@ -242,6 +254,12 @@ melt_check <- function(data, id.vars, measure.vars) {
   } else if (missing(measure.vars)) {
     measure.vars <- setdiff(varnames, id.vars)
   }
+
+  # Ensure variable names are characters of length one
+  if (!is.string(variable.name))
+    stop("'variable.name' should be a string", call. = FALSE)
+  if (!is.string(value.name))
+    stop("'value.name' should be a string", call. = FALSE)
 
   list(id = id.vars, measure = measure.vars)
 }
