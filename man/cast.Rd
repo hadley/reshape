@@ -6,11 +6,11 @@
 Cast a molten data frame into an array or data frame.}
 \usage{
 dcast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
-  margin_label = "(all)", subset = NULL, fill = NULL, drop = TRUE,
+  margin.label = "(all)", subset = NULL, fill = NULL, drop = TRUE,
   value.var = guess_value(data))
 
 acast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
-  margin_label = "(all)", subset = NULL, fill = NULL, drop = TRUE,
+  margin.label = "(all)", subset = NULL, fill = NULL, drop = TRUE,
   value.var = guess_value(data))
 }
 \arguments{
@@ -32,7 +32,7 @@ acast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
   variables that can not be margined over will be silently
   dropped.}
 
-  \item{margin_label}{character label for margin total rows
+  \item{margin.label}{character label for margin total rows
   and columns.  Default to "(all)".}
 
   \item{subset}{quoted expression used to subset data prior

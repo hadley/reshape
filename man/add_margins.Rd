@@ -2,7 +2,7 @@
 \alias{add_margins}
 \title{Add margins to a data frame.}
 \usage{
-add_margins(df, vars, margins = TRUE, margin_label = "(all)")
+add_margins(df, vars, margins = TRUE, margin.label = "(all)")
 }
 \arguments{
   \item{df}{input data frame}
@@ -14,7 +14,7 @@ add_margins(df, vars, margins = TRUE, margin_label = "(all)")
   compute margins for.  \code{TRUE} will compute all
   possible margins.}
 
-  \item{margin_label}{character label for margin rows;
+  \item{margin.label}{character label for margin rows;
   defaults to "(all)".}
 }
 \description{

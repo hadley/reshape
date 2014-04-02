@@ -55,7 +55,7 @@ downto <- function(a, b) {
 #'   dimension
 #' @param margins a character vector of variable names to compute margins for.
 #'   \code{TRUE} will compute all possible margins.
-#' @param margin_label character label for margin rows; defaults to "(all)".
+#' @param margin.label character label for margin rows; defaults to "(all)".
 #' @export
 add_margins <- function(df, vars, margins = TRUE, margin.label = "(all)") {
   margin_vars <- margins(vars, margins)
