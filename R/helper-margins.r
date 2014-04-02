@@ -57,7 +57,7 @@ downto <- function(a, b) {
 #'   \code{TRUE} will compute all possible margins.
 #' @param margin_label character label for margin rows; defaults to "(all)".
 #' @export
-add_margins <- function(df, vars, margins = TRUE, margin_label = "(all)") {
+add_margins <- function(df, vars, margins = TRUE, margin.label = "(all)") {
   margin_vars <- margins(vars, margins)
 
   # Return data frame if no margining necessary
@@ -66,7 +66,7 @@ add_margins <- function(df, vars, margins = TRUE, margin_label = "(all)") {
   # Prepare data frame for addition of margins
   addAll <- function(x) {
     x <- addNA(x, TRUE)
-    factor(x, levels = c(levels(x), margin_label), exclude = NULL)
+    factor(x, levels = c(levels(x), margin.label), exclude = NULL)
   }
   vars <- unique(unlist(margin_vars))
   df[vars] <- lapply(df[vars], addAll)

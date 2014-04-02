@@ -33,7 +33,7 @@
 #' @param margins vector of variable names to compute margins for, or TRUE 
 #'   to compute all margins. Any variables that can not be margined over will 
 #'   be silently dropped.
-#' @param margin_label character label for margin total rows and columns.
+#' @param margin.label character label for margin total rows and columns.
 #'   Default to "(all)".
 #' @param subset quoted expression used to subset data prior to reshaping,
 #'   e.g. \code{subset = .(variable=="length")}.
@@ -166,7 +166,7 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
 
 #' @rdname cast
 #' @export
-dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, margin_label = "(all)", subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data))  {
+dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, margin.label = "(all)", subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data))  {
 
   formula <- parse_formula(formula, names(data), value.var)
   if (length(formula) > 2) {
@@ -174,7 +174,7 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, marg
   }
 
   if (!is.null(margins)) {
-    data <- add_margins(data, lapply(formula, names), margins, margin_label)
+    data <- add_margins(data, lapply(formula, names), margins, margin.label)
   }
 
   res <- cast(data, formula, fun.aggregate, ...,
@@ -190,12 +190,12 @@ dcast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, marg
 
 #' @rdname cast
 #' @export
-acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, margin_label = "(all)", subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data)) {
+acast <- function(data, formula, fun.aggregate = NULL, ..., margins = NULL, margin.label = "(all)", subset = NULL, fill=NULL, drop = TRUE, value.var = guess_value(data)) {
 
   formula <- parse_formula(formula, names(data), value.var)
 
   if (!is.null(margins)) {
-    data <- add_margins(data, lapply(formula, names), margins, margin_label)
+    data <- add_margins(data, lapply(formula, names), margins, margin.label)
   }
 
   res <- cast(data, formula, fun.aggregate, ...,
