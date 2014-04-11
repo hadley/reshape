@@ -121,6 +121,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   args <- normalize_melt_arguments(data, measure.ind, factorsAsStrings)
   measure.attributes <- args$measure.attributes
   factorsAsStrings <- args$factorsAsStrings
+  valueAsFactor <- "factor" %in% measure.attributes$class
 
   df <- melt_dataframe(
     data,
@@ -129,7 +130,8 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
     as.character(variable.name),
     as.character(value.name),
     as.pairlist(measure.attributes),
-    as.logical(factorsAsStrings)
+    as.logical(factorsAsStrings),
+    as.logical(valueAsFactor)
   )
 
   if (na.rm) {

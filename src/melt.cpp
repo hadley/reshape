@@ -204,7 +204,8 @@ List melt_dataframe(const DataFrame& data,
                     String variable_name,
                     String value_name,
                     SEXP measure_attributes,
-                    bool factorsAsStrings) {
+                    bool factorsAsStrings,
+                    bool valueAsFactor) {
 
   int nrow = data.nrows();
   int ncol = data.size();
@@ -266,6 +267,12 @@ List melt_dataframe(const DataFrame& data,
   output[n_id + 1] = concatenate(data, measure_ind, factorsAsStrings);
   if (!Rf_isNull(measure_attributes)) {
     SET_ATTRIB(output[n_id + 1], measure_attributes);
+  }
+
+  // Set the object bit explicitly to make sure that the 'value' is properly
+  // interpreted as a factor
+  if (valueAsFactor) {
+    SET_OBJECT(output[n_id + 1], 1);
   }
 
   // Make the List more data.frame like

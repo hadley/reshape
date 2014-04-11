@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // melt_dataframe
-List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP measure_attributes, bool factorsAsStrings);
-RcppExport SEXP reshape2_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP measure_attributesSEXP, SEXP factorsAsStringsSEXP) {
+List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP measure_attributes, bool factorsAsStrings, bool valueAsFactor);
+RcppExport SEXP reshape2_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP measure_attributesSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
@@ -19,7 +19,8 @@ BEGIN_RCPP
         Rcpp::traits::input_parameter< String >::type value_name(value_nameSEXP );
         Rcpp::traits::input_parameter< SEXP >::type measure_attributes(measure_attributesSEXP );
         Rcpp::traits::input_parameter< bool >::type factorsAsStrings(factorsAsStringsSEXP );
-        List __result = melt_dataframe(data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings);
+        Rcpp::traits::input_parameter< bool >::type valueAsFactor(valueAsFactorSEXP );
+        List __result = melt_dataframe(data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

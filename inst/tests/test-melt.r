@@ -130,6 +130,7 @@ test_that("A warning is thrown when attributes are dropped in measure variables"
 })
 
 test_that("factorsAsStrings behaves as expected", {
+
   ## factors with identical levels -> staying as factor is okay
   df <- data.frame(
     id=1:2,
@@ -141,6 +142,12 @@ test_that("factorsAsStrings behaves as expected", {
 
   m2 <- melt(df, 1, factorsAsStrings=FALSE)
   expect_identical( class(m2$value), "factor" )
+
+  ## make sure we have faithfully reproduced an R factor
+  expect_identical(
+    m2$value,
+    factor(c("a", "b", "b", "a"))
+  )
 
   ## factors with different levels -> convert to character to be safe
   df <- data.frame(
