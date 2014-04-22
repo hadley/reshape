@@ -1,4 +1,4 @@
-# Version 1.3.0.99
+# Version 1.4
 
 * `dcast()` and `acast()` gain a useful error message if you use `value_var`
   intead of `value.var` (#16), and if `value.var` doesn't exist (#9). They
