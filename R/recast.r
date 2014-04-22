@@ -4,8 +4,8 @@
 #' a single step.
 #'
 #' @param data data set to melt
-#' @param formula casting formula, see \link{\code{dcast}} for specifics
-#' @param ... other arguments passed to \link{\code{dcast}}
+#' @param formula casting formula, see \code{\link{dcast}} for specifics
+#' @param ... other arguments passed to \code{\link{dcast}}
 #' @param id.var identifying variables. If blank, will use all non
 #'    measure.var variables
 #' @param measure.var measured variables. If blank, will use all non

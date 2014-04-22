@@ -8,9 +8,9 @@ recast(data, formula, ..., id.var, measure.var)
 \arguments{
 \item{data}{data set to melt}
 
-\item{formula}{casting formula, see \link{\code{dcast}} for specifics}
+\item{formula}{casting formula, see \code{\link{dcast}} for specifics}
 
-\item{...}{other arguments passed to \link{\code{dcast}}}
+\item{...}{other arguments passed to \code{\link{dcast}}}
 
 \item{id.var}{identifying variables. If blank, will use all non
 measure.var variables}
