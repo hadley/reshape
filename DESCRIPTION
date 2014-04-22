@@ -16,7 +16,7 @@ Imports:
     Rcpp
 Roxygen: list(wrap = FALSE)
 Suggests:
-    testthat,
+    testthat (>= 0.8.0),
     lattice
 License: MIT + file LICENSE
 LazyData: true
