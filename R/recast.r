@@ -1,11 +1,11 @@
 #' Recast: melt and cast in a single step
 #'
-#' This conveniently wraps melting and casting a data frame into
+#' This conveniently wraps melting and (d)casting a data frame into
 #' a single step.
 #'
 #' @param data data set to melt
-#' @param formula casting formula, see \link{cast} for specifics
-#' @param ... other arguments passed to \link{cast}
+#' @param formula casting formula, see \link{\code{dcast}} for specifics
+#' @param ... other arguments passed to \link{\code{dcast}}
 #' @param id.var identifying variables. If blank, will use all non
 #'    measure.var variables
 #' @param measure.var measured variables. If blank, will use all non
@@ -21,5 +21,5 @@ recast <- function(data, formula, ..., id.var, measure.var) {
   }
 
   molten <- melt(data, id.var, measure.var)
-  cast(molten, formula, ...)
+  dcast(molten, formula, ...)
 }

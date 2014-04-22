@@ -1,5 +1,7 @@
 # Version 1.3.0.99
 
+* `recast()` now returns a data frame instead of a list (#45).
+
 * `melt.data.frame()` gains a `factorsAsStrings` argument (`TRUE` by default)
   that controls whether factors are converted to character when melted as
   measure variables.
