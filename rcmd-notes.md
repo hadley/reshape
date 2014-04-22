@@ -1,0 +1,3 @@
+This release adds no new functionality, but does fix a number of bugs, R CMD check notes, and reimplements a key function in C++.  To ensure that this did not break any code in existing functionality, I ran R CMD check on all dependencies on R-devel. The results can be found at https://github.com/wch/reshape2-checkresults/blob/master/r-devel/00check-summary.txt. Only one package failed for a reason that might be related to reshape2: alm. I checked with the author and this is also failing for the current version. He is aware of the problem and is working on a fix. 
+
+There are no ERRORs, WARNINGs or significant NOTEs generated across my local OS X install, ubuntu running on travis-ci and win builder.
