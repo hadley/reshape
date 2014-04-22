@@ -55,8 +55,9 @@ downto <- function(a, b) {
 #'   dimension
 #' @param margins a character vector of variable names to compute margins for.
 #'   \code{TRUE} will compute all possible margins.
+#' @param margin.label character label for margin rows; defaults to "(all)".
 #' @export
-add_margins <- function(df, vars, margins = TRUE) {
+add_margins <- function(df, vars, margins = TRUE, margin.label = "(all)") {
   margin_vars <- margins(vars, margins)
 
   # Return data frame if no margining necessary
@@ -65,7 +66,7 @@ add_margins <- function(df, vars, margins = TRUE) {
   # Prepare data frame for addition of margins
   addAll <- function(x) {
     x <- addNA(x, TRUE)
-    factor(x, levels = c(levels(x), "(all)"), exclude = NULL)
+    factor(x, levels = c(levels(x), margin.label), exclude = NULL)
   }
   vars <- unique(unlist(margin_vars))
   df[vars] <- lapply(df[vars], addAll)
@@ -75,7 +76,7 @@ add_margins <- function(df, vars, margins = TRUE) {
   # Loop through all combinations of margin variables, setting
   # those variables to (all)
   margin_dfs <- llply(margin_vars, function(vars) {
-    df[vars] <- rep(list(factor("(all)")), length(vars))
+    df[vars] <- rep(list(factor(margin.label)), length(vars))
     df
   })
 
