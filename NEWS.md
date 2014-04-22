@@ -1,29 +1,26 @@
 # Version 1.3.0.99
 
+* `dcast()` and `acast()` gain a useful error message if you use `value_var`
+  intead of `value.var` (#16), and if `value.var` doesn't exist (#9). They
+  also work better with `.` in specifications like `. ~ .` or
+  `x + y ~ .`
+
 * `melt.array()` creates factor variables with levels in the same order
   as the original rownames (#19)
 
-* `recast()` now returns a data frame instead of a list (#45).
-
-* `melt.data.frame()` gains a `factorsAsStrings` argument (`TRUE` by default)
-  that controls whether factors are converted to character when melted as
-  measure variables.
-
-* `melt.data.frame()` preserves identical attributes for measure variables,
-  and now throws a warning if they are dropped.
-
 * `melt.data.frame()` gains an internal Rcpp / C++ implementation, and
-  is now many orders of magnitudes faster. (Thanks to Kevin Ushey)
+  is now many orders of magnitudes faster. It also preserves identical 
+  attributes for measure variables, and now throws a warning if they are
+  dropped. (Thanks to Kevin Ushey)
+
+* `melt.data.frame()` gains a `factorsAsStrings` argument that controls whether 
+  factors are converted to character when melted as measure variables. This 
+  is `TRUE` by default for backward compatibility.
 
 * `melt.array()` gains a `as.is` argument which can be used to prevent
   dimnames being converted with `type.convert()`
 
-* Reshape now works better with `.` in specification, like `. ~ .` or
-  `x + y ~ .`
-
-* `dcast()` and `acast()` gain a useful error message if you use `value_var`
-  intead of `value.var` (#16), and if `value.var` doesn't exist (#9).
-
+* `recast()` now returns a data frame instead of a list (#45).
 
 # Version 1.2.2
 
