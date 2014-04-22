@@ -15,37 +15,30 @@ acast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
   value.var = guess_value(data))
 }
 \arguments{
-  \item{data}{molten data frame, see \code{\link{melt}}.}
+\item{data}{molten data frame, see \code{\link{melt}}.}
 
-  \item{formula}{casting formula, see details for
-  specifics.}
+\item{formula}{casting formula, see details for specifics.}
 
-  \item{fun.aggregate}{aggregation function needed if
-  variables do not identify a single observation for each
-  output cell.  Defaults to length (with a message) if
-  needed but not specified.}
+\item{fun.aggregate}{aggregation function needed if variables do not
+identify a single observation for each output cell.  Defaults to length
+(with a message) if needed but not specified.}
 
-  \item{...}{further arguments are passed to aggregating
-  function}
+\item{...}{further arguments are passed to aggregating function}
 
-  \item{margins}{vector of variable names (can include
-  "grand\_col" and "grand\_row") to compute margins for, or
-  TRUE to compute all margins .  Any variables that can not
-  be margined over will be silently dropped.}
+\item{margins}{vector of variable names (can include "grand\_col" and
+"grand\_row") to compute margins for, or TRUE to compute all margins .
+Any variables that can not be margined over will be silently dropped.}
 
-  \item{subset}{quoted expression used to subset data prior
-  to reshaping, e.g. \code{subset =
-  .(variable=="length")}.}
+\item{subset}{quoted expression used to subset data prior to reshaping,
+e.g. \code{subset = .(variable=="length")}.}
 
-  \item{fill}{value with which to fill in structural
-  missings, defaults to value from applying
-  \code{fun.aggregate} to 0 length vector}
+\item{fill}{value with which to fill in structural missings, defaults to
+value from applying \code{fun.aggregate} to 0 length vector}
 
-  \item{drop}{should missing combinations dropped or kept?}
+\item{drop}{should missing combinations dropped or kept?}
 
-  \item{value.var}{name of column which stores values, see
-  \code{\link{guess_value}} for default strategies to
-  figure this out.}
+\item{value.var}{name of column which stores values, see
+\code{\link{guess_value}} for default strategies to figure this out.}
 }
 \description{
 Use \code{acast} or \code{dcast} depending on whether you want

@@ -6,12 +6,11 @@
 margins(vars, margins = NULL)
 }
 \arguments{
-  \item{vars}{a list of character vectors giving the
-  variables in each dimension}
+\item{vars}{a list of character vectors giving the variables in each
+dimension}
 
-  \item{margins}{a character vector of variable names to
-  compute margins for.  \code{TRUE} will compute all
-  possible margins.}
+\item{margins}{a character vector of variable names to compute margins for.
+\code{TRUE} will compute all possible margins.}
 }
 \value{
 list of margining combinations, or \code{NULL} if none. These are

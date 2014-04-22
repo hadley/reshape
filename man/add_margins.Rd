@@ -6,14 +6,13 @@
 add_margins(df, vars, margins = TRUE)
 }
 \arguments{
-  \item{df}{input data frame}
+\item{df}{input data frame}
 
-  \item{vars}{a list of character vectors giving the
-  variables in each dimension}
+\item{vars}{a list of character vectors giving the variables in each
+dimension}
 
-  \item{margins}{a character vector of variable names to
-  compute margins for.  \code{TRUE} will compute all
-  possible margins.}
+\item{margins}{a character vector of variable names to compute margins for.
+\code{TRUE} will compute all possible margins.}
 }
 \description{
 Rownames are silently stripped. All margining variables will be converted

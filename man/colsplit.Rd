@@ -6,11 +6,11 @@
 colsplit(string, pattern, names)
 }
 \arguments{
-  \item{string}{character vector or factor to split up}
+\item{string}{character vector or factor to split up}
 
-  \item{pattern}{regular expression to split on}
+\item{pattern}{regular expression to split on}
 
-  \item{names}{names for output columns}
+\item{names}{names for output columns}
 }
 \description{
 Useful for splitting variable names that a combination of multiple

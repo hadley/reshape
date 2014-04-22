@@ -6,12 +6,11 @@
 \method{melt}{list}(data, ..., level = 1)
 }
 \arguments{
-  \item{data}{list to recursively melt}
+\item{data}{list to recursively melt}
 
-  \item{...}{further arguments passed to or from other
-  methods.}
+\item{...}{further arguments passed to or from other methods.}
 
-  \item{level}{list level - used for creating labels}
+\item{level}{list level - used for creating labels}
 }
 \description{
 Melt a list by recursively melting each component.

@@ -6,11 +6,11 @@
 parse_formula(formula = "...  ~ variable", varnames, value.var = "value")
 }
 \arguments{
-  \item{formula}{formula to parse}
+\item{formula}{formula to parse}
 
-  \item{varnames}{names of all variables in data}
+\item{varnames}{names of all variables in data}
 
-  \item{value.var}{name of variable containing values}
+\item{value.var}{name of variable containing values}
 }
 \description{
 There are a two ways to specify a casting formula: either as a string, or

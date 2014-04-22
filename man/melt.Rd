@@ -6,16 +6,14 @@
 melt(data, ..., na.rm = FALSE, value.name = "value")
 }
 \arguments{
-  \item{data}{Data set to melt}
+\item{data}{Data set to melt}
 
-  \item{na.rm}{Should NA values be removed from the data
-  set? This will convert explicit missings to implicit
-  missings.}
+\item{na.rm}{Should NA values be removed from the data set? This will
+convert explicit missings to implicit missings.}
 
-  \item{...}{further arguments passed to or from other
-  methods.}
+\item{...}{further arguments passed to or from other methods.}
 
-  \item{value.name}{name of variable used to store values}
+\item{value.name}{name of variable used to store values}
 }
 \description{
 This the generic melt function. See the following functions

@@ -6,21 +6,20 @@
 recast(data, formula, ..., id.var, measure.var)
 }
 \arguments{
-  \item{data}{data set to melt}
+\item{data}{data set to melt}
 
-  \item{formula}{casting formula, see \link{cast} for
-  specifics}
+\item{formula}{casting formula, see \link{\code{dcast}} for specifics}
 
-  \item{...}{other arguments passed to \link{cast}}
+\item{...}{other arguments passed to \link{\code{dcast}}}
 
-  \item{id.var}{identifying variables. If blank, will use
-  all non measure.var variables}
+\item{id.var}{identifying variables. If blank, will use all non
+measure.var variables}
 
-  \item{measure.var}{measured variables. If blank, will use
-  all non id.var variables}
+\item{measure.var}{measured variables. If blank, will use all non
+id.var variables}
 }
 \description{
-This conveniently wraps melting and casting a data frame into
+This conveniently wraps melting and (d)casting a data frame into
 a single step.
 }
 \examples{

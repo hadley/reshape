@@ -15,23 +15,20 @@
   na.rm = FALSE, as.is = FALSE, value.name = "value")
 }
 \arguments{
-  \item{data}{array to melt}
+\item{data}{array to melt}
 
-  \item{varnames}{variable names to use in molten
-  data.frame}
+\item{varnames}{variable names to use in molten data.frame}
 
-  \item{...}{further arguments passed to or from other
-  methods.}
+\item{...}{further arguments passed to or from other methods.}
 
-  \item{as.is}{if \code{FALSE}, the default, dimnames will
-  be converted using \code{\link{type.convert}}. If
-  \code{TRUE}, they will be left as strings.}
+\item{as.is}{if \code{FALSE}, the default, dimnames will be converted
+using \code{\link{type.convert}}. If \code{TRUE}, they will be left
+as strings.}
 
-  \item{value.name}{name of variable used to store values}
+\item{value.name}{name of variable used to store values}
 
-  \item{na.rm}{Should NA values be removed from the data
-  set? This will convert explicit missings to implicit
-  missings.}
+\item{na.rm}{Should NA values be removed from the data set? This will
+convert explicit missings to implicit missings.}
 }
 \description{
 This code is conceptually similar to \code{\link{as.data.frame.table}}

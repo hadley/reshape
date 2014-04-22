@@ -8,32 +8,26 @@
   factorsAsStrings = TRUE)
 }
 \arguments{
-  \item{data}{data frame to melt}
+\item{data}{data frame to melt}
 
-  \item{id.vars}{vector of id variables. Can be integer
-  (variable position) or string (variable name). If blank,
-  will use all non-measured variables.}
+\item{id.vars}{vector of id variables. Can be integer (variable position)
+or string (variable name). If blank, will use all non-measured variables.}
 
-  \item{measure.vars}{vector of measured variables. Can be
-  integer (variable position) or string (variable name)If
-  blank, will use all non id.vars}
+\item{measure.vars}{vector of measured variables. Can be integer (variable
+position) or string (variable name)If blank, will use all non id.vars}
 
-  \item{variable.name}{name of variable used to store
-  measured variable names}
+\item{variable.name}{name of variable used to store measured variable names}
 
-  \item{value.name}{name of variable used to store values}
+\item{value.name}{name of variable used to store values}
 
-  \item{na.rm}{Should NA values be removed from the data
-  set? This will convert explicit missings to implicit
-  missings.}
+\item{na.rm}{Should NA values be removed from the data set? This will
+convert explicit missings to implicit missings.}
 
-  \item{...}{further arguments passed to or from other
-  methods.}
+\item{...}{further arguments passed to or from other methods.}
 
-  \item{factorsAsStrings}{Control whether factors are
-  converted to character when melted as measure variables.
-  When \code{FALSE}, coercion is forced if levels are not
-  identical across the \code{measure.vars}.}
+\item{factorsAsStrings}{Control whether factors are converted to character
+when melted as measure variables. When \code{FALSE}, coercion is forced if
+levels are not identical across the \code{measure.vars}.}
 }
 \description{
 You need to tell melt which of your variables are id variables, and which
