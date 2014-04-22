@@ -6,7 +6,9 @@
 \description{
 Cast a molten data frame into the reshaped or aggregated form you want
 }
-\usage{cast(data, formula = ... ~ variable, fun.aggregate=NULL, ..., margins=FALSE, subset=TRUE, df=FALSE, fill=NULL, add.missing=FALSE, value = guess_value(data))}
+\usage{cast(data, formula = ... ~ variable, fun.aggregate=NULL, ...,
+  margins=FALSE, subset=TRUE, df=FALSE, fill=NULL, add.missing=FALSE,
+  value = guess_value(data))}
 \arguments{
 \item{data}{molten data frame, see \code{\link{melt}}}
 \item{formula}{casting formula, see details for specifics}

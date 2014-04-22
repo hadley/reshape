@@ -6,7 +6,8 @@
 \description{
 Stamp is like reshape but the "stamping" function is passed the entire data frame, instead of just a few variables.
 }
-\usage{stamp(data, formula = . ~ ., fun.aggregate, ..., margins=NULL, subset=TRUE, add.missing=FALSE)}
+\usage{stamp(data, formula = . ~ ., fun.aggregate, ..., margins=NULL,
+  subset=TRUE, add.missing=FALSE)}
 \arguments{
 \item{data}{data.frame (no molten)}
 \item{formula}{formula that describes arrangement of result, columns ~ rows, see \code{\link{reshape}} for more information}

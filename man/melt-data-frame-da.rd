@@ -6,7 +6,8 @@
 \description{
 Melt a data frame into form suitable for easy casting.
 }
-\usage{\method{melt}{data.frame}(data, id.vars, measure.vars, variable_name = "variable", na.rm = !preserve.na, preserve.na = TRUE, ...)}
+\usage{\method{melt}{data.frame}(data, id.vars, measure.vars,
+  variable_name = "variable", na.rm = !preserve.na, preserve.na = TRUE, ...)}
 \arguments{
 \item{data}{Data set to melt}
 \item{id.vars}{Id variables. If blank, will use all non measure.vars variables.  Can be integer (variable position) or string (variable name)}

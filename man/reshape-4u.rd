@@ -6,7 +6,8 @@
 \description{
 Takes data frame and variable list and casts data.
 }
-\usage{reshape1(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins, df=FALSE, fill=NA, add.missing=FALSE, ...)}
+\usage{reshape1(data, vars = list(NULL, NULL), fun.aggregate=NULL, margins,
+  df=FALSE, fill=NA, add.missing=FALSE, ...)}
 \arguments{
 \item{data}{data frame}
 \item{vars}{variables to appear in columns}
@@ -49,12 +50,12 @@ reshape1(aqm, list(c("month"), "variable"), mean, c("grand_row","grand_col"))
 
 reshape1(aqm, list(c("variable","day"),"month"), mean,c("variable"))
 reshape1(aqm, list(c("variable","day"),"month"), mean,c("variable","grand_row"))
-reshape1(aqm, list(c("month","day"), "variable"), mean, "month") 
+reshape1(aqm, list(c("month","day"), "variable"), mean, "month")
 
 # Multiple fnction returns  ----------------------------
-reshape1(aqm, list(c("month", "result_variable"), NULL), range) 
-reshape1(aqm, list(c("month"),"result_variable") , range) 
-reshape1(aqm, list(c("result_variable", "month"), NULL), range) 
+reshape1(aqm, list(c("month", "result_variable"), NULL), range)
+reshape1(aqm, list(c("month"),"result_variable") , range)
+reshape1(aqm, list(c("result_variable", "month"), NULL), range)
 
 reshape1(aqm, list(c("month", "result_variable"), "variable"), range, "month")
 reshape1(aqm, list(c("month", "result_variable"), "variable"), range, "variable")
