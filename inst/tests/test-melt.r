@@ -89,6 +89,18 @@ test_that("dimnames are preserved with arrays and tables", {
   expect_equal(levels(bm$Z), c("A", "B"))
 })
 
+test_that("dimnames kept in original order", {
+  x <- matrix(1:4, nrow = 2)
+  rownames(x) <- c("b", "a")
+  colnames(x) <- c("e", "d")
+  names(dimnames(x)) <- c("x", "y")
+
+  m <- melt(x)
+  expect_equal(levels(m$x), c("b", "a"))
+  expect_equal(levels(m$y), c("e", "d"))
+
+})
+
 test_that("as.is = TRUE suppresses dimnname conversion", {
   x <- matrix(nrow = 2, ncol = 2)
   dimnames(x) <- list(x = 1:2, y = 3:4)

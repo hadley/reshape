@@ -170,7 +170,14 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #' melt(a)
 melt.array <- function(data, varnames = names(dimnames(data)), ...,
                        na.rm = FALSE, as.is = FALSE, value.name = "value") {
-  var.convert <- function(x) if(is.character(x)) type.convert(x) else x
+  var.convert <- function(x) {
+    if (!is.character(x)) return(x)
+
+    x <- type.convert(x, as.is = TRUE)
+    if (!is.character(x)) return(x)
+
+    factor(x, levels = unique(x))
+  }
 
   dn <- amv_dimnames(data)
   names(dn) <- varnames

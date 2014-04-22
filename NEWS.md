@@ -1,5 +1,8 @@
 # Version 1.3.0.99
 
+* `melt.array()` creates factor variables with levels in the same order
+  as the original rownames (#19)
+
 * `recast()` now returns a data frame instead of a list (#45).
 
 * `melt.data.frame()` gains a `factorsAsStrings` argument (`TRUE` by default)
