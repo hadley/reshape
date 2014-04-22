@@ -10,7 +10,7 @@ Description: Reshape lets you flexibly restructure and
 URL: http://had.co.nz/reshape
 LinkingTo: Rcpp
 Imports:
-    plyr (>= 1.5),
+    plyr (>= 1.8.1),
     stringr,
     Rcpp
 Roxygen: list(wrap = FALSE)
