@@ -6,7 +6,7 @@
 \description{
 Rescales matrix by columns
 }
-\usage{rescaler.matrix(x, type="sd", ...)}
+\usage{\method{rescaler}{matrix}(x, type="sd", ...)}
 \arguments{
 \item{x}{matrix to rescale}
 \item{type}{type of rescaling to apply}

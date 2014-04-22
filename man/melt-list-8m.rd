@@ -6,7 +6,7 @@
 \description{
 Melting a list recursively melts each component of the list and joins the results together
 }
-\usage{melt.list(data, ..., level=1)}
+\usage{\method{melt}{list}(data, ..., level=1)}
 \arguments{
 \item{data}{}
 \item{...}{other arguments passed down}

@@ -6,7 +6,7 @@
 \description{
 Melt the results of a cast
 }
-\usage{melt.cast_df(data, drop.margins=TRUE, ...)}
+\usage{\method{melt}{cast_df}(data, drop.margins=TRUE, ...)}
 \arguments{
 \item{data}{}
 \item{drop.margins}{}

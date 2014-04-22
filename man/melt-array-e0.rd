@@ -8,7 +8,7 @@
 \description{
 This function melts a high-dimensional array into a form that you can use \code{\link{cast}} with.
 }
-\usage{melt.array(data, varnames = names(dimnames(data)), ...)}
+\usage{\method{melt}{array}(data, varnames = names(dimnames(data)), ...)}
 \arguments{
 \item{data}{array to melt}
 \item{varnames}{variable names to use in molten data.frame}

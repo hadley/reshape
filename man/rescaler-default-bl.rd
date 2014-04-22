@@ -6,7 +6,7 @@
 \description{
 See \code{\link{rescaler}} for details
 }
-\usage{rescaler.default(x, type="sd", ...)}
+\usage{\method{rescaler}{default}(x, type="sd", ...)}
 \arguments{
 \item{x}{vector to rescale}
 \item{type}{type of rescaling to apply}

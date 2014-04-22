@@ -1,3 +1,9 @@
+Reshape 0.8.5 ---------------------------------------------------
+
+* fix outstanding R CMD check problems
+
+Reshape 0.8.4 ---------------------------------------------------
+
 * fix spelling mistake (indicies -> indices), thanks to Stavros Macrakis
 
 Reshape 0.8.3 (2009-04-27) ---------------------------------------------------
@@ -14,7 +20,7 @@ Reshape 0.8.2 (2008-11-04) --------------------------
 
 
 Reshape 0.8.1 (2008-05-01) --------------------------
-  
+
 Melt
 
   * character dimension names are processed by type.convert
@@ -26,7 +32,7 @@ Cast
   * missing values in subsetting are now correctly dropped to match behaviour of subset()
   * tweaks to cast and recast to make it easier to pass in formulas created elsewhere
   * allow user to specify column used for values, guessing if necessary, and giving a warning message if value column does not exist
-  * improve error messages when melt or casting parameters incorrectly specified 
+  * improve error messages when melt or casting parameters incorrectly specified
 
 General
 

@@ -25,7 +25,7 @@ melt.default <- function(data, ...) {
 
 # Melt a list
 # Melting a list recursively melts each component of the list and joins the results together
-# 
+#
 # @keyword internal
 #X a <- as.list(1:4)
 #X melt(a)
@@ -43,10 +43,10 @@ melt.list <- function(data, ..., level=1) {
   var <- nulldefault(attr(data, "varname"), paste("L", level, sep=""))
   names <- nulldefault(names(data), 1:length(data))
   parts <- lapply(data, melt, level=level+1, ...)
-  
+
   namedparts <- mapply(function(x, name) {
    x[[var]] <- name
-   x 
+   x
   }, parts, names, SIMPLIFY=FALSE)
   do.call(rbind.fill, namedparts)
 }
@@ -76,22 +76,22 @@ melt.list <- function(data, ..., level=1) {
 #X names(ChickWeight) <- tolower(names(ChickWeight))
 #X melt(ChickWeight, id=2:4)
 melt.data.frame <- function(data, id.vars, measure.vars, variable_name = "variable", na.rm = !preserve.na, preserve.na = TRUE, ...) {
-  if (!missing(preserve.na)) 
+  if (!missing(preserve.na))
     message("Use of preserve.na is now deprecated, please use na.rm instead")
 
   var <- melt_check(data, id.vars, measure.vars)
-  
+
   if (length(var$measure) == 0) {
     return(data[, var$id, drop=FALSE])
   }
-  
+
   ids <- data[,var$id, drop=FALSE]
   df <- do.call("rbind", lapply(var$measure, function(x) {
     data.frame(ids, x, data[, x])
   }))
   names(df) <- c(names(ids), variable_name, "value")
 
-  df[[variable_name]] <- factor(df[[variable_name]], unique(df[[variable_name]])) 
+  df[[variable_name]] <- factor(df[[variable_name]], unique(df[[variable_name]]))
 
   if (na.rm) {
     df <- df[!is.na(df$value), , drop=FALSE]
@@ -104,7 +104,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable_name = "variab
 # This function melts a high-dimensional array into a form that you can use \code{\link{cast}} with.
 #
 # This code is conceptually similar to \code{\link{as.data.frame.table}}
-# 
+#
 # @arguments array to melt
 # @arguments variable names to use in molten data.frame
 # @keyword manip
@@ -120,13 +120,13 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable_name = "variab
 #X melt(a)
 melt.array <- function(data, varnames = names(dimnames(data)), ...) {
   values <- as.vector(data)
-  
+
   dn <- dimnames(data)
   if (is.null(dn)) dn <- vector("list", length(dim(data)))
 
   dn_missing <- sapply(dn, is.null)
   dn[dn_missing] <- lapply(dim(data), function(x) 1:x)[dn_missing]
-  
+
   char <- sapply(dn, is.character)
   dn[char] <- lapply(dn[char], type.convert)
   indices <- do.call(expand.grid, dn)
@@ -141,20 +141,20 @@ melt.matrix <- melt.array
 
 # Melt cast data.frames
 # Melt the results of a cast
-# 
+#
 # This can be useful when performning complex aggregations - melting
 # the result of a cast will do it's best to figure out the correct variables
 # to use as id and measured.
-# 
+#
 # @keyword internal
 melt.cast_df <- function(data, drop.margins=TRUE, ...) {
-  molten <- melt.data.frame(as.data.frame(data), id=attr(data, "idvars"))
-  
+  molten <- melt.data.frame(as.data.frame(data), id.vars=attr(data, "idvars"))
+
   cols <- rcolnames(data)
   rownames(cols) <- make.names(rownames(cols))
 
   molten <- cbind(molten[names(molten) != "variable"], cols[molten$variable, , drop=FALSE])
-  
+
   if (drop.margins) {
       margins <- !complete.cases(molten[,names(molten) != "value", drop=FALSE])
     molten <- molten[!margins, ]
@@ -166,9 +166,9 @@ melt.cast_df <- function(data, drop.margins=TRUE, ...) {
 
 # Melt cast matrices
 # Melt the results of a cast
-# 
+#
 # Converts to a data frame and then uses \code{\link{melt.cast_df}}
-# 
+#
 # @keyword internal
 melt.cast_matrix <- function(data, ...) {
   melt(as.data.frame(data))
@@ -177,12 +177,12 @@ melt.cast_matrix <- function(data, ...) {
 # Melt check.
 # Check that input variables to melt are appropriate.
 #
-# If id.vars or measure.vars are missing, \code{melt_check} will do its 
-# best to impute them.If you only 
-# supply one of id.vars and measure.vars, melt will assume the remainder of 
-# the variables in the data set belong to the other. If you supply neither, 
-# melt will assume character and factor variables are id variables, 
-# and all other are measured. 
+# If id.vars or measure.vars are missing, \code{melt_check} will do its
+# best to impute them.If you only
+# supply one of id.vars and measure.vars, melt will assume the remainder of
+# the variables in the data set belong to the other. If you supply neither,
+# melt will assume character and factor variables are id variables,
+# and all other are measured.
 #
 # @keyword internal
 # @arguments data frame
@@ -194,32 +194,32 @@ melt_check <- function(data, id.vars, measure.vars) {
   varnames <- names(data)
   if (!missing(id.vars) && is.numeric(id.vars)) id.vars <- varnames[id.vars]
   if (!missing(measure.vars) && is.numeric(measure.vars)) measure.vars <- varnames[measure.vars]
-  
+
   if (!missing(id.vars)) {
     unknown <- setdiff(id.vars, varnames)
     if (length(unknown) > 0) {
-      stop("id variables not found in data: ", paste(unknown, collapse=", "), 
+      stop("id variables not found in data: ", paste(unknown, collapse=", "),
         call. = FALSE)
     }
-  } 
-  
+  }
+
   if (!missing(measure.vars)) {
     unknown <- setdiff(measure.vars, varnames)
     if (length(unknown) > 0) {
-      stop("measure variables not found in data: ", paste(unknown, collapse=", "), 
+      stop("measure variables not found in data: ", paste(unknown, collapse=", "),
         call. = FALSE)
     }
-  } 
+  }
 
   if (missing(id.vars) && missing(measure.vars)) {
     categorical <- sapply(data, function(x) class(x)[1]) %in% c("factor", "ordered", "character")
     id.vars <- varnames[categorical]
     measure.vars <- varnames[!categorical]
     message("Using ", paste(id.vars, collapse=", "), " as id variables")
-  } 
+  }
 
   if (missing(id.vars)) id.vars <- varnames[!(varnames %in% c(measure.vars))]
   if (missing(measure.vars)) measure.vars <- varnames[!(varnames %in% c(id.vars))]
-  
-  list(id = id.vars, measure = measure.vars)  
+
+  list(id = id.vars, measure = measure.vars)
 }

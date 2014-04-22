@@ -6,7 +6,7 @@
 \description{
 For vectors, make a column of a data frame
 }
-\usage{melt.default(data, ...)}
+\usage{\method{melt}{default}(data, ...)}
 \arguments{
 \item{data}{data frame}
 \item{...}{arguments}

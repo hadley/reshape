@@ -6,7 +6,7 @@
 \description{
 Melt the results of a cast
 }
-\usage{melt.cast_matrix(data, ...)}
+\usage{\method{melt}{cast_matrix}(data, ...)}
 \arguments{
 \item{data}{}
 \item{...}{other arguments ignored}

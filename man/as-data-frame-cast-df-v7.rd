@@ -6,7 +6,7 @@
 \description{
 Convert cast data.frame into a matrix
 }
-\usage{as.data.frame.cast_df(x, ...)}
+\usage{\method{as.data.frame}{cast_df}(x, ...)}
 \arguments{
 \item{x}{}
 \item{...}{}

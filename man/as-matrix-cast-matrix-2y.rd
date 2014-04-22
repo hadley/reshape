@@ -6,7 +6,7 @@
 \description{
 Convert cast matrix into a matrix
 }
-\usage{as.matrix.cast_matrix(x, ...)}
+\usage{\method{as.matrix}{cast_matrix}(x, ...)}
 \arguments{
 \item{x}{}
 \item{...}{}

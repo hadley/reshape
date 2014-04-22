@@ -6,7 +6,7 @@
 \description{
 Rescales data frame by columns
 }
-\usage{rescaler.data.frame(x, type="sd", ...)}
+\usage{\method{rescaler}{data.frame}(x, type="sd", ...)}
 \arguments{
 \item{x}{data.frame to rescale}
 \item{type}{type of rescaling to apply}

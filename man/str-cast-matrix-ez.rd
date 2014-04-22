@@ -9,7 +9,7 @@
 \description{
 Printing methods
 }
-\usage{str.cast_matrix(object, ...)}
+\usage{\method{str}{cast_matrix}(object, ...)}
 \arguments{
 \item{object}{}
 \item{...}{}

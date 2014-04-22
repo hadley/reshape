@@ -6,7 +6,7 @@
 \description{
 Convert cast matrix into a data frame
 }
-\usage{as.data.frame.cast_matrix(x, row.names, optional, ...)}
+\usage{\method{as.data.frame}{cast_matrix}(x, row.names, optional, ...)}
 \arguments{
 \item{x}{}
 \item{row.names}{}
