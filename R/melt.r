@@ -117,6 +117,11 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   id.ind <- match(vars$id, names(data))
   measure.ind <- match(vars$measure, names(data))
 
+  ## Return early if we have id.ind but no measure.ind
+  if (!length(measure.ind)) {
+    return(data[id.vars])
+  }
+
   ## Get the attributes if common, NULL if not.
   args <- normalize_melt_arguments(data, measure.ind, factorsAsStrings)
   measure.attributes <- args$measure.attributes

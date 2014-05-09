@@ -173,3 +173,13 @@ test_that("factorsAsStrings behaves as expected", {
   expect_identical( class(m$value), "character" )
 
 })
+
+test_that("melt.data.frame behaves when there are no measure variables", {
+
+  df <- data.frame(x='a', y='b', z='c')
+  m <- melt(df)
+  expect_identical(df, m)
+  m <- melt(df, id.vars = "x", measure.vars = NULL)
+  expect_identical(df["x"], m)
+
+})
