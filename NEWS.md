@@ -1,5 +1,8 @@
 # Version 1.4.0.99
 
+* `melt.data.frame()` no longer errors when `measure.vars` is `NULL` or empty.
+  (#46)
+
 # Version 1.4
 
 * `dcast()` and `acast()` gain a useful error message if you use `value_var`
