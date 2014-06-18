@@ -39,4 +39,4 @@ This work has been generously supported by BD (Becton Dickinson).
 ## Installation
 
 * Get the released version from cran: `install.packages("reshape2")`
-* Get the dev version from github: `devtools::install_github("hadley/reshape2")`
+* Get the dev version from github: `devtools::install_github("hadley/reshape")`
