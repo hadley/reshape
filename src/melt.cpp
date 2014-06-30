@@ -267,12 +267,11 @@ List melt_dataframe(const DataFrame& data,
   output[n_id + 1] = concatenate(data, measure_ind, factorsAsStrings);
   if (!Rf_isNull(measure_attributes)) {
     SET_ATTRIB(output[n_id + 1], measure_attributes);
-  }
-
-  // Set the object bit explicitly to make sure that the 'value' is properly
-  // interpreted as a factor
-  if (valueAsFactor) {
-    SET_OBJECT(output[n_id + 1], 1);
+    // we also need to make sure the OBJECT bit is set for other 'object' types
+    // see: http://stackoverflow.com/questions/24059460/melt-data-frame-changes-behavior-how-posixct-columns-are-printed
+    // if we've entered this code block, the measure_attributes has been
+    // populated because all value variables have identical attributes
+    SET_OBJECT(output[n_id + 1], OBJECT(data[measure_ind[0]]));
   }
 
   // Make the List more data.frame like
