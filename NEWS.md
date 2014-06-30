@@ -1,6 +1,11 @@
 # Version 1.4.0.99
 
-* `melt.data.frame()` now properly sets the OBJECT bit on `value` variable generated if attributes are copied (for example, when multiple POSIXct columns are concatenated to generate the `value` variable) (#50)
+* `melt.data.frame()` can melt `data.frame`s containing `list` elements as `id`
+  columns. (#49)
+
+* `melt.data.frame()` now properly sets the OBJECT bit on `value` variable
+  generated if attributes are copied (for example, when multiple POSIXct
+  columns are concatenated to generate the `value` variable) (#50)
 
 * `melt.data.frame()` no longer errors when `measure.vars` is `NULL` or empty.
   (#46)
