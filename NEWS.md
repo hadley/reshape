@@ -1,4 +1,4 @@
-# Version 1.4.0.99
+# Version 1.4.1
 
 * `melt.data.frame()` now properly sets the OBJECT bit on `value` variable generated if attributes are copied (for example, when multiple POSIXct columns are concatenated to generate the `value` variable) (#50)
 
