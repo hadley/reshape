@@ -4,3 +4,4 @@ bench
 ^\.travis\.yml$
 ^NEWS\.md$
 ^rcmd-notes\.md$
+^revdep$
