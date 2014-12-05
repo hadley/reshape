@@ -43,6 +43,8 @@ SEXP rep_(SEXP x, int n) {
       DO_REP(CPLXSXP, Rcomplex, COMPLEX);
     case RAWSXP:
       DO_REP(RAWSXP, Rbyte, RAW);
+    case VECSXP:
+      DO_REP(VECSXP, SEXP, STRING_PTR);
     default: {
       stop("Unhandled RTYPE");
       return R_NilValue;
@@ -94,6 +96,8 @@ SEXP rep_each_(SEXP x, int n) {
       DO_REP_EACH(CPLXSXP, Rcomplex, COMPLEX);
     case RAWSXP:
       DO_REP_EACH(RAWSXP, Rbyte, RAW);
+    case VECSXP:
+      DO_REP_EACH(VECSXP, SEXP, STRING_PTR);
     default: {
       stop("Unhandled RTYPE");
       return R_NilValue;
@@ -208,22 +212,21 @@ List melt_dataframe(const DataFrame& data,
                     bool valueAsFactor) {
 
   int nrow = data.nrows();
-  int ncol = data.size();
 
   CharacterVector data_names = as<CharacterVector>(data.attr("names"));
-
-  // We only melt data.frames that contain only atomic elements
-  for (int i = 0; i < ncol; ++i) {
-    if (!Rf_isVectorAtomic(data[i])) {
-      stop("Can't melt data.frames with non-atomic columns");
-    }
-  }
 
   int n_id = id_ind.size();
   debug(Rprintf("n_id == %i\n", n_id));
 
   int n_measure = measure_ind.size();
   debug(Rprintf("n_measure == %i\n", n_measure));
+
+  // Don't melt if the value variables are non-atomic
+  for (int i = 0; i < n_measure; ++i) {
+    if (!Rf_isVectorAtomic(data[measure_ind[i]])) {
+      stop("Can't melt data.frames with non-atomic 'measure' columns");
+    }
+  }
 
   // The output should be a data.frame with:
   // number of columns == number of id vars + 'variable' + 'value',
@@ -249,6 +252,7 @@ List melt_dataframe(const DataFrame& data,
       REP(STRSXP);
       REP(CPLXSXP);
       REP(RAWSXP);
+      REP(VECSXP);
       default: { stop("internal error: unnhandled vector type in REP"); }
     }
   }

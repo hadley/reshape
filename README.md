@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/hadley/reshape.png)](https://travis-ci.org/hadley/reshape)
 
-Reshape2 is a reboot of the reshape package. It's been over five years since the first release of reshape, and in that time I've learned a tremendous amount about R programming, and how to work with data in R. Reshape2 uses that knowledge to make a new package for reshaping data that is much more focussed and much much faster.
+Reshape2 is a reboot of the reshape package. It's been over five years since the first release of reshape, and in that time I've learned a tremendous amount about R programming, and how to work with data in R. Reshape2 uses that knowledge to make a new package for reshaping data that is much more focused and much much faster.
 
 This version improves speed at the cost of functionality, so I have renamed it to `reshape2` to avoid causing problems for existing users.  Based on user feedback I may reintroduce some of these features.
 
