@@ -19,11 +19,9 @@
 #' }
 #'
 #' @docType data
-#' @name french_fries
-#' @usage data(french_fries)
 #' @format A data frame with 696 rows and 9 variables
 #' @keywords datasets
-NULL
+"french_fries"
 
 #' Demo data describing the Smiths.
 #'
@@ -31,12 +29,9 @@ NULL
 #' introductory vignette.
 #'
 #' @docType data
-#' @name smiths
-#' @usage data(smiths)
 #' @format A data frame with 2 rows and 5 variables
 #' @keywords datasets
-NULL
-
+"smiths"
 
 #' Tipping data
 #'
@@ -61,9 +56,8 @@ NULL
 #' @references Bryant, P. G. and Smith, M (1995) \emph{Practical Data
 #'   Analysis: Case Studies in Business Statistics}.  Homewood, IL: Richard D.
 #'   Irwin Publishing:
-#' @docType data
-#' @name tips
-#' @usage data(tips)
 #' @format A data frame with 244 rows and 7 variables
 #' @keywords datasets
-NULL
+"tips"
+
+

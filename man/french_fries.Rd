@@ -5,7 +5,7 @@
 \title{Sensory data from a french fries experiment.}
 \format{A data frame with 696 rows and 9 variables}
 \usage{
-data(french_fries)
+french_fries
 }
 \description{
 This data was collected from a sensory experiment conducted at Iowa State
