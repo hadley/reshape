@@ -1,10 +1,10 @@
 Package: reshape2
 Title: Flexibly Reshape Data: A Reboot of the Reshape Package.
-Version: 1.4.1
+Version: 1.4.1.9000
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: Flexibly restructure and aggregate data using just two
-  functions: melt and dcast (or acast).
+    functions: melt and dcast (or acast).
 URL: https://github.com/hadley/reshape
 BugReports: https://github.com/hadley/reshape/issues
 LinkingTo: Rcpp
