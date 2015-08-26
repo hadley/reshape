@@ -1,5 +1,8 @@
 # Version 1.4.1.9000
 
+* `melt.data.frame()` throws when encountering objects of type `POSIXlt`,
+  and requests a conversion to the (much saner) `POSIXct` type.
+
 # Version 1.4.1
 
 * `melt.data.frame()` now properly sets the OBJECT bit on `value` variable 
