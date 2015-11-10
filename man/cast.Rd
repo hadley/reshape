@@ -38,7 +38,8 @@ value from applying \code{fun.aggregate} to 0 length vector}
 \item{drop}{should missing combinations dropped or kept?}
 
 \item{value.var}{name of column which stores values, see
-\code{\link{guess_value}} for default strategies to figure this out.}
+\code{\link{guess_value}} for default strategies to figure this
+out. value.var has no effect on the shape of the output table}
 }
 \description{
 Use \code{acast} or \code{dcast} depending on whether you want
@@ -46,12 +47,28 @@ vector/matrix/array output or data frame output.  Data frames can have at
 most two dimensions.
 }
 \details{
-The cast formula has the following format:
+The cast formula determines the shape of the output table. It has the
+following format:
 \code{x_variable + x_2 ~ y_variable + y_2 ~ z_variable ~  ... }
-The order of the variables makes a difference.  The first varies slowest,
-and the last fastest.  There are a couple of special variables: "..."
-represents all other variables not used in the formula and "." represents
-no variable, so you can do \code{formula = var1 ~ .}.
+
+'+' uses multiple variables to make a single combined key.
+
+'~' determines which dimension (rows, colums, etc.) the variables in a
+combined key apply to. The order of the variables makes a difference.
+The first varies slowest, and the last fastest.
+
+This means that the first combined key (to the left of the leftmost
+'~') will not be unstacked at all: those variables will be present as
+output columns with no changes, and there will be one row in the
+output for each distinct value of the first combined key.
+
+Subsequent variables (to the right of a '~') are used to generate the
+headers for one dimension of the output. Each distinct value will
+result in one header within that dimension.
+
+There are a couple of special variables: "..."  represents all other
+variables not used in the formula and "." represents no variable, so
+you can do \code{formula = var1 ~ .}.
 
 Alternatively, you can supply a list of quoted expressions, in the form
 \code{list(.(x_variable, x_2), .(y_variable, y_2), .(z))}.  The advantage
