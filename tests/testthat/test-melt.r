@@ -226,3 +226,26 @@ test_that("melt.data.frame throws when encountering POSIXlt", {
   expect_error(melt(df, measure.vars = c("x", "y")))
 
 })
+
+test_that("melt.data.frame handles named vectors", {
+  # Need to work around data.frame methods as they zap names of atomic
+  # vectors
+  df <- data.frame(col1 = numeric(2))
+  class(df) <- NULL
+  df$col1 <- c(a = 1, b = 2)
+  df$col2 <- c(a = 3, b = 4)
+  class(df) <- "data.frame"
+
+  expect_equal(names(melt(df)$value), c("a", "b", "a", "b"))
+
+  df$col2 <- 3:4
+  expect_equal(names(melt(df)$value), NULL)
+})
+
+test_that("melt.data.frame discards other special attributes", {
+  vec <- 1:2
+  dim(vec) <- 2
+  dimnames(vec) <- list(list("dim", "hop"))
+  df <- data.frame(col1 = vec, col2 = vec)
+  expect_equal(dim(melt(df)$value), NULL)
+})
