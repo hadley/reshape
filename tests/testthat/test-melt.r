@@ -226,3 +226,12 @@ test_that("melt.data.frame throws when encountering POSIXlt", {
   expect_error(melt(df, measure.vars = c("x", "y")))
 
 })
+
+test_that("melt.data.frame drops dimensions on melted values", {
+
+  df <- data.frame(x = 1:5, y = letters[1:5], stringsAsFactors = FALSE)
+  attr(df$x, "dim") <- 5
+  melted <- melt(df, id = "y")
+  expect_true(is.null(attr(melted$value, "dim")))
+
+})
