@@ -1,3 +1,5 @@
+Ooops! I thought I was submitting reshape2, but I was accidentally working on reshape :( It's not a big deal because the notes needed fixing anyway, but it does mean I changed the CITATION incorrectly. This update changes to correctly refer to reshape, not reshape2.
+
 ## Test environments
 * local OS X install, R 3.3.1
 * ubuntu 12.04 (on travis-ci), R 3.3.1
