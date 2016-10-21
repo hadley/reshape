@@ -1,4 +1,6 @@
-# Version 1.4.1.9000
+# Version 1.4.2
+
+* Minor R CMD check fixes for CRAN.
 
 # Version 1.4.1
 
