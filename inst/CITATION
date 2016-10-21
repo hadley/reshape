@@ -1,4 +1,4 @@
-citHeader("To cite reshape in publications use:")
+citHeader("To cite reshape2 in publications use:")
 
 citEntry(entry = "Article",
   title        = "Reshaping Data with the {reshape} Package",
