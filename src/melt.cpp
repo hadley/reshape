@@ -237,22 +237,30 @@ List melt_dataframe(const DataFrame& data,
   // we repeat each ID vector n_measure times
 
   // A define to handle the different possible types
-  #define REP(RTYPE)                                 \
+  #define REP(OBJECT, RTYPE)                         \
     case RTYPE: {                                    \
-      output[i] = rep_(data[id_ind[i]], n_measure);  \
-      Rf_copyMostAttrib(data[id_ind[i]], output[i]); \
+      output[i] = rep_(OBJECT, n_measure);           \
+      Rf_copyMostAttrib(OBJECT, output[i]);          \
       break;                                         \
     }
 
   for (int i = 0; i < n_id; ++i) {
-    switch (TYPEOF(data[id_ind[i]])) {
-      REP(LGLSXP);
-      REP(INTSXP);
-      REP(REALSXP);
-      REP(STRSXP);
-      REP(CPLXSXP);
-      REP(RAWSXP);
-      REP(VECSXP);
+
+    SEXP object = data[id_ind[i]];
+
+    if (Rf_inherits(object, "POSIXlt")) {
+      std::string var = std::string(data_names[id_ind[i]]);
+      Rcpp::stop("'%s' is a POSIXlt. Please convert to POSIXct.", var);
+    }
+
+    switch (TYPEOF(object)) {
+      REP(object, LGLSXP);
+      REP(object, INTSXP);
+      REP(object, REALSXP);
+      REP(object, STRSXP);
+      REP(object, CPLXSXP);
+      REP(object, RAWSXP);
+      REP(object, VECSXP);
       default: { stop("internal error: unnhandled vector type in REP"); }
     }
   }

@@ -1,3 +1,8 @@
+# Version 1.4.2.9000
+
+* `melt.data.frame()` throws when encountering objects of type `POSIXlt`,
+  and requests a conversion to the (much saner) `POSIXct` type.
+
 # Version 1.4.2
 
 * Minor R CMD check fixes for CRAN.

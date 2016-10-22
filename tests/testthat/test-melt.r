@@ -214,3 +214,15 @@ test_that("melt.data.frame allows for lists in the set of id variables", {
   result <- melt(df, id=1:2)
   expect_identical(result$y[1:5], df$y)
 })
+
+test_that("melt.data.frame throws when encountering POSIXlt", {
+
+  df <- data.frame(
+    x = 1:5,
+    y = 6:10
+  )
+
+  df$z <- as.POSIXlt(Sys.time())
+  expect_error(melt(df, measure.vars = c("x", "y")))
+
+})
