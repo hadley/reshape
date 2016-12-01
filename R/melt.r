@@ -15,7 +15,7 @@
 #'   convert explicit missings to implicit missings.
 #' @param ... further arguments passed to or from other methods.
 #' @param value.name name of variable used to store values
-#' @seealso \code{\link{cast}}
+#' @seealso \code{\link{dcast}}, \code{\link{acast}}
 #' @export
 melt <- function(data, ..., na.rm = FALSE, value.name = "value") {
   UseMethod("melt", data)
@@ -30,7 +30,7 @@ melt <- function(data, ..., na.rm = FALSE, value.name = "value") {
 #' @param ... further arguments passed to or from other methods.
 #' @param value.name name of variable used to store values
 #' @keywords manip
-#' @seealso \code{\link{melt}}, \code{\link{cast}}
+#' @seealso \code{\link{melt}}, \code{\link{dcast}}, \code{\link{acast}}
 #' @family melt methods
 #' @export
 melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
@@ -44,7 +44,7 @@ melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
 #' @param data list to recursively melt
 #' @param ... further arguments passed to or from other methods.
 #' @param level list level - used for creating labels
-#' @seealso \code{\link{cast}}
+#' @seealso \code{\link{dcast}}, \code{\link{acast}}
 #' @family melt methods
 #' @export
 #' @examples
@@ -101,7 +101,7 @@ melt.list <- function(data, ..., level = 1) {
 #'   levels are not identical across the \code{measure.vars}.
 #' @family melt methods
 #' @keywords manip
-#' @seealso \code{\link{cast}}
+#' @seealso \code{\link{dcast}}, \code{\link{acast}}
 #' @export
 #' @examples
 #' names(airquality) <- tolower(names(airquality))
@@ -161,7 +161,7 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
 #'   convert explicit missings to implicit missings.
 #' @keywords manip
 #' @export
-#' @seealso \code{\link{cast}}
+#' @seealso \code{\link{dcast}}, \code{\link{acast}}
 #' @family melt methods
 #' @examples
 #' a <- array(c(1:23, NA), c(2,3,4))
