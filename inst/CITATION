@@ -1,7 +1,7 @@
 citHeader("To cite reshape in publications, please use:")
 
 citEntry(entry = "article",
-  author = "Wickham, Hadley",
+  author = "Hadley Wickham",
   journal = "Journal of Statistical Software",
   number = "12",
   title = "Reshaping data with the reshape package",
