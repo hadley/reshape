@@ -1,9 +1,9 @@
 Package: reshape
-Version: 0.8.7
+Version: 0.8.7.9000
 Title: Flexibly Reshape Data
 Description: Flexibly restructure and aggregate data using 
   just two functions: melt and cast.
-Authors@R: 
+Authors@R:
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre"))
 URL: http://had.co.nz/reshape
 Depends: R (>= 2.6.1)
