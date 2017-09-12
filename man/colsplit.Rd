@@ -25,4 +25,3 @@ vars
 str(vars)
 }
 \keyword{manip}
-

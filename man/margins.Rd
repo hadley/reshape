@@ -25,4 +25,3 @@ margined over are dropped silently.
 }
 \keyword{internal}
 \keyword{manip}
-

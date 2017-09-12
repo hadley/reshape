@@ -51,4 +51,3 @@ Other melt methods: \code{\link{melt.array}},
   \code{\link{melt.default}}, \code{\link{melt.list}}
 }
 \keyword{manip}
-

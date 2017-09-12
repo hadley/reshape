@@ -30,4 +30,3 @@ recast(french_fries, time ~ variable, id.var = 1:4)
 \url{http://had.co.nz/reshape/}
 }
 \keyword{manip}
-
