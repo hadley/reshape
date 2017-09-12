@@ -17,4 +17,3 @@ Strategy:
 }
 }
 \keyword{internal}
-

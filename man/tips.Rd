@@ -33,4 +33,3 @@ Bryant, P. G. and Smith, M (1995) \emph{Practical Data
   Irwin Publishing:
 }
 \keyword{datasets}
-
