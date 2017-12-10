@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor) {
-    .Call('reshape2_melt_dataframe', PACKAGE = 'reshape2', data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor)
+    .Call('_reshape2_melt_dataframe', PACKAGE = 'reshape2', data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor)
 }
 
