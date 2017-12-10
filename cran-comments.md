@@ -12,4 +12,4 @@
 
 ## Reverse dependencies
 
-This release fixes R CMD check errors and notesl I did not check the reverse dependencies.
+This release fixes R CMD check errors and notes; I did not check the reverse dependencies.
