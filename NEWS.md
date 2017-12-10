@@ -1,4 +1,6 @@
-# Version 1.4.2.9000
+# Version 1.4.3
+
+* Fix C/C++ problems causing R CMD CHECK errors.
 
 * `melt.data.frame()` throws when encountering objects of type `POSIXlt`,
   and requests a conversion to the (much saner) `POSIXct` type.

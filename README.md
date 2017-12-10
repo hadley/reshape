@@ -1,6 +1,14 @@
-# Reshape2
+# reshape2
 
-[![Build Status](https://travis-ci.org/hadley/reshape.png)](https://travis-ci.org/hadley/reshape)
+[![Build Status](https://travis-ci.org/hadley/reshape.svg)](https://travis-ci.org/hadley/reshape)
+[![Coverage status](https://codecov.io/gh/hadley/reshape/branch/master/graph/badge.svg)](https://codecov.io/github/hadley/reshape?branch=master)
+
+## Status
+[![lifecycle](https://img.shields.io/badge/lifecycle-retired-orange.svg)](https://img.shields.io/badge/lifecycle-retired-orange.svg)
+
+reshape2 is retired: only changes necessary to keep it on CRAN will be made. We recommend using [tidyr](http://tidyr.tidyverse.org/) instead.
+
+## Introduction
 
 Reshape2 is a reboot of the reshape package. It's been over five years since the first release of reshape, and in that time I've learned a tremendous amount about R programming, and how to work with data in R. Reshape2 uses that knowledge to make a new package for reshaping data that is much more focused and much much faster.
 
