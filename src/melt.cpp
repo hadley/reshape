@@ -43,8 +43,18 @@ SEXP rep_(SEXP x, int n) {
       DO_REP(CPLXSXP, Rcomplex, COMPLEX);
     case RAWSXP:
       DO_REP(RAWSXP, Rbyte, RAW);
-    case VECSXP:
-      DO_REP(VECSXP, SEXP, STRING_PTR);
+    case VECSXP: {
+      int counter = 0;
+      Shield<SEXP> output(Rf_allocVector(VECSXP, nout));
+      for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < xn; ++j) {
+          SET_VECTOR_ELT(output, counter, VECTOR_ELT(x, j));
+          ++counter;
+        }
+      }
+      return output;
+      break;
+    }
     default: {
       stop("Unhandled RTYPE");
       return R_NilValue;
