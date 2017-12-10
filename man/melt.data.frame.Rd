@@ -50,5 +50,5 @@ melt(ChickWeight, id=2:4)
 Other melt methods: \code{\link{melt.array}},
   \code{\link{melt.default}}, \code{\link{melt.list}}
 }
+\concept{melt methods}
 \keyword{manip}
-

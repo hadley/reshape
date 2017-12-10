@@ -34,5 +34,5 @@ melt(list(list(1:3), 1, list(as.list(3:4), as.list(1:2))))
 Other melt methods: \code{\link{melt.array}},
   \code{\link{melt.data.frame}}, \code{\link{melt.default}}
 }
+\concept{melt methods}
 \keyword{manip}
-

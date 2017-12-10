@@ -116,4 +116,3 @@ if (require("lattice")) {
 \code{\link{melt}},  \url{http://had.co.nz/reshape/}
 }
 \keyword{manip}
-

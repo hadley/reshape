@@ -12,9 +12,10 @@ Imports:
     plyr (>= 1.8.1),
     stringr,
     Rcpp
+Encoding: UTF-8
 Suggests:
     testthat (>= 0.8.0),
     lattice
 License: MIT + file LICENSE
 LazyData: true
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1.9000

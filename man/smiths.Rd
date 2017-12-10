@@ -13,4 +13,3 @@ A small demo dataset describing John and Mary Smith.  Used in the
 introductory vignette.
 }
 \keyword{datasets}
-
