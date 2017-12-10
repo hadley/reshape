@@ -8,11 +8,14 @@ Description: Flexibly restructure and aggregate data using just two
 License: MIT + file LICENSE
 URL: https://github.com/hadley/reshape
 BugReports: https://github.com/hadley/reshape/issues
+Depends: 
+    R (>= 3.1)
 Imports: 
     plyr (>= 1.8.1),
     Rcpp,
     stringr
 Suggests: 
+    covr,
     lattice,
     testthat (>= 0.8.0)
 LinkingTo: 

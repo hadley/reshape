@@ -5,3 +5,4 @@ bench
 ^NEWS\.md$
 ^revdep$
 ^cran-comments\.md$
+^codecov\.yml$
