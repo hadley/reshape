@@ -6,7 +6,7 @@
 \description{
 All variables in character string of formula.
 }
-\usage{\method{all.vars}{character}(formula, blank.char = ".")}
+\usage{all.vars.character(formula, blank.char = ".")}
 \arguments{
 \item{formula}{}
 \item{blank.char}{}

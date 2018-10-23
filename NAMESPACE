@@ -4,7 +4,6 @@ import(plyr)
 importFrom("stats", "complete.cases", "mad", "median", "sd")
 importFrom("utils", "str", "type.convert")
 
-S3method(all.vars,character)
 S3method(as.data.frame,cast_df)
 S3method(as.data.frame,cast_matrix)
 S3method(as.matrix,cast_df)
