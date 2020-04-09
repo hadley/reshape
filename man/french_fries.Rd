@@ -4,7 +4,9 @@
 \name{french_fries}
 \alias{french_fries}
 \title{Sensory data from a french fries experiment.}
-\format{A data frame with 696 rows and 9 variables}
+\format{
+A data frame with 696 rows and 9 variables
+}
 \usage{
 french_fries
 }

@@ -4,9 +4,16 @@
 \alias{melt.data.frame}
 \title{Melt a data frame into form suitable for easy casting.}
 \usage{
-\method{melt}{data.frame}(data, id.vars, measure.vars,
-  variable.name = "variable", ..., na.rm = FALSE, value.name = "value",
-  factorsAsStrings = TRUE)
+\method{melt}{data.frame}(
+  data,
+  id.vars,
+  measure.vars,
+  variable.name = "variable",
+  ...,
+  na.rm = FALSE,
+  value.name = "value",
+  factorsAsStrings = TRUE
+)
 }
 \arguments{
 \item{data}{data frame to melt}
@@ -47,8 +54,10 @@ melt(ChickWeight, id=2:4)
 \seealso{
 \code{\link{cast}}
 
-Other melt methods: \code{\link{melt.array}},
-  \code{\link{melt.default}}, \code{\link{melt.list}}
+Other melt methods: 
+\code{\link{melt.array}()},
+\code{\link{melt.default}()},
+\code{\link{melt.list}()}
 }
 \concept{melt methods}
 \keyword{manip}

@@ -4,7 +4,9 @@
 \name{smiths}
 \alias{smiths}
 \title{Demo data describing the Smiths.}
-\format{A data frame with 2 rows and 5 variables}
+\format{
+A data frame with 2 rows and 5 variables
+}
 \usage{
 smiths
 }

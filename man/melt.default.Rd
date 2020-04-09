@@ -24,8 +24,10 @@ For vectors, makes a column of a data frame
 \seealso{
 \code{\link{melt}}, \code{\link{cast}}
 
-Other melt methods: \code{\link{melt.array}},
-  \code{\link{melt.data.frame}}, \code{\link{melt.list}}
+Other melt methods: 
+\code{\link{melt.array}()},
+\code{\link{melt.data.frame}()},
+\code{\link{melt.list}()}
 }
 \concept{melt methods}
 \keyword{manip}

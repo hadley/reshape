@@ -6,14 +6,32 @@
 \alias{melt.matrix}
 \title{Melt an array.}
 \usage{
-\method{melt}{array}(data, varnames = names(dimnames(data)), ...,
-  na.rm = FALSE, as.is = FALSE, value.name = "value")
+\method{melt}{array}(
+  data,
+  varnames = names(dimnames(data)),
+  ...,
+  na.rm = FALSE,
+  as.is = FALSE,
+  value.name = "value"
+)
 
-\method{melt}{table}(data, varnames = names(dimnames(data)), ...,
-  na.rm = FALSE, as.is = FALSE, value.name = "value")
+\method{melt}{table}(
+  data,
+  varnames = names(dimnames(data)),
+  ...,
+  na.rm = FALSE,
+  as.is = FALSE,
+  value.name = "value"
+)
 
-\method{melt}{matrix}(data, varnames = names(dimnames(data)), ...,
-  na.rm = FALSE, as.is = FALSE, value.name = "value")
+\method{melt}{matrix}(
+  data,
+  varnames = names(dimnames(data)),
+  ...,
+  na.rm = FALSE,
+  as.is = FALSE,
+  value.name = "value"
+)
 }
 \arguments{
 \item{data}{array to melt}
@@ -48,8 +66,10 @@ melt(a)
 \seealso{
 \code{\link{cast}}
 
-Other melt methods: \code{\link{melt.data.frame}},
-  \code{\link{melt.default}}, \code{\link{melt.list}}
+Other melt methods: 
+\code{\link{melt.data.frame}()},
+\code{\link{melt.default}()},
+\code{\link{melt.list}()}
 }
 \concept{melt methods}
 \keyword{manip}

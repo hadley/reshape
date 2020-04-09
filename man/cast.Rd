@@ -7,13 +7,29 @@
 \title{Cast functions
 Cast a molten data frame into an array or data frame.}
 \usage{
-dcast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
-  subset = NULL, fill = NULL, drop = TRUE,
-  value.var = guess_value(data))
+dcast(
+  data,
+  formula,
+  fun.aggregate = NULL,
+  ...,
+  margins = NULL,
+  subset = NULL,
+  fill = NULL,
+  drop = TRUE,
+  value.var = guess_value(data)
+)
 
-acast(data, formula, fun.aggregate = NULL, ..., margins = NULL,
-  subset = NULL, fill = NULL, drop = TRUE,
-  value.var = guess_value(data))
+acast(
+  data,
+  formula,
+  fun.aggregate = NULL,
+  ...,
+  margins = NULL,
+  subset = NULL,
+  fill = NULL,
+  drop = TRUE,
+  value.var = guess_value(data)
+)
 }
 \arguments{
 \item{data}{molten data frame, see \code{\link{melt}}.}

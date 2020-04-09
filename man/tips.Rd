@@ -4,7 +4,9 @@
 \name{tips}
 \alias{tips}
 \title{Tipping data}
-\format{A data frame with 244 rows and 7 variables}
+\format{
+A data frame with 244 rows and 7 variables
+}
 \usage{
 tips
 }
