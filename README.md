@@ -1,13 +1,13 @@
 # reshape2
 
-[![Build Status](https://travis-ci.org/hadley/reshape.svg)](https://travis-ci.org/hadley/reshape)
-[![Coverage status](https://codecov.io/gh/hadley/reshape/branch/master/graph/badge.svg)](https://codecov.io/github/hadley/reshape?branch=master)
-
-## Status
 <!-- badges: start -->
 [![R build status](https://github.com/hadley/reshape/workflows/R-CMD-check/badge.svg)](https://github.com/hadley/reshape/actions)
 [![Codecov test coverage](https://codecov.io/gh/hadley/reshape/branch/master/graph/badge.svg)](https://codecov.io/gh/hadley/reshape?branch=master)
 <!-- badges: end -->
+
+## Status
+
+[![lifecycle](https://img.shields.io/badge/lifecycle-retired-orange.svg)](https://img.shields.io/badge/lifecycle-retired-orange.svg)
 
 reshape2 is retired: only changes necessary to keep it on CRAN will be made. We recommend using [tidyr](http://tidyr.tidyverse.org/) instead.
 
@@ -46,8 +46,3 @@ What's new in `reshape2`:
 Initial benchmarking has shown `melt` to be up to 10x faster, pure reshaping `cast` up to 100x faster, and aggregating `cast()` up to 10x faster.
 
 This work has been generously supported by BD (Becton Dickinson).
-
-## Installation
-
-* Get the released version from cran: `install.packages("reshape2")`
-* Get the dev version from github: `devtools::install_github("hadley/reshape")`
