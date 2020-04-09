@@ -130,6 +130,7 @@ test_that("Common attributes are preserved in measure variables", {
     date2 = as.POSIXct( Sys.Date() + 10)
   )
   m <- melt(df, measure.vars=c("date1", "date2"))
+  expect_s3_class(m$value, "POSIXct")
 })
 
 test_that("A warning is thrown when attributes are dropped in measure variables", {
