@@ -1,4 +1,6 @@
-# reshape2 1.4.3.9000
+# reshape2 1.4.4
+
+* Fix R CMD check failure in R-devel.
 
 # Version 1.4.3
 
