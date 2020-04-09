@@ -119,7 +119,7 @@ test_that("value.var overrides value col", {
 })
 
 test_that("labels are correct when missing combinations dropped/kept", {
-  df <- data.frame(fac1 = letters[1:4], fac2 = LETTERS[1:4], x = 1:4)
+  df <- data.frame(fac1 = letters[1:4], fac2 = LETTERS[1:4], x = 1:4, stringsAsFactors = TRUE)
   mx <- melt(df, id = c("fac1", "fac2"), measure.var = "x")
 
   c1 <- dcast(mx[1:2, ], fac1 + fac2 ~ variable, length, drop = F)
@@ -130,8 +130,6 @@ test_that("labels are correct when missing combinations dropped/kept", {
 
   c3 <- dcast(mx[1:2, ], fac1 + fac2 ~ variable, length, drop = T)
   expect_that(nrow(c3), equals(2))
-
-
 })
 
 test_that("factor value columns are handled", {
