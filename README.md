@@ -4,7 +4,10 @@
 [![Coverage status](https://codecov.io/gh/hadley/reshape/branch/master/graph/badge.svg)](https://codecov.io/github/hadley/reshape?branch=master)
 
 ## Status
-[![lifecycle](https://img.shields.io/badge/lifecycle-retired-orange.svg)](https://img.shields.io/badge/lifecycle-retired-orange.svg)
+<!-- badges: start -->
+[![R build status](https://github.com/hadley/reshape/workflows/R-CMD-check/badge.svg)](https://github.com/hadley/reshape/actions)
+[![Codecov test coverage](https://codecov.io/gh/hadley/reshape/branch/master/graph/badge.svg)](https://codecov.io/gh/hadley/reshape?branch=master)
+<!-- badges: end -->
 
 reshape2 is retired: only changes necessary to keep it on CRAN will be made. We recommend using [tidyr](http://tidyr.tidyverse.org/) instead.
 
