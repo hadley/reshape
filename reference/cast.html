@@ -49,6 +49,8 @@ most two dimensions." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -60,9 +62,15 @@ most two dimensions." />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -83,12 +91,6 @@ most two dimensions." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -98,7 +100,7 @@ most two dimensions." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hadley/reshape/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -127,29 +129,29 @@ vector/matrix/array output or data frame output.  Data frames can have at
 most two dimensions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dcast</span>(
-  <span class='no'>data</span>,
-  <span class='no'>formula</span>,
-  <span class='kw'>fun.aggregate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>margins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>value.var</span> <span class='kw'>=</span> <span class='fu'><a href='guess_value.html'>guess_value</a></span>(<span class='no'>data</span>)
-)
+    <pre class="usage"><span class='fu'>dcast</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>formula</span>,
+  fun.aggregate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>,
+  margins <span class='op'>=</span> <span class='cn'>NULL</span>,
+  subset <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fill <span class='op'>=</span> <span class='cn'>NULL</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  value.var <span class='op'>=</span> <span class='fu'><a href='guess_value.html'>guess_value</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>acast</span>(
-  <span class='no'>data</span>,
-  <span class='no'>formula</span>,
-  <span class='kw'>fun.aggregate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>margins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>value.var</span> <span class='kw'>=</span> <span class='fu'><a href='guess_value.html'>guess_value</a></span>(<span class='no'>data</span>)
-)</pre>
+<span class='fu'>acast</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>formula</span>,
+  fun.aggregate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>,
+  margins <span class='op'>=</span> <span class='cn'>NULL</span>,
+  subset <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fill <span class='op'>=</span> <span class='cn'>NULL</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  value.var <span class='op'>=</span> <span class='fu'><a href='guess_value.html'>guess_value</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,10 +224,11 @@ numbers and return a single summary statistic.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#Air quality example</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>airquality</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>airquality</span>))
-<span class='no'>aqm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>airquality</span>, <span class='kw'>id</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"month"</span>, <span class='st'>"day"</span>), <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>aqm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>airquality</span>, id<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"month"</span>, <span class='st'>"day"</span><span class='op'>)</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>acast</span>(<span class='no'>aqm</span>, <span class='no'>day</span> ~ <span class='no'>month</span> ~ <span class='no'>variable</span>)</div><div class='output co'>#&gt; , , ozone
+<span class='fu'>acast</span><span class='op'>(</span><span class='va'>aqm</span>, <span class='va'>day</span> <span class='op'>~</span> <span class='va'>month</span> <span class='op'>~</span> <span class='va'>variable</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; , , ozone
 #&gt; 
 #&gt;      5  6   7   8  9
 #&gt; 1   41 NA 135  39 96
@@ -364,36 +367,42 @@ numbers and return a single summary statistic.</p>
 #&gt; 29 81 77 86 94 76
 #&gt; 30 79 83 83 96 68
 #&gt; 31 76 NA 81 94 NA
-#&gt; </div><div class='input'><span class='fu'>acast</span>(<span class='no'>aqm</span>, <span class='no'>month</span> ~ <span class='no'>variable</span>, <span class='no'>mean</span>)</div><div class='output co'>#&gt;      ozone  solar.r      wind     temp
+#&gt; </div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>aqm</span>, <span class='va'>month</span> <span class='op'>~</span> <span class='va'>variable</span>, <span class='va'>mean</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      ozone  solar.r      wind     temp
 #&gt; 5 23.61538 181.2963 11.622581 65.54839
 #&gt; 6 29.44444 190.1667 10.266667 79.10000
 #&gt; 7 59.11538 216.4839  8.941935 83.90323
 #&gt; 8 59.96154 171.8571  8.793548 83.96774
-#&gt; 9 31.44828 167.4333 10.180000 76.90000</div><div class='input'><span class='fu'>acast</span>(<span class='no'>aqm</span>, <span class='no'>month</span> ~ <span class='no'>variable</span>, <span class='no'>mean</span>, <span class='kw'>margins</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;          ozone  solar.r      wind     temp    (all)
+#&gt; 9 31.44828 167.4333 10.180000 76.90000</div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>aqm</span>, <span class='va'>month</span> <span class='op'>~</span> <span class='va'>variable</span>, <span class='va'>mean</span>, margins <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          ozone  solar.r      wind     temp    (all)
 #&gt; 5     23.61538 181.2963 11.622581 65.54839 68.70696
 #&gt; 6     29.44444 190.1667 10.266667 79.10000 87.38384
 #&gt; 7     59.11538 216.4839  8.941935 83.90323 93.49748
 #&gt; 8     59.96154 171.8571  8.793548 83.96774 79.71207
 #&gt; 9     31.44828 167.4333 10.180000 76.90000 71.82689
-#&gt; (all) 42.12931 185.9315  9.957516 77.88235 80.05722</div><div class='input'><span class='fu'>dcast</span>(<span class='no'>aqm</span>, <span class='no'>month</span> ~ <span class='no'>variable</span>, <span class='no'>mean</span>, <span class='kw'>margins</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"month"</span>, <span class='st'>"variable"</span>))</div><div class='output co'>#&gt;   month    ozone  solar.r      wind     temp    (all)
+#&gt; (all) 42.12931 185.9315  9.957516 77.88235 80.05722</div><div class='input'><span class='fu'>dcast</span><span class='op'>(</span><span class='va'>aqm</span>, <span class='va'>month</span> <span class='op'>~</span> <span class='va'>variable</span>, <span class='va'>mean</span>, margins <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"month"</span>, <span class='st'>"variable"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   month    ozone  solar.r      wind     temp    (all)
 #&gt; 1     5 23.61538 181.2963 11.622581 65.54839 68.70696
 #&gt; 2     6 29.44444 190.1667 10.266667 79.10000 87.38384
 #&gt; 3     7 59.11538 216.4839  8.941935 83.90323 93.49748
 #&gt; 4     8 59.96154 171.8571  8.793548 83.96774 79.71207
 #&gt; 5     9 31.44828 167.4333 10.180000 76.90000 71.82689
 #&gt; 6 (all) 42.12931 185.9315  9.957516 77.88235 80.05722</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>plyr</span>) <span class='co'># needed to access . function</span>
-<span class='fu'>acast</span>(<span class='no'>aqm</span>, <span class='no'>variable</span> ~ <span class='no'>month</span>, <span class='no'>mean</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/plyr/man/quoted.html'>.</a></span>(<span class='no'>variable</span> <span class='kw'>==</span> <span class='st'>"ozone"</span>))</div><div class='output co'>#&gt;              5        6        7        8        9
-#&gt; ozone 23.61538 29.44444 59.11538 59.96154 31.44828</div><div class='input'><span class='fu'>acast</span>(<span class='no'>aqm</span>, <span class='no'>variable</span> ~ <span class='no'>month</span>, <span class='no'>mean</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/plyr/man/quoted.html'>.</a></span>(<span class='no'>month</span> <span class='kw'>==</span> <span class='fl'>5</span>))</div><div class='output co'>#&gt;                 5
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://had.co.nz/plyr'>plyr</a></span><span class='op'>)</span> <span class='co'># needed to access . function</span>
+<span class='fu'>acast</span><span class='op'>(</span><span class='va'>aqm</span>, <span class='va'>variable</span> <span class='op'>~</span> <span class='va'>month</span>, <span class='va'>mean</span>, subset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/plyr/man/quoted.html'>.</a></span><span class='op'>(</span><span class='va'>variable</span> <span class='op'>==</span> <span class='st'>"ozone"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;              5        6        7        8        9
+#&gt; ozone 23.61538 29.44444 59.11538 59.96154 31.44828</div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>aqm</span>, <span class='va'>variable</span> <span class='op'>~</span> <span class='va'>month</span>, <span class='va'>mean</span>, subset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/plyr/man/quoted.html'>.</a></span><span class='op'>(</span><span class='va'>month</span> <span class='op'>==</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                 5
 #&gt; ozone    23.61538
 #&gt; solar.r 181.29630
 #&gt; wind     11.62258
 #&gt; temp     65.54839</div><div class='input'>
 <span class='co'>#Chick weight example</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>ChickWeight</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>ChickWeight</span>))
-<span class='no'>chick_m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>ChickWeight</span>, <span class='kw'>id</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>4</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>ChickWeight</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>ChickWeight</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>chick_m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>ChickWeight</span>, id<span class='op'>=</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>dcast</span>(<span class='no'>chick_m</span>, <span class='no'>time</span> ~ <span class='no'>variable</span>, <span class='no'>mean</span>) <span class='co'># average effect of time</span></div><div class='output co'>#&gt;    time    weight
+<span class='fu'>dcast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>time</span> <span class='op'>~</span> <span class='va'>variable</span>, <span class='va'>mean</span><span class='op'>)</span> <span class='co'># average effect of time</span>
+</div><div class='output co'>#&gt;    time    weight
 #&gt; 1     0  41.06000
 #&gt; 2     2  49.22000
 #&gt; 3     4  59.95918
@@ -405,11 +414,13 @@ numbers and return a single summary statistic.</p>
 #&gt; 9    16 168.08511
 #&gt; 10   18 190.19149
 #&gt; 11   20 209.71739
-#&gt; 12   21 218.68889</div><div class='input'><span class='fu'>dcast</span>(<span class='no'>chick_m</span>, <span class='no'>diet</span> ~ <span class='no'>variable</span>, <span class='no'>mean</span>) <span class='co'># average effect of diet</span></div><div class='output co'>#&gt;   diet   weight
+#&gt; 12   21 218.68889</div><div class='input'><span class='fu'>dcast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>diet</span> <span class='op'>~</span> <span class='va'>variable</span>, <span class='va'>mean</span><span class='op'>)</span> <span class='co'># average effect of diet</span>
+</div><div class='output co'>#&gt;   diet   weight
 #&gt; 1    1 102.6455
 #&gt; 2    2 122.6167
 #&gt; 3    3 142.9500
-#&gt; 4    4 135.2627</div><div class='input'><span class='fu'>acast</span>(<span class='no'>chick_m</span>, <span class='no'>diet</span> ~ <span class='no'>time</span>, <span class='no'>mean</span>) <span class='co'># average effect of diet &amp; time</span></div><div class='output co'>#&gt;      0     2        4        6         8        10       12       14       16
+#&gt; 4    4 135.2627</div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>diet</span> <span class='op'>~</span> <span class='va'>time</span>, <span class='va'>mean</span><span class='op'>)</span> <span class='co'># average effect of diet &amp; time</span>
+</div><div class='output co'>#&gt;      0     2        4        6         8        10       12       14       16
 #&gt; 1 41.4 47.25 56.47368 66.78947  79.68421  93.05263 108.5263 123.3889 144.6471
 #&gt; 2 40.7 49.40 59.80000 75.40000  91.70000 108.50000 131.3000 141.9000 164.7000
 #&gt; 3 40.8 50.40 62.20000 77.90000  98.40000 117.10000 144.4000 164.5000 197.4000
@@ -420,7 +431,8 @@ numbers and return a single summary statistic.</p>
 #&gt; 3 233.1000 258.9000 270.3000
 #&gt; 4 202.9000 233.8889 238.5556</div><div class='input'>
 <span class='co'># How many chicks at each time? - checking for balance</span>
-<span class='fu'>acast</span>(<span class='no'>chick_m</span>, <span class='no'>time</span> ~ <span class='no'>diet</span>, <span class='no'>length</span>)</div><div class='output co'>#&gt;     1  2  3  4
+<span class='fu'>acast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>time</span> <span class='op'>~</span> <span class='va'>diet</span>, <span class='va'>length</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     1  2  3  4
 #&gt; 0  20 10 10 10
 #&gt; 2  20 10 10 10
 #&gt; 4  19 10 10 10
@@ -432,7 +444,8 @@ numbers and return a single summary statistic.</p>
 #&gt; 16 17 10 10 10
 #&gt; 18 17 10 10 10
 #&gt; 20 17 10 10  9
-#&gt; 21 16 10 10  9</div><div class='input'><span class='fu'>acast</span>(<span class='no'>chick_m</span>, <span class='no'>chick</span> ~ <span class='no'>time</span>, <span class='no'>mean</span>)</div><div class='output co'>#&gt;     0  2   4   6   8  10  12  14  16  18  20  21
+#&gt; 21 16 10 10  9</div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>chick</span> <span class='op'>~</span> <span class='va'>time</span>, <span class='va'>mean</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     0  2   4   6   8  10  12  14  16  18  20  21
 #&gt; 18 39 35 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
 #&gt; 16 41 45  49  51  57  51  54 NaN NaN NaN NaN NaN
 #&gt; 15 41 49  56  64  68  68  67  68 NaN NaN NaN NaN
@@ -482,13 +495,15 @@ numbers and return a single summary statistic.</p>
 #&gt; 46 40 52  62  82 101 120 144 156 173 210 231 238
 #&gt; 50 41 54  67  84 105 122 155 175 205 234 264 264
 #&gt; 42 42 49  63  84 103 126 160 174 204 234 269 281
-#&gt; 48 39 50  62  80 104 125 154 170 222 261 303 322</div><div class='input'><span class='fu'>acast</span>(<span class='no'>chick_m</span>, <span class='no'>chick</span> ~ <span class='no'>time</span>, <span class='no'>mean</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/plyr/man/quoted.html'>.</a></span>(<span class='no'>time</span> <span class='kw'>&lt;</span> <span class='fl'>10</span> <span class='kw'>&amp;</span> <span class='no'>chick</span> <span class='kw'>&lt;</span> <span class='fl'>20</span>))</div><div class='output co'>#&gt;     0  2   4   6   8
+#&gt; 48 39 50  62  80 104 125 154 170 222 261 303 322</div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>chick</span> <span class='op'>~</span> <span class='va'>time</span>, <span class='va'>mean</span>, subset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/plyr/man/quoted.html'>.</a></span><span class='op'>(</span><span class='va'>time</span> <span class='op'>&lt;</span> <span class='fl'>10</span> <span class='op'>&amp;</span> <span class='va'>chick</span> <span class='op'>&lt;</span> <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     0  2   4   6   8
 #&gt; 18 39 35 NaN NaN NaN
 #&gt; 16 41 45  49  51  57
 #&gt; 15 41 49  56  64  68
 #&gt; 13 41 48  53  60  65
 #&gt; 9  42 51  59  68  85</div><div class='input'>
-<span class='fu'>acast</span>(<span class='no'>chick_m</span>, <span class='no'>time</span> ~ <span class='no'>diet</span>, <span class='no'>length</span>)</div><div class='output co'>#&gt;     1  2  3  4
+<span class='fu'>acast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>time</span> <span class='op'>~</span> <span class='va'>diet</span>, <span class='va'>length</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     1  2  3  4
 #&gt; 0  20 10 10 10
 #&gt; 2  20 10 10 10
 #&gt; 4  19 10 10 10
@@ -501,7 +516,8 @@ numbers and return a single summary statistic.</p>
 #&gt; 18 17 10 10 10
 #&gt; 20 17 10 10  9
 #&gt; 21 16 10 10  9</div><div class='input'>
-<span class='fu'>dcast</span>(<span class='no'>chick_m</span>, <span class='no'>diet</span> + <span class='no'>chick</span> ~ <span class='no'>time</span>)</div><div class='output co'>#&gt;    diet chick  0  2  4  6   8  10  12  14  16  18  20  21
+<span class='fu'>dcast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>diet</span> <span class='op'>+</span> <span class='va'>chick</span> <span class='op'>~</span> <span class='va'>time</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    diet chick  0  2  4  6   8  10  12  14  16  18  20  21
 #&gt; 1     1    18 39 35 NA NA  NA  NA  NA  NA  NA  NA  NA  NA
 #&gt; 2     1    16 41 45 49 51  57  51  54  NA  NA  NA  NA  NA
 #&gt; 3     1    15 41 49 56 64  68  68  67  68  NA  NA  NA  NA
@@ -551,7 +567,8 @@ numbers and return a single summary statistic.</p>
 #&gt; 47    4    46 40 52 62 82 101 120 144 156 173 210 231 238
 #&gt; 48    4    50 41 54 67 84 105 122 155 175 205 234 264 264
 #&gt; 49    4    42 42 49 63 84 103 126 160 174 204 234 269 281
-#&gt; 50    4    48 39 50 62 80 104 125 154 170 222 261 303 322</div><div class='input'><span class='fu'>acast</span>(<span class='no'>chick_m</span>, <span class='no'>diet</span> + <span class='no'>chick</span> ~ <span class='no'>time</span>)</div><div class='output co'>#&gt;       0  2  4  6   8  10  12  14  16  18  20  21
+#&gt; 50    4    48 39 50 62 80 104 125 154 170 222 261 303 322</div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>diet</span> <span class='op'>+</span> <span class='va'>chick</span> <span class='op'>~</span> <span class='va'>time</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       0  2  4  6   8  10  12  14  16  18  20  21
 #&gt; 1_18 39 35 NA NA  NA  NA  NA  NA  NA  NA  NA  NA
 #&gt; 1_16 41 45 49 51  57  51  54  NA  NA  NA  NA  NA
 #&gt; 1_15 41 49 56 64  68  68  67  68  NA  NA  NA  NA
@@ -601,7 +618,8 @@ numbers and return a single summary statistic.</p>
 #&gt; 4_46 40 52 62 82 101 120 144 156 173 210 231 238
 #&gt; 4_50 41 54 67 84 105 122 155 175 205 234 264 264
 #&gt; 4_42 42 49 63 84 103 126 160 174 204 234 269 281
-#&gt; 4_48 39 50 62 80 104 125 154 170 222 261 303 322</div><div class='input'><span class='fu'>acast</span>(<span class='no'>chick_m</span>, <span class='no'>chick</span> ~ <span class='no'>time</span> ~ <span class='no'>diet</span>)</div><div class='output co'>#&gt; , , 1
+#&gt; 4_48 39 50 62 80 104 125 154 170 222 261 303 322</div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>chick</span> <span class='op'>~</span> <span class='va'>time</span> <span class='op'>~</span> <span class='va'>diet</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; , , 1
 #&gt; 
 #&gt;     0  2  4  6   8  10  12  14  16  18  20  21
 #&gt; 18 39 35 NA NA  NA  NA  NA  NA  NA  NA  NA  NA
@@ -816,7 +834,8 @@ numbers and return a single summary statistic.</p>
 #&gt; 50 41 54 67 84 105 122 155 175 205 234 264 264
 #&gt; 42 42 49 63 84 103 126 160 174 204 234 269 281
 #&gt; 48 39 50 62 80 104 125 154 170 222 261 303 322
-#&gt; </div><div class='input'><span class='fu'>acast</span>(<span class='no'>chick_m</span>, <span class='no'>diet</span> + <span class='no'>chick</span> ~ <span class='no'>time</span>, <span class='no'>length</span>, <span class='kw'>margins</span><span class='kw'>=</span><span class='st'>"diet"</span>)</div><div class='output co'>#&gt;              0  2  4  6  8 10 12 14 16 18 20 21
+#&gt; </div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>diet</span> <span class='op'>+</span> <span class='va'>chick</span> <span class='op'>~</span> <span class='va'>time</span>, <span class='va'>length</span>, margins<span class='op'>=</span><span class='st'>"diet"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;              0  2  4  6  8 10 12 14 16 18 20 21
 #&gt; 1_18         1  1  0  0  0  0  0  0  0  0  0  0
 #&gt; 1_16         1  1  1  1  1  1  1  0  0  0  0  0
 #&gt; 1_15         1  1  1  1  1  1  1  1  0  0  0  0
@@ -867,7 +886,8 @@ numbers and return a single summary statistic.</p>
 #&gt; 4_50         1  1  1  1  1  1  1  1  1  1  1  1
 #&gt; 4_42         1  1  1  1  1  1  1  1  1  1  1  1
 #&gt; 4_48         1  1  1  1  1  1  1  1  1  1  1  1
-#&gt; (all)_(all) 50 50 49 49 49 49 49 48 47 47 46 45</div><div class='input'><span class='fu'>acast</span>(<span class='no'>chick_m</span>, <span class='no'>diet</span> + <span class='no'>chick</span> ~ <span class='no'>time</span>, <span class='no'>length</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;      0 2 4 6 8 10 12 14 16 18 20 21
+#&gt; (all)_(all) 50 50 49 49 49 49 49 48 47 47 46 45</div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>chick_m</span>, <span class='va'>diet</span> <span class='op'>+</span> <span class='va'>chick</span> <span class='op'>~</span> <span class='va'>time</span>, <span class='va'>length</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      0 2 4 6 8 10 12 14 16 18 20 21
 #&gt; 1_18 1 1 0 0 0  0  0  0  0  0  0  0
 #&gt; 1_16 1 1 1 1 1  1  1  0  0  0  0  0
 #&gt; 1_15 1 1 1 1 1  1  1  1  0  0  0  0
@@ -1069,11 +1089,13 @@ numbers and return a single summary statistic.</p>
 #&gt; 4_42 1 1 1 1 1  1  1  1  1  1  1  1
 #&gt; 4_48 1 1 1 1 1  1  1  1  1  1  1  1</div><div class='input'>
 <span class='co'>#Tips example</span>
-<span class='fu'>dcast</span>(<span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>tips</span>), <span class='no'>sex</span> ~ <span class='no'>smoker</span>, <span class='no'>mean</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/plyr/man/quoted.html'>.</a></span>(<span class='no'>variable</span> <span class='kw'>==</span> <span class='st'>"total_bill"</span>))</div><div class='output co'>#&gt; <span class='message'>Using sex, smoker, day, time as id variables</span></div><div class='output co'>#&gt;      sex       No      Yes
+<span class='fu'>dcast</span><span class='op'>(</span><span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>tips</span><span class='op'>)</span>, <span class='va'>sex</span> <span class='op'>~</span> <span class='va'>smoker</span>, <span class='va'>mean</span>, subset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/plyr/man/quoted.html'>.</a></span><span class='op'>(</span><span class='va'>variable</span> <span class='op'>==</span> <span class='st'>"total_bill"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using sex, smoker, day, time as id variables</span></div><div class='output co'>#&gt;      sex       No      Yes
 #&gt; 1 Female 18.10519 17.97788
 #&gt; 2   Male 19.79124 22.28450</div><div class='input'>
-<span class='no'>ff_d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>french_fries</span>, <span class='kw'>id</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>4</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='fu'>acast</span>(<span class='no'>ff_d</span>, <span class='no'>subject</span> ~ <span class='no'>time</span>, <span class='no'>length</span>)</div><div class='output co'>#&gt;     1  2  3  4  5  6  7  8  9 10
+<span class='va'>ff_d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>french_fries</span>, id<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>acast</span><span class='op'>(</span><span class='va'>ff_d</span>, <span class='va'>subject</span> <span class='op'>~</span> <span class='va'>time</span>, <span class='va'>length</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     1  2  3  4  5  6  7  8  9 10
 #&gt; 3  30 30 30 30 30 30 30 30 30  0
 #&gt; 10 30 30 30 30 30 30 30 30 30 30
 #&gt; 15 30 30 30 30 25 30 30 30 30 30
@@ -1085,7 +1107,8 @@ numbers and return a single summary statistic.</p>
 #&gt; 63 30 30 30 30 30 30 30 30 30 30
 #&gt; 78 30 30 30 30 30 30 30 30 30 30
 #&gt; 79 30 30 30 30 30 30 29 28 30  0
-#&gt; 86 30 30 30 30 30 30 30 30  0 30</div><div class='input'><span class='fu'>acast</span>(<span class='no'>ff_d</span>, <span class='no'>subject</span> ~ <span class='no'>time</span>, <span class='no'>length</span>, <span class='kw'>fill</span><span class='kw'>=</span><span class='fl'>0</span>)</div><div class='output co'>#&gt;     1  2  3  4  5  6  7  8  9 10
+#&gt; 86 30 30 30 30 30 30 30 30  0 30</div><div class='input'><span class='fu'>acast</span><span class='op'>(</span><span class='va'>ff_d</span>, <span class='va'>subject</span> <span class='op'>~</span> <span class='va'>time</span>, <span class='va'>length</span>, fill<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     1  2  3  4  5  6  7  8  9 10
 #&gt; 3  30 30 30 30 30 30 30 30 30  0
 #&gt; 10 30 30 30 30 30 30 30 30 30 30
 #&gt; 15 30 30 30 30 25 30 30 30 30 30
@@ -1097,11 +1120,13 @@ numbers and return a single summary statistic.</p>
 #&gt; 63 30 30 30 30 30 30 30 30 30 30
 #&gt; 78 30 30 30 30 30 30 30 30 30 30
 #&gt; 79 30 30 30 30 30 30 29 28 30  0
-#&gt; 86 30 30 30 30 30 30 30 30  0 30</div><div class='input'><span class='fu'>dcast</span>(<span class='no'>ff_d</span>, <span class='no'>treatment</span> ~ <span class='no'>variable</span>, <span class='no'>mean</span>, <span class='kw'>margins</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   treatment   potato  buttery    grassy   rancid   painty    (all)
+#&gt; 86 30 30 30 30 30 30 30 30  0 30</div><div class='input'><span class='fu'>dcast</span><span class='op'>(</span><span class='va'>ff_d</span>, <span class='va'>treatment</span> <span class='op'>~</span> <span class='va'>variable</span>, <span class='va'>mean</span>, margins <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   treatment   potato  buttery    grassy   rancid   painty    (all)
 #&gt; 1         1 6.887931 1.780087 0.6491379 4.065517 2.583621 3.194478
 #&gt; 2         2 7.001724 1.973913 0.6629310 3.624569 2.455844 3.146413
 #&gt; 3         3 6.967965 1.717749 0.6805195 3.866667 2.525541 3.151688
-#&gt; 4     (all) 6.952518 1.823699 0.6641727 3.852230 2.521758 3.164218</div><div class='input'><span class='fu'>dcast</span>(<span class='no'>ff_d</span>, <span class='no'>treatment</span> + <span class='no'>subject</span> ~ <span class='no'>variable</span>, <span class='no'>mean</span>, <span class='kw'>margins</span><span class='kw'>=</span><span class='st'>"treatment"</span>)</div><div class='output co'>#&gt;    treatment subject    potato   buttery     grassy    rancid     painty
+#&gt; 4     (all) 6.952518 1.823699 0.6641727 3.852230 2.521758 3.164218</div><div class='input'><span class='fu'>dcast</span><span class='op'>(</span><span class='va'>ff_d</span>, <span class='va'>treatment</span> <span class='op'>+</span> <span class='va'>subject</span> <span class='op'>~</span> <span class='va'>variable</span>, <span class='va'>mean</span>, margins<span class='op'>=</span><span class='st'>"treatment"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    treatment subject    potato   buttery     grassy    rancid     painty
 #&gt; 1          1       3  6.216667 0.3722222 0.18888889 2.1055556 3.11111111
 #&gt; 2          1      10  9.955000 6.7500000 0.58500000 4.0200000 1.37500000
 #&gt; 3          1      15  3.360000 0.7200000 0.42000000 3.9650000 3.26000000
@@ -1138,9 +1163,10 @@ numbers and return a single summary statistic.</p>
 #&gt; 34         3      78  4.000000 0.7050000 0.66500000 1.1850000 3.52000000
 #&gt; 35         3      79  7.733333 0.5722222 0.11666667 1.1777778 0.02777778
 #&gt; 36         3      86  3.866667 1.6333333 0.94444444 4.1055556 3.02777778
-#&gt; 37     (all)   (all)  6.952518 1.8236994 0.66417266 3.8522302 2.52175793</div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"lattice"</span>)) {
- <span class='kw pkg'>lattice</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span>(<span class='no'>`1`</span> ~ <span class='no'>`2`</span> <span class='kw'>|</span> <span class='no'>variable</span>, <span class='fu'>dcast</span>(<span class='no'>ff_d</span>, <span class='no'>...</span> ~ <span class='no'>rep</span>), <span class='kw'>aspect</span><span class='kw'>=</span><span class='st'>"iso"</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: lattice</span></div><div class='img'><img src='cast-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; 37     (all)   (all)  6.952518 1.8236994 0.66417266 3.8522302 2.52175793</div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://lattice.r-forge.r-project.org/'>"lattice"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+ <span class='fu'>lattice</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lattice/man/xyplot.html'>xyplot</a></span><span class='op'>(</span><span class='va'>`1`</span> <span class='op'>~</span> <span class='va'>`2`</span> <span class='op'>|</span> <span class='va'>variable</span>, <span class='fu'>dcast</span><span class='op'>(</span><span class='va'>ff_d</span>, <span class='va'>...</span> <span class='op'>~</span> <span class='va'>rep</span><span class='op'>)</span>, aspect<span class='op'>=</span><span class='st'>"iso"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: lattice</span></div><div class='img'><img src='cast-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -1152,11 +1178,11 @@ numbers and return a single summary statistic.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
+  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
@@ -1164,6 +1190,8 @@ numbers and return a single summary statistic.</p>
 
   
 
+
+  
 
   </body>
 </html>

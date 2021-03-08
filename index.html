@@ -20,6 +20,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,12 +41,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
@@ -54,7 +50,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/hadley/reshape/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -78,8 +74,8 @@
 <div id="status" class="section level2">
 <h2 class="hasAnchor">
 <a href="#status" class="anchor"></a>Status</h2>
-<p><a href="https://img.shields.io/badge/lifecycle-retired-orange.svg"><img src="https://img.shields.io/badge/lifecycle-retired-orange.svg" alt="lifecycle"></a></p>
-<p>reshape2 is retired: only changes necessary to keep it on CRAN will be made. We recommend using <a href="http://tidyr.tidyverse.org/">tidyr</a> instead.</p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded" class="external-link"><img src="https://img.shields.io/badge/lifecycle-superseded-blue.svg" alt="Lifecycle: superseded"></a></p>
+<p>reshape2 is superseded: only changes necessary to keep it on CRAN will be made. We recommend using <a href="http://tidyr.tidyverse.org/" class="external-link">tidyr</a> instead.</p>
 </div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
@@ -91,7 +87,7 @@
 <li><p>considerably faster and more memory efficient thanks to a much better underlying algorithm that uses the power and speed of subsetting to the fullest extent, in most cases only making a single copy of the data.</p></li>
 <li><p>cast is replaced by two functions depending on the output type: <code>dcast</code> produces data frames, and <code>acast</code> produces matrices/arrays.</p></li>
 <li><p>multidimensional margins are now possible: <code>grand_row</code> and <code>grand_col</code> have been dropped: now the name of the margin refers to the variable that has its value set to (all).</p></li>
-<li><p>some features have been removed such as the <code><a href="https://rdrr.io/r/base/Logic.html">|</a></code> cast operator, and the ability to return multiple values from an aggregation function. I’m reasonably sure both these operations are better performed by plyr.</p></li>
+<li><p>some features have been removed such as the <code><a href="https://rdrr.io/r/base/Logic.html" class="external-link">|</a></code> cast operator, and the ability to return multiple values from an aggregation function. I’m reasonably sure both these operations are better performed by plyr.</p></li>
 <li><p>a new cast syntax which allows you to reshape based on functions of variables (based on the same underlying syntax as plyr):</p></li>
 <li><p>better development practices like namespaces and tests.</p></li>
 <li><p>the function <code>melt</code> now names the columns of its returned data frame <code>Var1</code>, <code>Var2</code>, …, <code>VarN</code> instead of <code>X1</code>, <code>X2</code>, …, <code>XN</code>.</p></li>
@@ -105,7 +101,7 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=reshape2">https://​cloud.r-project.org/​package=reshape2</a>
 </li>
@@ -115,45 +111,52 @@
 </li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>
 <a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
 </li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html">Citing reshape2</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
 <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Maintainer </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/hadley/reshape/actions"><img src="https://github.com/hadley/reshape/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/hadley/reshape?branch=master"><img src="https://codecov.io/gh/hadley/reshape/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/hadley/reshape/actions" class="external-link"><img src="https://github.com/hadley/reshape/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/hadley/reshape?branch=master" class="external-link"><img src="https://codecov.io/gh/hadley/reshape/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>.</p>
+  <p></p>
+<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
@@ -161,6 +164,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -50,6 +50,8 @@ measured." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -61,9 +63,15 @@ measured." />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -84,12 +92,6 @@ measured." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -99,7 +101,7 @@ measured." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hadley/reshape/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,16 +133,16 @@ measured.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for data.frame</span>
-<span class='fu'><a href='melt.html'>melt</a></span>(
-  <span class='no'>data</span>,
-  <span class='no'>id.vars</span>,
-  <span class='no'>measure.vars</span>,
-  <span class='kw'>variable.name</span> <span class='kw'>=</span> <span class='st'>"variable"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>value.name</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>factorsAsStrings</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>id.vars</span>,
+  <span class='va'>measure.vars</span>,
+  variable.name <span class='op'>=</span> <span class='st'>"variable"</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  value.name <span class='op'>=</span> <span class='st'>"value"</span>,
+  factorsAsStrings <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,8 +195,9 @@ levels are not identical across the <code>measure.vars</code>.</p></td>
 <code><a href='melt.list.html'>melt.list</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>airquality</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>airquality</span>))
-<span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>airquality</span>, <span class='kw'>id</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"month"</span>, <span class='st'>"day"</span>))</div><div class='output co'>#&gt;     month day variable value
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>airquality</span>, id<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"month"</span>, <span class='st'>"day"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     month day variable value
 #&gt; 1       5   1    ozone  41.0
 #&gt; 2       5   2    ozone  36.0
 #&gt; 3       5   3    ozone  12.0
@@ -806,8 +809,9 @@ levels are not identical across the <code>measure.vars</code>.</p></td>
 #&gt; 609     9  27     temp  77.0
 #&gt; 610     9  28     temp  75.0
 #&gt; 611     9  29     temp  76.0
-#&gt; 612     9  30     temp  68.0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>ChickWeight</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>ChickWeight</span>))
-<span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>ChickWeight</span>, <span class='kw'>id</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>4</span>)</div><div class='output co'>#&gt;     time chick diet variable value
+#&gt; 612     9  30     temp  68.0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>ChickWeight</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>ChickWeight</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>ChickWeight</span>, id<span class='op'>=</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     time chick diet variable value
 #&gt; 1      0     1    1   weight    42
 #&gt; 2      2     1    1   weight    51
 #&gt; 3      4     1    1   weight    59
@@ -1397,11 +1401,11 @@ levels are not identical across the <code>measure.vars</code>.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
+  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
@@ -1409,6 +1413,8 @@ levels are not identical across the <code>measure.vars</code>.</p></td>
 
   
 
+
+  
 
   </body>
 </html>

@@ -45,6 +45,8 @@
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -56,9 +58,15 @@
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -79,12 +87,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -94,7 +96,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hadley/reshape/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -121,34 +123,34 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for array</span>
-<span class='fu'><a href='melt.html'>melt</a></span>(
-  <span class='no'>data</span>,
-  <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>data</span>)),
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>as.is</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>value.name</span> <span class='kw'>=</span> <span class='st'>"value"</span>
-)
+<span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  varnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  as.is <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  value.name <span class='op'>=</span> <span class='st'>"value"</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for table</span>
-<span class='fu'><a href='melt.html'>melt</a></span>(
-  <span class='no'>data</span>,
-  <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>data</span>)),
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>as.is</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>value.name</span> <span class='kw'>=</span> <span class='st'>"value"</span>
-)
+<span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  varnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  as.is <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  value.name <span class='op'>=</span> <span class='st'>"value"</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for matrix</span>
-<span class='fu'><a href='melt.html'>melt</a></span>(
-  <span class='no'>data</span>,
-  <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>data</span>)),
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>as.is</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>value.name</span> <span class='kw'>=</span> <span class='st'>"value"</span>
-)</pre>
+<span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  varnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  as.is <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  value.name <span class='op'>=</span> <span class='st'>"value"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,8 +193,9 @@ as strings.</p></td>
 <code><a href='melt.list.html'>melt.list</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>23</span>, <span class='fl'>NA</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>))
-<span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>a</span>)</div><div class='output co'>#&gt;    Var1 Var2 Var3 value
+    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>23</span>, <span class='cn'>NA</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Var1 Var2 Var3 value
 #&gt; 1     1    1    1     1
 #&gt; 2     2    1    1     2
 #&gt; 3     1    2    1     3
@@ -216,7 +219,8 @@ as strings.</p></td>
 #&gt; 21    1    2    4    21
 #&gt; 22    2    2    4    22
 #&gt; 23    1    3    4    23
-#&gt; 24    2    3    4    NA</div><div class='input'><span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>a</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    Var1 Var2 Var3 value
+#&gt; 24    2    3    4    NA</div><div class='input'><span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>a</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Var1 Var2 Var3 value
 #&gt; 1     1    1    1     1
 #&gt; 2     2    1    1     2
 #&gt; 3     1    2    1     3
@@ -239,7 +243,8 @@ as strings.</p></td>
 #&gt; 20    2    1    4    20
 #&gt; 21    1    2    4    21
 #&gt; 22    2    2    4    22
-#&gt; 23    1    3    4    23</div><div class='input'><span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>a</span>, <span class='kw'>varnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"X"</span>,<span class='st'>"Y"</span>,<span class='st'>"Z"</span>))</div><div class='output co'>#&gt;    X Y Z value
+#&gt; 23    1    3    4    23</div><div class='input'><span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>a</span>, varnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"X"</span>,<span class='st'>"Y"</span>,<span class='st'>"Z"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    X Y Z value
 #&gt; 1  1 1 1     1
 #&gt; 2  2 1 1     2
 #&gt; 3  1 2 1     3
@@ -263,8 +268,9 @@ as strings.</p></td>
 #&gt; 21 1 2 4    21
 #&gt; 22 2 2 4    22
 #&gt; 23 1 3 4    23
-#&gt; 24 2 3 4    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>a</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>a</span>), <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='no'>x</span>])
-<span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>a</span>)</div><div class='output co'>#&gt;    Var1 Var2 Var3 value
+#&gt; 24 2 3 4    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>x</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Var1 Var2 Var3 value
 #&gt; 1     A    A    A     1
 #&gt; 2     B    A    A     2
 #&gt; 3     A    B    A     3
@@ -288,7 +294,8 @@ as strings.</p></td>
 #&gt; 21    A    B    D    21
 #&gt; 22    B    B    D    22
 #&gt; 23    A    C    D    23
-#&gt; 24    B    C    D    NA</div><div class='input'><span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>a</span>, <span class='kw'>varnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"X"</span>,<span class='st'>"Y"</span>,<span class='st'>"Z"</span>))</div><div class='output co'>#&gt;    X Y Z value
+#&gt; 24    B    C    D    NA</div><div class='input'><span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>a</span>, varnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"X"</span>,<span class='st'>"Y"</span>,<span class='st'>"Z"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    X Y Z value
 #&gt; 1  A A A     1
 #&gt; 2  B A A     2
 #&gt; 3  A B A     3
@@ -312,8 +319,9 @@ as strings.</p></td>
 #&gt; 21 A B D    21
 #&gt; 22 B B D    22
 #&gt; 23 A C D    23
-#&gt; 24 B C D    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>a</span>)[<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>)
-<span class='fu'><a href='melt.html'>melt</a></span>(<span class='no'>a</span>)</div><div class='output co'>#&gt;    Var1 Var2 Var3 value
+#&gt; 24 B C D    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'><a href='melt.html'>melt</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Var1 Var2 Var3 value
 #&gt; 1     1    A    A     1
 #&gt; 2     2    A    A     2
 #&gt; 3     1    B    A     3
@@ -349,11 +357,11 @@ as strings.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
+  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
@@ -361,6 +369,8 @@ as strings.</p></td>
 
   
 
+
+  
 
   </body>
 </html>

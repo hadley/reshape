@@ -46,6 +46,8 @@ a single step." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -57,9 +59,15 @@ a single step." />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -80,12 +88,6 @@ a single step." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -95,7 +97,7 @@ a single step." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hadley/reshape/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -122,7 +124,7 @@ a single step." />
 a single step.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>recast</span>(<span class='no'>data</span>, <span class='no'>formula</span>, <span class='no'>...</span>, <span class='no'>id.var</span>, <span class='no'>measure.var</span>)</pre>
+    <pre class="usage"><span class='fu'>recast</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>formula</span>, <span class='va'>...</span>, <span class='va'>id.var</span>, <span class='va'>measure.var</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,7 +158,8 @@ id.var variables</p></td>
     <div class='dont-index'><p><a href='http://had.co.nz/reshape/'>http://had.co.nz/reshape/</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>recast</span>(<span class='no'>french_fries</span>, <span class='no'>time</span> ~ <span class='no'>variable</span>, <span class='kw'>id.var</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='message'>Aggregation function missing: defaulting to length</span></div><div class='output co'>#&gt;    time potato buttery grassy rancid painty
+    <pre class="examples"><div class='input'><span class='fu'>recast</span><span class='op'>(</span><span class='va'>french_fries</span>, <span class='va'>time</span> <span class='op'>~</span> <span class='va'>variable</span>, id.var <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Aggregation function missing: defaulting to length</span></div><div class='output co'>#&gt;    time potato buttery grassy rancid painty
 #&gt; 1     1     72      72     72     72     72
 #&gt; 2     2     72      72     72     72     72
 #&gt; 3     3     72      72     72     72     72
@@ -178,11 +181,11 @@ id.var variables</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
+  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
@@ -190,6 +193,8 @@ id.var variables</p></td>
 
   
 
+
+  
 
   </body>
 </html>

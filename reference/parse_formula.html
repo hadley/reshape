@@ -47,6 +47,8 @@ latter." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -58,9 +60,15 @@ latter." />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -81,12 +89,6 @@ latter." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -96,7 +98,7 @@ latter." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hadley/reshape/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -124,7 +126,7 @@ a list of quoted variables. This function converts the former to the
 latter.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parse_formula</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='st'>"...  ~ variable"</span>, <span class='no'>varnames</span>, <span class='kw'>value.var</span> <span class='kw'>=</span> <span class='st'>"value"</span>)</pre>
+    <pre class="usage"><span class='fu'>parse_formula</span><span class='op'>(</span>formula <span class='op'>=</span> <span class='st'>"...  ~ variable"</span>, <span class='va'>varnames</span>, value.var <span class='op'>=</span> <span class='st'>"value"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,13 +147,14 @@ latter.</p>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Casting formulas separate dimensions with <code>~</code> and variables within
-a dimension with <code>+</code> or <code>*</code>. <code>.</code> can be used as a
+    <p>Casting formulas separate dimensions with <code><a href='https://rdrr.io/r/base/tilde.html'>~</a></code> and variables within
+a dimension with <code><a href='https://rdrr.io/r/base/Arithmetic.html'>+</a></code> or <code><a href='https://rdrr.io/r/base/Arithmetic.html'>*</a></code>. <code>.</code> can be used as a
 placeholder, and <code>...</code> represents all other variables not otherwise
 used.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw pkg'>reshape2</span><span class='kw ns'>:::</span><span class='fu'>parse_formula</span>(<span class='st'>"a + ..."</span>, <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>6</span>])</div><div class='output co'>#&gt; [[1]]
+    <pre class="examples"><div class='input'><span class='fu'>reshape2</span><span class='fu'>:::</span><span class='fu'>parse_formula</span><span class='op'>(</span><span class='st'>"a + ..."</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; List of 6
 #&gt;  $ a: symbol a
 #&gt;  $ b: symbol b
@@ -159,36 +162,38 @@ used.</p>
 #&gt;  $ d: symbol d
 #&gt;  $ e: symbol e
 #&gt;  $ f: symbol f
-#&gt;  - attr(*, "env")=&lt;environment: 0x7fd7e3ec9590&gt; 
+#&gt;  - attr(*, "env")=&lt;environment: 0x7f99ac3f3988&gt; 
 #&gt;  - attr(*, "class")= chr "quoted"
-#&gt; </div><div class='input'><span class='kw pkg'>reshape2</span><span class='kw ns'>:::</span><span class='fu'>parse_formula</span>(<span class='st'>"a ~ b + d"</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>reshape2</span><span class='fu'>:::</span><span class='fu'>parse_formula</span><span class='op'>(</span><span class='st'>"a ~ b + d"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; List of 1
 #&gt;  $ a: symbol a
-#&gt;  - attr(*, "env")=&lt;environment: 0x7fd7e3248d18&gt; 
+#&gt;  - attr(*, "env")=&lt;environment: 0x7f99aa81acc0&gt; 
 #&gt;  - attr(*, "class")= chr "quoted"
 #&gt; 
 #&gt; [[2]]
 #&gt; List of 2
 #&gt;  $ b: symbol b
 #&gt;  $ d: symbol d
-#&gt;  - attr(*, "env")=&lt;environment: 0x7fd7e3248d18&gt; 
+#&gt;  - attr(*, "env")=&lt;environment: 0x7f99aa81acc0&gt; 
 #&gt;  - attr(*, "class")= chr "quoted"
-#&gt; </div><div class='input'><span class='kw pkg'>reshape2</span><span class='kw ns'>:::</span><span class='fu'>parse_formula</span>(<span class='st'>"a + b ~ c ~ ."</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>reshape2</span><span class='fu'>:::</span><span class='fu'>parse_formula</span><span class='op'>(</span><span class='st'>"a + b ~ c ~ ."</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; List of 2
 #&gt;  $ a: symbol a
 #&gt;  $ b: symbol b
-#&gt;  - attr(*, "env")=&lt;environment: 0x7fd7e1b5bcd0&gt; 
+#&gt;  - attr(*, "env")=&lt;environment: 0x7f99a8285f28&gt; 
 #&gt;  - attr(*, "class")= chr "quoted"
 #&gt; 
 #&gt; [[2]]
 #&gt; List of 1
 #&gt;  $ c: symbol c
-#&gt;  - attr(*, "env")=&lt;environment: 0x7fd7e1b5bcd0&gt; 
+#&gt;  - attr(*, "env")=&lt;environment: 0x7f99a8285f28&gt; 
 #&gt;  - attr(*, "class")= chr "quoted"
 #&gt; 
 #&gt; [[3]]
 #&gt;  list()
-#&gt;  - attr(*, "env")=&lt;environment: 0x7fd7e1b5bcd0&gt; 
+#&gt;  - attr(*, "env")=&lt;environment: 0x7f99a8285f28&gt; 
 #&gt;  - attr(*, "class")= chr "quoted"
 #&gt; </div></pre>
   </div>
@@ -202,11 +207,11 @@ used.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
+  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
@@ -214,6 +219,8 @@ used.</p>
 
   
 
+
+  
 
   </body>
 </html>
