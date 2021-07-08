@@ -275,5 +275,12 @@ melt_check <- function(data, id.vars, measure.vars, variable.name, value.name) {
   if (!is.string(value.name))
     stop("'value.name' should be a string", call. = FALSE)
 
+  # Ensure that measure.vars are unique
+  if (any(duplicated(measure.vars))) {
+      message("Measure variables are not unique - automatically corrected.")
+      measure.vars <- make.names(measure.vars, unique = TRUE)
+  }
+      
+
   list(id = id.vars, measure = measure.vars)
 }
