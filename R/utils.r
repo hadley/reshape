@@ -34,13 +34,17 @@ normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
 
   ## If we are going to be coercing any factors to strings, we don't want to
   ## copy the attributes
-  any.factors <- any( sapply( measure.ind, function(i) {
-    is.factor( data[[i]] )
+  any.factors <- any(sapply(measure.ind, function(i) {
+    is.factor(data[[i]])
   }))
 
   if (factorsAsStrings && any.factors) {
     measure.attributes <- NULL
   }
+
+  # Drop dimensions
+  if ("dim" %in% names(measure.attributes))
+    measure.attributes[["dim"]] <- NULL
 
   list(
     measure.attributes = measure.attributes,
