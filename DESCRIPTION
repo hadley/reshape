@@ -1,5 +1,5 @@
 Package: reshape
-Version: 0.8.8
+Version: 0.8.9
 Title: Flexibly Reshape Data
 Description: Flexibly restructure and aggregate data using 
   just two functions: melt and cast.
