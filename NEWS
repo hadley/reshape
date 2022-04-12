@@ -1,3 +1,7 @@
+Reshape 0.8.9 ------------------------------------------------
+
+* fix outstanding R CMD check problems
+
 Reshape 0.8.8 ------------------------------------------------
 
 * fix outstanding R CMD check problems
