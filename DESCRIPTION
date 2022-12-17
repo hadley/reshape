@@ -17,7 +17,7 @@ Imports:
 Suggests: 
     covr,
     lattice,
-    testthat (>= 0.8.0)
+    testthat (>= 3.0.0)
 LinkingTo: 
     Rcpp
 Encoding: UTF-8
