@@ -1,5 +1,3 @@
-context("Melt")
-
 test_that("Missing values removed when na.rm = TRUE", {
   v <- c(1:3, NA)
   expect_equal(melt(v)$value, v)
@@ -170,7 +168,7 @@ test_that("factorsAsStrings behaves as expected", {
   )
   expect_warning(melt(df, 1))
 
-  expect_warning(m <- melt(df, 1, factorsAsStrings = FALSE))
+  expect_warning(m <- melt(df, 1, factorsAsStrings = FALSE), "cannot avoid coercion", fixed = TRUE)
   expect_identical( class(m$value), "character" )
 
 })
