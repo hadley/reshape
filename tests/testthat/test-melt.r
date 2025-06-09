@@ -168,7 +168,13 @@ test_that("factorsAsStrings behaves as expected", {
   )
   expect_warning(melt(df, 1))
 
-  expect_warning(m <- melt(df, 1, factorsAsStrings = FALSE), "cannot avoid coercion", fixed = TRUE)
+  expect_warning(
+    expect_warning(
+      m <- melt(df, 1, factorsAsStrings = FALSE),
+      "cannot avoid coercion", fixed = TRUE
+    ),
+    "attributes are not identical across measure variables", fixed = TRUE
+  )
   expect_identical( class(m$value), "character" )
 
 })
