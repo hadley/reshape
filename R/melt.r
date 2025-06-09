@@ -60,7 +60,7 @@ melt.default <- function(data, ..., na.rm = FALSE, value.name = "value") {
 #' melt(list(list(1:3), 1, list(as.list(3:4), as.list(1:2))))
 melt.list <- function(data, ..., level = 1) {
   parts <- lapply(data, melt, level = level + 1, ...)
-  result <- rbind.fill(parts)
+  result <- bind_rows(parts)
 
   # Add labels
   names <- names(data) %||% seq_along(data)

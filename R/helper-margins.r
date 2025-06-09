@@ -75,9 +75,15 @@ add_margins <- function(df, vars, margins = TRUE) {
   # Loop through all combinations of margin variables, setting
   # those variables to (all)
   margin_dfs <- llply(margin_vars, function(vars) {
-    df[vars] <- rep(list(factor("(all)")), length(vars))
+    for (var in vars) {
+      # Need '[]' to coerce '(all)' into the existing structure of the LHS,
+      #   as opposed to overwriting with character. In particular, that inserts
+      #   '(all)' as an element of the existing factor, e.g. respecting the
+      #   is.ordered()-ness of that factor as well.
+      df[[var]][] <- "(all)"
+    }
     df
   })
 
-  rbind.fill(margin_dfs)
+  bind_rows(margin_dfs)
 }
