@@ -135,8 +135,12 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
       fun.aggregate <- length
     }
 
-    ordered <- vaggregate(.value = value, .group = overall,
-      .fun = fun.aggregate, ...,  .default = fill, .n = n)
+    overall <- factor(overall, levels = seq_len(n))
+    ordered <- as.vector(tapply(value, overall, fun.aggregate, ...))
+    if (anyNA(ordered)) {
+      if (is.null(fill)) fill <- fun.aggregate(vector(typeof(ordered), 0L))
+      ordered[is.na(ordered)] <- fill
+    }
     overall <- seq_len(n)
 
   } else {
