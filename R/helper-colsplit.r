@@ -17,7 +17,7 @@
 colsplit <- function(string, pattern, names) {
   vars <- str_split_fixed(string, pattern, n = length(names))
 
-  df <- data.frame(alply(vars, 2, type.convert, as.is = TRUE),
+  df <- data.frame(apply(vars, 2L, type.convert, as.is = TRUE, simplify = FALSE),
     stringsAsFactors = FALSE)
   names(df) <- names
 
