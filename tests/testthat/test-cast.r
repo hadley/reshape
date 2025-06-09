@@ -117,7 +117,9 @@ test_that("value.var overrides value col", {
     id1 = rep(letters[1:2],2),
     id2 = rep(LETTERS[1:2],each=2), var1=1:4)
 
-  df.m <- melt(df)
+  expect_message({
+    df.m <- melt(df)
+  }, "Using id1, id2 as id variables", fixed = TRUE)
   df.m$value2 <- df.m$value * 2
   expect_identical(acast(df.m, id2 + id1  ~  ., value.var="value")[, 1], 1:4, ignore_attr = "names")
   expect_identical(acast(df.m, id2 + id1  ~  ., value.var="value2")[, 1], 2 * 1:4, ignore_attr = "names")
@@ -174,8 +176,10 @@ test_that("dcast evaluated in correct argument", {
     dcast(df, y ~ ordered(x, levels = g))
   })
 
-  res <- eval(expr, envir = new.env())
-  expect_equal(names(res), c("y", "b", "a"))
+  expect_message(
+    expect_named(eval(expr, envir = new.env()), c("y", "b", "a")),
+    "Using z as value column", fixed = TRUE
+  )
 
 })
 
@@ -196,7 +200,10 @@ test_that("drop = TRUE retains NA values", {
 test_that("useful error message if you use value_var", {
   expect_error(dcast(mtcars, vs ~ am, value_var = "cyl"),
     "Please use value.var", fixed = TRUE)
-  expect_equal(dim(dcast(mtcars, vs ~ am, value.var = "cyl")), c(2, 3))
+  expect_message(
+    expect_equal(dim(dcast(mtcars, vs ~ am, value.var = "cyl")), c(2, 3)),
+    "Aggregation function missing", fixed = TRUE
+  )
 
 })
 
