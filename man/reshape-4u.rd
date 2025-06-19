@@ -14,7 +14,7 @@ Takes data frame and variable list and casts data.
 \item{fun.aggregate}{variables to appear in rows}
 \item{margins}{aggregation function}
 \item{df}{should the aggregating function be supplied with the entire data frame, or just the relevant entries from the values column}
-\item{fill}{vector of variable names (can include "grand\_col" and "grand\_row") to compute margins for, or TRUE to computer all margins}
+\item{fill}{vector of variable names (can include "grand_col" and "grand_row") to compute margins for, or TRUE to computer all margins}
 \item{add.missing}{value with which to fill in structural missings}
 \item{...}{further arguments are passed to aggregating function}
 }

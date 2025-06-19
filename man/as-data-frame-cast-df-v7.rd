@@ -1,6 +1,6 @@
 \name{as.data.frame.cast_df}
 \alias{as.data.frame.cast_df}
-\title{as.data.frame.cast\_df}
+\title{as.data.frame.cast_df}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{

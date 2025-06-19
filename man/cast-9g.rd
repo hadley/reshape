@@ -16,7 +16,7 @@ Cast a molten data frame into the reshaped or aggregated form you want
 \item{add.missing}{fill in missing combinations?}
 \item{value}{name of value column}
 \item{...}{further arguments are passed to aggregating function}
-\item{margins}{vector of variable names (can include "grand\_col" and "grand\_row") to compute margins for, or TRUE to computer all margins}
+\item{margins}{vector of variable names (can include "grand_col" and "grand_row") to compute margins for, or TRUE to computer all margins}
 \item{subset}{logical vector to subset data set with before reshaping}
 \item{df}{argument used internally}
 \item{fill}{value with which to fill in structural missings, defaults to value from applying \code{fun.aggregate} to 0 length vector}
@@ -38,12 +38,12 @@ If the combination of variables you supply does not uniquely identify one row in
 original data set, you will need to supply an aggregating function, \code{fun.aggregate}.
 This function should take a vector of numbers and return a summary statistic(s).  It must
 return the same number of arguments regardless of the length of the input vector.
-If it returns multiple value you can use "result\_variable" to control where they appear.
+If it returns multiple value you can use "result_variable" to control where they appear.
 By default they will appear as the last column variable.
 
 The margins argument should be passed a vector of variable names, eg.
 \code{c("month","day")}.  It will silently drop any variables that can not be margined
-over.  You can also use "grand\_col" and "grand\_row" to get grand row and column margins
+over.  You can also use "grand_col" and "grand_row" to get grand row and column margins
 respectively.
 
 Subset takes a logical vector that will be evaluated in the context of \code{data},

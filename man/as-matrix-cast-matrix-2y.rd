@@ -1,6 +1,6 @@
 \name{as.matrix.cast_matrix}
 \alias{as.matrix.cast_matrix}
-\title{as.matrix.cast\_matrix}
+\title{as.matrix.cast_matrix}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{

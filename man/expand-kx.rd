@@ -12,7 +12,7 @@ Expand out condensed data frame.
 }
 
 \details{If aggregating function supplied to condense returns multiple values, this
-function "melts" it again, creating a new column called result\_variable.
+function "melts" it again, creating a new column called result_variable.
 
 If the aggregating funtion is a named vector, then those names will be used,
 otherwise will be number X1, X2, ..., Xn etc.}

@@ -10,6 +10,6 @@ Clean variable list for reshaping.
 \arguments{
 \item{vars}{vector of variable names}
 }
-\value{Vector of "real" variable names (excluding result\_variable etc.)}
+\value{Vector of "real" variable names (excluding result_variable etc.)}
 
 \keyword{internal}
