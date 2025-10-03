@@ -136,10 +136,12 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
     }
 
     overall <- factor(overall, levels = seq_len(n))
-    ordered <- as.vector(tapply(value, overall, fun.aggregate, ...))
+    ordered <- tapply(value, overall, fun.aggregate, ...)
     if (anyNA(ordered)) {
       if (is.null(fill)) fill <- fun.aggregate(vector(typeof(ordered), 0L))
-      ordered[is.na(ordered)] <- fill
+      structural_missing <- setdiff(names(ordered), levels(droplevels(overall)))
+      ordered[structural_missing] <- fill
+      names(ordered) <- NULL
     }
     overall <- seq_len(n)
 
