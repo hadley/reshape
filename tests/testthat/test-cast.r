@@ -200,7 +200,7 @@ test_that("useful error message if value.var doesn't exist", {
     "value.var (test) not found in input", fixed = TRUE)
 })
 
-test_that("NA is not filled with 0 unintentionally", {
+test_that("mix of fun.aggregate= and fill=", {
   DF <- data.frame(
     group = c("1", "2"),
     variable = "value",
@@ -212,6 +212,14 @@ test_that("NA is not filled with 0 unintentionally", {
   )
   expect_equal(
     dcast(DF, group ~ variable, sum, na.rm = TRUE),
+    data.frame(group = c("1", "2"), value = c(1, 0))
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum, fill = -1),
+    data.frame(group = c("1", "2"), value = c(1, NA))
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum, na.rm = TRUE, fill = -1),
     data.frame(group = c("1", "2"), value = c(1, 0))
   )
 })
