@@ -199,3 +199,17 @@ test_that("useful error message if value.var doesn't exist", {
   expect_error(dcast(airquality, month ~ day, value.var = "test"),
     "value.var (test) not found in input", fixed = TRUE)
 })
+
+test_that("NA is not filled with 0 unintentionally", {
+  dates <- as.Date(c("2025-01-01", "2025-01-02"))
+  values <- c(1.37095844714667, NA)
+  DF <- data.frame(
+    time = dates,
+    variable = factor("value"),
+    value = values
+  )
+  expect_equal(
+    dcast(DF, time ~ variable, sum),
+    data.frame(time = dates, value = values)
+  )
+})
