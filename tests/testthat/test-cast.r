@@ -210,4 +210,8 @@ test_that("NA is not filled with 0 unintentionally", {
     dcast(DF, group ~ variable, sum),
     data.frame(group = c("1", "2"), value = c(1, NA))
   )
+  expect_equal(
+    dcast(DF, group ~ variable, sum, na.rm = TRUE),
+    data.frame(group = c("1", "2"), value = c(1, 0))
+  )
 })
