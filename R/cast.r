@@ -138,7 +138,7 @@ cast <- function(data, formula, fun.aggregate = NULL, ..., subset = NULL, fill =
     overall <- factor(overall, levels = seq_len(n))
     ordered <- tapply(value, overall, fun.aggregate, ...)
     if (anyNA(ordered)) {
-      if (is.null(fill)) fill <- fun.aggregate(vector(typeof(ordered), 0L))
+      if (is.null(fill)) fill <- fun.aggregate(vector(typeof(ordered), 0L), ...)
       structural_missing <- setdiff(names(ordered), levels(droplevels(overall)))
       ordered[structural_missing] <- fill
       names(ordered) <- NULL

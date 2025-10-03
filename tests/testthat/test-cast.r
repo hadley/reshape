@@ -245,4 +245,8 @@ test_that("mix of fun.aggregate= and fill=", {
     dcast(DF, group ~ variable, sum, na.rm = TRUE, fill = -1),
     data.frame(group = c("1", "2"), v1 = c(1, -1), v2 = c(-1, 0))
   )
+  expect_equal(
+    dcast(DF, group ~ variable, function(x, y) sum(x) + y, 1),
+    data.frame(group = c("1", "2"), v1 = c(2, 1), v2 = c(1, NA))
+  )
 })
