@@ -30,8 +30,8 @@
 #'   identify a single observation for each output cell.  Defaults to length
 #'   (with a message) if needed but not specified.
 #' @param ... further arguments are passed to aggregating function
-#' @param margins vector of variable names (can include "grand\_col" and
-#'   "grand\_row") to compute margins for, or TRUE to compute all margins .
+#' @param margins vector of variable names (can include "grand_col" and
+#'   "grand_row") to compute margins for, or TRUE to compute all margins.
 #'   Any variables that can not be margined over will be silently dropped.
 #' @param subset quoted expression used to subset data prior to reshaping,
 #'   e.g. \code{subset = .(variable=="length")}.
