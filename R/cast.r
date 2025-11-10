@@ -30,9 +30,9 @@
 #'   identify a single observation for each output cell.  Defaults to length
 #'   (with a message) if needed but not specified.
 #' @param ... further arguments are passed to aggregating function
-#' @param margins vector of variable names (can include \code{"grand_col"} and
-#'   \code{"grand_row"}) to compute margins for, or TRUE to compute all margins .
-#'   Any variables that can not be margined over will be silently dropped.
+#' @param margins vector of variable names to compute margins for, or TRUE 
+#'   to compute all margins.  Any variables that can not be margined over 
+#'   will be silently dropped.
 #' @param subset quoted expression used to subset data prior to reshaping,
 #'   e.g. \code{subset = .(variable=="length")}.
 #' @param fill value with which to fill in structural missings, defaults to
