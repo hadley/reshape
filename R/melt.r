@@ -259,7 +259,7 @@ melt_check <- function(data, id.vars, measure.vars, variable.name, value.name) {
 
   # Fill in missing pieces
   if (missing(id.vars) && missing(measure.vars)) {
-    discrete <- sapply(data, is.discrete)
+    discrete <- vapply(data, function(x) is.character(x) || is.logical(x) || is.factor(x), logical(1L))
     id.vars <- varnames[discrete]
     measure.vars <- varnames[!discrete]
     if (length(id.vars) != 0) {
