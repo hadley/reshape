@@ -74,7 +74,7 @@ add_margins <- function(df, vars, margins = TRUE) {
 
   # Loop through all combinations of margin variables, setting
   # those variables to (all)
-  margin_dfs <- llply(margin_vars, function(vars) {
+  margin_dfs <- lapply(margin_vars, function(vars) {
     df[vars] <- rep(list(factor("(all)")), length(vars))
     df
   })
