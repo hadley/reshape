@@ -1,5 +1,3 @@
-context("cast")
-
 s2 <- array(seq.int(3 * 4), c(3,4))
 s2m <- melt(s2)
 colnames(s2m) <- c("X1", "X2", "value")
@@ -10,36 +8,36 @@ colnames(s3m) <- c("X1", "X2", "X3", "value")
 
 test_that("reshaping matches t and aperm", {
   # 2d
-  expect_equivalent(s2, acast(s2m, X1  ~  X2))
-  expect_equivalent(t(s2), acast(s2m, X2  ~  X1))
-  expect_equivalent(as.vector(s2), as.vector(acast(s2m, X2 + X1  ~  .)))
+  expect_identical(s2, acast(s2m, X1  ~  X2), ignore_attr = "dimnames")
+  expect_identical(t(s2), acast(s2m, X2  ~  X1), ignore_attr = "dimnames")
+  expect_identical(as.vector(s2), as.vector(acast(s2m, X2 + X1  ~  .)))
 
   # 3d
-  expect_equivalent(s3, acast(s3m, X1  ~  X2  ~  X3))
-  expect_equivalent(as.vector(s3), as.vector(acast(s3m, X3 + X2 + X1  ~  .)))
-  expect_equivalent(aperm(s3, c(1,3,2)), acast(s3m, X1  ~  X3  ~  X2))
-  expect_equivalent(aperm(s3, c(2,1,3)), acast(s3m, X2  ~  X1  ~  X3))
-  expect_equivalent(aperm(s3, c(2,3,1)), acast(s3m, X2  ~  X3  ~  X1))
-  expect_equivalent(aperm(s3, c(3,1,2)), acast(s3m, X3  ~  X1  ~  X2))
-  expect_equivalent(aperm(s3, c(3,2,1)), acast(s3m, X3  ~  X2  ~  X1))
+  expect_identical(s3, acast(s3m, X1  ~  X2  ~  X3), ignore_attr = "dimnames")
+  expect_identical(as.vector(s3), as.vector(acast(s3m, X3 + X2 + X1  ~  .)))
+  expect_identical(aperm(s3, c(1,3,2)), acast(s3m, X1  ~  X3  ~  X2), ignore_attr = "dimnames")
+  expect_identical(aperm(s3, c(2,1,3)), acast(s3m, X2  ~  X1  ~  X3), ignore_attr = "dimnames")
+  expect_identical(aperm(s3, c(2,3,1)), acast(s3m, X2  ~  X3  ~  X1), ignore_attr = "dimnames")
+  expect_identical(aperm(s3, c(3,1,2)), acast(s3m, X3  ~  X1  ~  X2), ignore_attr = "dimnames")
+  expect_identical(aperm(s3, c(3,2,1)), acast(s3m, X3  ~  X2  ~  X1), ignore_attr = "dimnames")
 })
 
 test_that("aggregation matches apply", {
 
   # 2d -> 1d
-  expect_equivalent(colMeans(s2), as.vector(acast(s2m, X2  ~  ., mean)))
-  expect_equivalent(rowMeans(s2), as.vector(acast(s2m, X1  ~  ., mean)))
+  expect_identical(colMeans(s2), as.vector(acast(s2m, X2  ~  ., mean)))
+  expect_identical(rowMeans(s2), as.vector(acast(s2m, X1  ~  ., mean)))
 
   # 3d -> 1d
-  expect_equivalent(apply(s3, 1, mean), as.vector(acast(s3m, X1  ~  ., mean)))
-  expect_equivalent(apply(s3, 1, mean), as.vector(acast(s3m, .  ~  X1, mean)))
-  expect_equivalent(apply(s3, 2, mean), as.vector(acast(s3m, X2  ~  ., mean)))
-  expect_equivalent(apply(s3, 3, mean), as.vector(acast(s3m, X3  ~  ., mean)))
+  expect_identical(apply(s3, 1, mean), as.vector(acast(s3m, X1  ~  ., mean)))
+  expect_identical(apply(s3, 1, mean), as.vector(acast(s3m, .  ~  X1, mean)))
+  expect_identical(apply(s3, 2, mean), as.vector(acast(s3m, X2  ~  ., mean)))
+  expect_identical(apply(s3, 3, mean), as.vector(acast(s3m, X3  ~  ., mean)))
 
   # 3d -> 2d
-  expect_equivalent(apply(s3, c(1,2), mean), acast(s3m, X1  ~  X2, mean))
-  expect_equivalent(apply(s3, c(1,3), mean), acast(s3m, X1  ~  X3, mean))
-  expect_equivalent(apply(s3, c(2,3), mean), acast(s3m, X2  ~  X3, mean))
+  expect_identical(apply(s3, c(1,2), mean), acast(s3m, X1  ~  X2, mean), ignore_attr = "dimnames")
+  expect_identical(apply(s3, c(1,3), mean), acast(s3m, X1  ~  X3, mean), ignore_attr = "dimnames")
+  expect_identical(apply(s3, c(2,3), mean), acast(s3m, X2  ~  X3, mean), ignore_attr = "dimnames")
 })
 
 names(ChickWeight) <- tolower(names(ChickWeight))
@@ -49,7 +47,7 @@ test_that("aggregation matches table", {
   tab <- unclass(with(chick_m, table(chick, time)))
   cst <- acast(chick_m, chick  ~  time, length)
 
-  expect_that(tab, is_equivalent_to(cst))
+  expect_identical(tab, cst, ignore_attr = "names")
 })
 
 test_that("grand margins are computed correctly", {
@@ -57,21 +55,24 @@ test_that("grand margins are computed correctly", {
   row <- acast(s2m, X1  ~  X2, mean, margins = "X2")[, 5]
   grand <- acast(s2m, X1  ~  X2, mean, margins = TRUE)[4, 5]
 
-  expect_equivalent(col, colMeans(s2))
-  expect_equivalent(row, rowMeans(s2))
-  expect_equivalent(grand, mean(s2))
+  expect_identical(col, colMeans(s2), ignore_attr = "names")
+  expect_identical(row, rowMeans(s2), ignore_attr = "names")
+  expect_identical(grand, mean(s2))
 })
 #
 test_that("internal margins are computed correctly", {
   cast <- dcast(chick_m, diet + chick  ~  time, length, margins="diet")
 
   marg <- subset(cast, diet == "(all)")[-(1:2)]
-  expect_that(as.vector(as.matrix(marg)),
-    equals(as.vector(acast(chick_m, time  ~  ., length))))
+  expect_identical(
+    as.vector(as.matrix(marg)),
+    as.vector(acast(chick_m, time  ~  ., length))
+  )
 
   joint <- subset(cast, diet != "(all)")
-  expect_that(joint,
-    is_equivalent_to(dcast(chick_m, diet + chick  ~  time, length)))
+  joint$diet <- factor(joint$diet, levels = setdiff(levels(joint$diet), "(all)"))
+  joint$chick <- factor(joint$chick, levels = setdiff(levels(joint$chick), "(all)"))
+  expect_identical(joint, dcast(chick_m, diet + chick  ~  time, length))
 })
 
 test_that("missing combinations filled correctly", {
@@ -86,8 +87,10 @@ test_that("missing combinations filled correctly", {
 test_that("drop = FALSE generates all combinations", {
   df <- data.frame(x = c("a", "b"), y = c("a", "b"), value = 1:2)
 
-  expect_that(as.vector(acast(df, x + y  ~  ., drop = FALSE)),
-    is_equivalent_to(as.vector(acast(df, x  ~  y))))
+  expect_identical(
+    as.vector(acast(df, x + y  ~  ., drop = FALSE)),
+    as.vector(acast(df, x  ~  y))
+  )
 
 })
 
@@ -99,8 +102,12 @@ test_that("aggregated values computed correctly", {
 
   combs <- data.frame(combn(names(ffm)[1:5], 2L))
   for (vars in combs) {
-    expect_that(count_c(vars), is_equivalent_to(count_t(vars)),
-      label = paste(vars, collapse = ", "))
+    expect_identical(
+      count_c(vars),
+      count_t(vars),
+      label = toString(vars),
+      ignore_attr = "names"
+    )
   }
 
 })
@@ -110,12 +117,12 @@ test_that("value.var overrides value col", {
     id1 = rep(letters[1:2],2),
     id2 = rep(LETTERS[1:2],each=2), var1=1:4)
 
-  df.m <- melt(df)
+  expect_message({
+    df.m <- melt(df)
+  }, "Using id1, id2 as id variables", fixed = TRUE)
   df.m$value2 <- df.m$value * 2
-  expect_that(acast(df.m, id2 + id1  ~  ., value.var="value")[, 1],
-    equals(1:4, check.attributes = FALSE))
-  expect_that(acast(df.m, id2 + id1  ~  ., value.var="value2")[, 1],
-    equals(2 * 1:4, check.attributes = FALSE))
+  expect_identical(acast(df.m, id2 + id1  ~  ., value.var="value")[, 1], 1:4, ignore_attr = "names")
+  expect_identical(acast(df.m, id2 + id1  ~  ., value.var="value2")[, 1], 2 * 1:4, ignore_attr = "names")
 })
 
 test_that("labels are correct when missing combinations dropped/kept", {
@@ -123,13 +130,13 @@ test_that("labels are correct when missing combinations dropped/kept", {
   mx <- melt(df, id = c("fac1", "fac2"), measure.var = "x")
 
   c1 <- dcast(mx[1:2, ], fac1 + fac2 ~ variable, length, drop = F)
-  expect_that(nrow(c1), equals(16))
+  expect_identical(nrow(c1), 16L)
 
   c2 <- dcast(droplevels(mx[1:2, ]), fac1 + fac2 ~ variable, length, drop = F)
-  expect_that(nrow(c2), equals(4))
+  expect_identical(nrow(c2), 4L)
 
   c3 <- dcast(mx[1:2, ], fac1 + fac2 ~ variable, length, drop = T)
-  expect_that(nrow(c3), equals(2))
+  expect_identical(nrow(c3), 2L)
 })
 
 test_that("factor value columns are handled", {
@@ -137,26 +144,26 @@ test_that("factor value columns are handled", {
   mx <- melt(df, id = c("fac1", "fac2"), measure.var = "x")
 
   c1 <- dcast(mx, fac1 + fac2 ~ variable)
-  expect_that(nrow(c1), equals(4))
-  expect_that(ncol(c1), equals(3))
-  expect_is(c1$x, "character")
+  expect_identical(nrow(c1), 4L)
+  expect_identical(ncol(c1), 3L)
+  expect_type(c1$x, "character")
 
   c2 <- dcast(mx, fac1 ~ fac2 + variable)
-  expect_that(nrow(c2), equals(4))
-  expect_that(ncol(c2), equals(5))
-  expect_is(c2$A_x, "character")
-  expect_is(c2$B_x, "character")
-  expect_is(c2$C_x, "character")
-  expect_is(c2$D_x, "character")
+  expect_identical(nrow(c2), 4L)
+  expect_identical(ncol(c2), 5L)
+  expect_type(c2$A_x, "character")
+  expect_type(c2$B_x, "character")
+  expect_type(c2$C_x, "character")
+  expect_type(c2$D_x, "character")
 
   c3 <- acast(mx, fac1 + fac2 ~ variable)
-  expect_that(nrow(c3), equals(4))
-  expect_that(ncol(c3), equals(1))
+  expect_identical(nrow(c3), 4L)
+  expect_identical(ncol(c3), 1L)
   expect_true(is.character(c3))
 
   c4 <- acast(mx, fac1 ~ fac2 + variable)
-  expect_that(nrow(c4), equals(4))
-  expect_that(ncol(c4), equals(4))
+  expect_identical(nrow(c4), 4L)
+  expect_identical(ncol(c4), 4L)
   expect_true(is.character(c4))
 
 })
@@ -169,8 +176,10 @@ test_that("dcast evaluated in correct argument", {
     dcast(df, y ~ ordered(x, levels = g))
   })
 
-  res <- eval(expr, envir = new.env())
-  expect_equal(names(res), c("y", "b", "a"))
+  expect_message(
+    expect_named(eval(expr, envir = new.env()), c("y", "b", "a")),
+    "Using z as value column", fixed = TRUE
+  )
 
 })
 
@@ -191,7 +200,10 @@ test_that("drop = TRUE retains NA values", {
 test_that("useful error message if you use value_var", {
   expect_error(dcast(mtcars, vs ~ am, value_var = "cyl"),
     "Please use value.var", fixed = TRUE)
-  expect_equal(dim(dcast(mtcars, vs ~ am, value.var = "cyl")), c(2, 3))
+  expect_message(
+    expect_equal(dim(dcast(mtcars, vs ~ am, value.var = "cyl")), c(2, 3)),
+    "Aggregation function missing", fixed = TRUE
+  )
 
 })
 

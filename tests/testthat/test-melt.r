@@ -1,5 +1,3 @@
-context("Melt")
-
 test_that("Missing values removed when na.rm = TRUE", {
   v <- c(1:3, NA)
   expect_equal(melt(v)$value, v)
@@ -18,8 +16,14 @@ test_that("Missing values removed when na.rm = TRUE", {
   expect_equal(melt(l2, na.rm = TRUE)$value, 1:3)
 
   df <- data.frame(x = v)
-  expect_equal(melt(df)$value, v)
-  expect_equal(melt(df, na.rm = TRUE)$value, 1:3)
+  expect_message(
+    expect_equal(melt(df)$value, v),
+    "No id variables", fixed = TRUE
+  )
+  expect_message(
+    expect_equal(melt(df, na.rm = TRUE)$value, 1:3),
+    "No id variables", fixed = TRUE
+  )
 })
 
 test_that("value col name set by value.name", {
@@ -33,7 +37,10 @@ test_that("value col name set by value.name", {
   expect_equal(names(melt(l1, value.name = "v"))[1], "v")
 
   df <- data.frame(x = v)
-  expect_equal(names(melt(df, value.name = "v"))[2], "v")
+  expect_message(
+    expect_equal(names(melt(df, value.name = "v"))[2], "v"),
+    "No id variables", fixed = TRUE
+  )
 })
 
 test_that("lists can have zero element components", {
@@ -113,8 +120,10 @@ test_that("as.is = TRUE suppresses dimnname conversion", {
 
 test_that("The 'variable' column is a factor after melting a data.frame", {
   df <- data.frame(x=1:3, y=4:6)
-  df.m <- melt(df)
-  expect_true( is.factor(df.m$variable) )
+  expect_message(
+    expect_true( is.factor(melt(df)$variable) ),
+    "No id variables", fixed = TRUE
+  )
 })
 
 test_that("Common classes are preserved in measure variables", {
@@ -170,7 +179,13 @@ test_that("factorsAsStrings behaves as expected", {
   )
   expect_warning(melt(df, 1))
 
-  expect_warning(m <- melt(df, 1, factorsAsStrings = FALSE))
+  expect_warning(
+    expect_warning(
+      m <- melt(df, 1, factorsAsStrings = FALSE),
+      "cannot avoid coercion", fixed = TRUE
+    ),
+    "attributes are not identical across measure variables", fixed = TRUE
+  )
   expect_identical( class(m$value), "character" )
 
 })
@@ -178,8 +193,10 @@ test_that("factorsAsStrings behaves as expected", {
 test_that("melt.data.frame behaves when there are no measure variables", {
 
   df <- data.frame(x='a', y='b', z='c')
-  m <- melt(df)
-  expect_identical(df, m)
+  expect_message(
+    expect_identical(df, melt(df)),
+    "Using x, y, z as id variables", fixed = TRUE
+  )
   m <- melt(df, id.vars = "x", measure.vars = NULL)
   expect_identical(df["x"], m)
 
