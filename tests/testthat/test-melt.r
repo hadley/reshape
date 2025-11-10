@@ -209,12 +209,8 @@ test_that("melt.data.frame preserves OBJECT bit on e.g. POSIXct", {
                        t2=as.POSIXct("2014-05-27") + seq(0, 10800, length.out=5),
                        t3=as.POSIXct("2014-05-28") + seq(0, 10800, length.out=5))
 
-  library(reshape2)
-  object_bit_set <- function(x) {
-    grepl("\\[OBJ", capture.output(.Internal(inspect(x)))[1])
-  }
   t.long <- melt(t.wide, measure.vars=c("t1", "t2", "t3"), value.name="time")
-  expect_true(object_bit_set(t.long$time))
+  expect_true(is.object(t.long$time))
 })
 
 test_that("melt.data.frame allows for lists in the set of id variables", {
