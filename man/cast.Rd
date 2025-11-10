@@ -42,8 +42,8 @@ identify a single observation for each output cell.  Defaults to length
 
 \item{...}{further arguments are passed to aggregating function}
 
-\item{margins}{vector of variable names (can include "grand_col" and
-"grand_row") to compute margins for, or TRUE to compute all margins.
+\item{margins}{vector of variable names (can include \code{"grand_col"} and
+\code{"grand_row"}) to compute margins for, or TRUE to compute all margins .
 Any variables that can not be margined over will be silently dropped.}
 
 \item{subset}{quoted expression used to subset data prior to reshaping,
