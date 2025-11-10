@@ -41,7 +41,7 @@
 #' @param value.var name of column which stores values, see
 #'   \code{\link{guess_value}} for default strategies to figure this out.
 #' @seealso \code{\link{melt}},  \url{http://had.co.nz/reshape/}
-#' @importFrom plyr alply amv_dimnames as.quoted eval.quoted id is.discrete llply rbind.fill split_labels vaggregate
+#' @importFrom plyr alply amv_dimnames as.quoted eval.quoted id llply rbind.fill split_labels vaggregate
 #' @import stringr
 #' @examples
 #' #Air quality example
