@@ -31,4 +31,3 @@ for the details about different data structures:
 \code{\link{cast}}
 }
 \keyword{manip}
-

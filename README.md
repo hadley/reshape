@@ -1,6 +1,17 @@
-# Reshape2
+# reshape2
 
-[![Build Status](https://travis-ci.org/hadley/reshape.png)](https://travis-ci.org/hadley/reshape)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/hadley/reshape/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hadley/reshape/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/hadley/reshape/graph/badge.svg)](https://app.codecov.io/gh/hadley/reshape)
+<!-- badges: end -->
+
+## Status
+
+[![Lifecycle: superseded](https://img.shields.io/badge/lifecycle-superseded-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#superseded)
+
+reshape2 is superseded: only changes necessary to keep it on CRAN will be made. We recommend using [tidyr](http://tidyr.tidyverse.org/) instead.
+
+## Introduction
 
 Reshape2 is a reboot of the reshape package. It's been over five years since the first release of reshape, and in that time I've learned a tremendous amount about R programming, and how to work with data in R. Reshape2 uses that knowledge to make a new package for reshaping data that is much more focused and much much faster.
 
@@ -35,8 +46,3 @@ What's new in `reshape2`:
 Initial benchmarking has shown `melt` to be up to 10x faster, pure reshaping `cast` up to 100x faster, and aggregating `cast()` up to 10x faster.
 
 This work has been generously supported by BD (Becton Dickinson).
-
-## Installation
-
-* Get the released version from cran: `install.packages("reshape2")`
-* Get the dev version from github: `devtools::install_github("hadley/reshape")`

@@ -1,4 +1,14 @@
-# Version 1.4.2.9000
+# reshape2 (development version)
+
+* No longer uses non-API entry points (@kevinushey, #106).
+
+# reshape2 1.4.4
+
+* Fix R CMD check failure in R-devel.
+
+# Version 1.4.3
+
+* Fix C/C++ problems causing R CMD CHECK errors.
 
 * `melt.data.frame()` throws when encountering objects of type `POSIXlt`,
   and requests a conversion to the (much saner) `POSIXct` type.

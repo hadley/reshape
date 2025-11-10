@@ -5,7 +5,7 @@ using namespace Rcpp;
 #define debug(x)
 
 // An optimized rep
-#define DO_REP(RTYPE, CTYPE, ACCESSOR)                         \
+#define DO_REP_ATOMIC(RTYPE, CTYPE, ACCESSOR)                  \
   {                                                            \
     Shield<SEXP> output(Rf_allocVector(RTYPE, nout));          \
     for (int i = 0; i < n; ++i) {                              \
@@ -14,37 +14,45 @@ using namespace Rcpp;
              sizeof(CTYPE) * xn);                              \
     }                                                          \
     return output;                                             \
-    break;                                                     \
+  }                                                            \
+
+#define DO_REP_NONATOMIC(RTYPE, SET, GET)                    \
+  {                                                          \
+    int counter = 0;                                         \
+    Shield<SEXP> output(Rf_allocVector(RTYPE, nout));        \
+    for (int i = 0; i < n; ++i) {                            \
+      for (int j = 0; j < xn; ++j) {                         \
+        SET(output, counter++, GET(x, j));                   \
+      }                                                      \
+    }                                                        \
+    return output;                                           \
   }
+
 
 SEXP rep_(SEXP x, int n) {
   int xn = Rf_length(x);
   int nout = xn * n;
   switch (TYPEOF(x)) {
+
+    // Atomic types
     case INTSXP:
-      DO_REP(INTSXP, int, INTEGER);
+      DO_REP_ATOMIC(INTSXP, int, INTEGER);
     case REALSXP:
-      DO_REP(REALSXP, double, REAL);
-    case STRSXP: {
-      int counter = 0;
-      Shield<SEXP> output(Rf_allocVector(STRSXP, nout));
-      for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < xn; ++j) {
-          SET_STRING_ELT(output, counter, STRING_ELT(x, j));
-          ++counter;
-        }
-      }
-      return output;
-      break;
-    }
+      DO_REP_ATOMIC(REALSXP, double, REAL);
     case LGLSXP:
-      DO_REP(LGLSXP, int, LOGICAL);
+      DO_REP_ATOMIC(LGLSXP, int, LOGICAL);
     case CPLXSXP:
-      DO_REP(CPLXSXP, Rcomplex, COMPLEX);
+      DO_REP_ATOMIC(CPLXSXP, Rcomplex, COMPLEX);
     case RAWSXP:
-      DO_REP(RAWSXP, Rbyte, RAW);
+      DO_REP_ATOMIC(RAWSXP, Rbyte, RAW);
+
+    // Non-atomic types
+    case STRSXP:
+      DO_REP_NONATOMIC(STRSXP, SET_STRING_ELT, STRING_ELT);
     case VECSXP:
-      DO_REP(VECSXP, SEXP, STRING_PTR);
+      DO_REP_NONATOMIC(VECSXP, SET_VECTOR_ELT, VECTOR_ELT);
+
+    // Unsupported types
     default: {
       stop("Unhandled RTYPE");
       return R_NilValue;
@@ -53,7 +61,7 @@ SEXP rep_(SEXP x, int n) {
 }
 
 // An optimized rep_each
-#define DO_REP_EACH(RTYPE, CTYPE, ACCESSOR)           \
+#define DO_REP_EACH_ATOMIC(RTYPE, CTYPE, ACCESSOR)    \
   {                                                   \
     int counter = 0;                                  \
     Shield<SEXP> output(Rf_allocVector(RTYPE, nout)); \
@@ -61,43 +69,48 @@ SEXP rep_(SEXP x, int n) {
     CTYPE* output_ptr = ACCESSOR(output);             \
     for (int i = 0; i < xn; ++i) {                    \
       for (int j = 0; j < n; ++j) {                   \
-        output_ptr[counter] = x_ptr[i];               \
-        ++counter;                                    \
+        output_ptr[counter++] = x_ptr[i];             \
       }                                               \
     }                                                 \
     return output;                                    \
-    break;                                            \
+  }
+
+#define DO_REP_EACH_NONATOMIC(RTYPE, SET, GET)                 \
+  {                                                            \
+    int counter = 0;                                           \
+    Shield<SEXP> output(Rf_allocVector(RTYPE, nout));          \
+    for (int i = 0; i < xn; ++i) {                             \
+      for (int j = 0; j < n; ++j) {                            \
+        SET(output, counter++, GET(x, i));                     \
+      }                                                        \
+    }                                                          \
+    return output;                                             \
   }
 
 SEXP rep_each_(SEXP x, int n) {
   int xn = Rf_length(x);
   int nout = xn * n;
   switch (TYPEOF(x)) {
+
+    // Atomic types
     case INTSXP:
-      DO_REP_EACH(INTSXP, int, INTEGER);
+      DO_REP_EACH_ATOMIC(INTSXP, int, INTEGER);
     case REALSXP:
-      DO_REP_EACH(REALSXP, double, REAL);
-    case STRSXP: {
-      int counter = 0;
-      Shield<SEXP> output(Rf_allocVector(STRSXP, nout));
-      for (int i = 0; i < xn; ++i) {
-        for (int j = 0; j < n; ++j) {
-          SET_STRING_ELT(output, counter, STRING_ELT(x, i));
-          ++counter;
-        }
-      }
-      return output;
-      break;
-    }
-      DO_REP_EACH(STRSXP, SEXP, STRING_PTR);
+      DO_REP_EACH_ATOMIC(REALSXP, double, REAL);
     case LGLSXP:
-      DO_REP_EACH(LGLSXP, int, LOGICAL);
+      DO_REP_EACH_ATOMIC(LGLSXP, int, LOGICAL);
     case CPLXSXP:
-      DO_REP_EACH(CPLXSXP, Rcomplex, COMPLEX);
+      DO_REP_EACH_ATOMIC(CPLXSXP, Rcomplex, COMPLEX);
     case RAWSXP:
-      DO_REP_EACH(RAWSXP, Rbyte, RAW);
+      DO_REP_EACH_ATOMIC(RAWSXP, Rbyte, RAW);
+
+    // Non-atomic types
+    case STRSXP:
+      DO_REP_EACH_NONATOMIC(STRSXP, SET_STRING_ELT, STRING_ELT);
     case VECSXP:
-      DO_REP_EACH(VECSXP, SEXP, STRING_PTR);
+      DO_REP_EACH_NONATOMIC(VECSXP, SET_VECTOR_ELT, VECTOR_ELT);
+
+    // Unsupported types
     default: {
       stop("Unhandled RTYPE");
       return R_NilValue;
@@ -153,7 +166,6 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
   int max_type = 0;
   int ctype = 0;
   for (int i = 0; i < n_ind; ++i) {
-
     if (Rf_isFactor(x[ind[i]]) and factorsAsStrings) {
       ctype = STRSXP;
     } else {
@@ -179,6 +191,8 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
     }
 
     switch (max_type) {
+
+      // Atomic types
       case INTSXP:
         DO_CONCATENATE(int);
       case REALSXP:
@@ -187,14 +201,17 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
         DO_CONCATENATE(int);
       case CPLXSXP:
         DO_CONCATENATE(Rcomplex);
+      case RAWSXP:
+        DO_CONCATENATE(Rbyte);
+
+      // Non-atomic types
       case STRSXP: {
         for (int j = 0; j < nrow; ++j) {
           SET_STRING_ELT(output, i * nrow + j, STRING_ELT(tmp, j));
         }
         break;
       }
-      case RAWSXP:
-        DO_CONCATENATE(Rbyte);
+
     }
   }
 
@@ -207,7 +224,6 @@ List melt_dataframe(const DataFrame& data,
                     const IntegerVector& measure_ind,
                     String variable_name,
                     String value_name,
-                    SEXP measure_attributes,
                     bool factorsAsStrings,
                     bool valueAsFactor) {
 
@@ -277,14 +293,7 @@ List melt_dataframe(const DataFrame& data,
 
   // 'value' is made by concatenating each of the 'value' variables
   output[n_id + 1] = concatenate(data, measure_ind, factorsAsStrings);
-  if (!Rf_isNull(measure_attributes)) {
-    SET_ATTRIB(output[n_id + 1], measure_attributes);
-    // we also need to make sure the OBJECT bit is set for other 'object' types
-    // see: http://stackoverflow.com/questions/24059460/melt-data-frame-changes-behavior-how-posixct-columns-are-printed
-    // if we've entered this code block, the measure_attributes has been
-    // populated because all value variables have identical attributes
-    SET_OBJECT(output[n_id + 1], OBJECT(data[measure_ind[0]]));
-  }
+
 
   // Make the List more data.frame like
 

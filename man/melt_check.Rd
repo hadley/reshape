@@ -27,4 +27,3 @@ melt will assume the remainder of the variables in the data set belong to
 the other. If you supply neither, melt will assume discrete variables are
 id variables and all other are measured.
 }
-
