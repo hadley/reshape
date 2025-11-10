@@ -188,7 +188,12 @@ melt.array <- function(data, varnames = names(dimnames(data)), ...,
     factor(x, levels = unique(x))
   }
 
-  dn <- amv_dimnames(data)
+  dn <- dimnames(data)
+  if (is.null(dn)) {
+    dn <- lapply(dim(data), seq.int)
+  } else if (any(empty_idx <- lengths(dn) == 0L)) {
+    dn[empty_idx] <- lapply(dim(data)[empty_idx], seq.int)
+  }
   names(dn) <- varnames
   if (!as.is) {
     dn <- lapply(dn, var.convert)
