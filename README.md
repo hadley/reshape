@@ -1,8 +1,8 @@
 # reshape2
 
 <!-- badges: start -->
-[![R build status](https://github.com/hadley/reshape/workflows/R-CMD-check/badge.svg)](https://github.com/hadley/reshape/actions)
-[![Codecov test coverage](https://codecov.io/gh/hadley/reshape/branch/master/graph/badge.svg)](https://codecov.io/gh/hadley/reshape?branch=master)
+[![R-CMD-check](https://github.com/hadley/reshape/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hadley/reshape/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/hadley/reshape/graph/badge.svg)](https://app.codecov.io/gh/hadley/reshape)
 <!-- badges: end -->
 
 ## Status
