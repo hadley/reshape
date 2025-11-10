@@ -100,15 +100,15 @@ test_that("aggregated values computed correctly", {
   count_c <- function(vars) as.table(acast(ffm, as.list(vars), length))
   count_t <- function(vars) table(ffm[vars], useNA = "ifany")
 
-  combs <- matrix(names(ffm)[1:5][t(combn(5, 2))], ncol = 2)
-  a_ply(combs, 1, function(vars) {
+  combs <- data.frame(combn(names(ffm)[1:5], 2L))
+  for (vars in combs) {
     expect_identical(
       count_c(vars),
       count_t(vars),
       label = toString(vars),
       ignore_attr = "names"
     )
-  })
+  }
 
 })
 
