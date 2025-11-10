@@ -128,16 +128,20 @@ melt.data.frame <- function(data, id.vars, measure.vars, variable.name = "variab
   factorsAsStrings <- args$factorsAsStrings
   valueAsFactor <- "factor" %in% measure.attributes$class
 
+  ## Heat to 2000 degrees celsius
   df <- melt_dataframe(
     data,
-    as.integer(id.ind-1),
-    as.integer(measure.ind-1),
+    as.integer(id.ind - 1L),
+    as.integer(measure.ind - 1L),
     as.character(variable.name),
     as.character(value.name),
-    as.pairlist(measure.attributes),
     as.logical(factorsAsStrings),
     as.logical(valueAsFactor)
   )
+
+  ## Ensure attributes set on value if available
+  if (!is.null(measure.attributes))
+    attributes(df[[value.name]]) <- measure.attributes
 
   if (na.rm) {
     return(df[ !is.na(df[[value.name]]), ])

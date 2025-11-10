@@ -22,7 +22,7 @@ parse_formula <- function(formula = "...  ~ variable", varnames, value.var = "va
     if (any(x == "...")) c(x[x != "..."], remainder) else x
   }
 
-  if (is.formula(formula)) {
+  if (inherits(formula, "formula")) {
     formula <- str_c(deparse(formula, 500), collapse = "")
   }
 
