@@ -1,6 +1,6 @@
 Package: reshape2
 Title: Flexibly Reshape Data: A Reboot of the Reshape Package
-Version: 1.4.4.9000
+Version: 1.4.5
 Authors@R: 
     person("Hadley", "Wickham", , "hadley@posit.co", role = c("aut", "cre"))
 Description: Flexibly restructure and aggregate data using just two
