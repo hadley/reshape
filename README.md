@@ -9,7 +9,7 @@
 
 [![Lifecycle: superseded](https://img.shields.io/badge/lifecycle-superseded-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#superseded)
 
-reshape2 is superseded: only changes necessary to keep it on CRAN will be made. We recommend using [tidyr](http://tidyr.tidyverse.org/) instead.
+reshape2 is superseded: only changes necessary to keep it on CRAN will be made. We recommend using [tidyr](https://tidyr.tidyverse.org/) instead.
 
 ## Introduction
 
