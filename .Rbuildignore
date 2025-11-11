@@ -7,3 +7,4 @@ bench
 ^codecov\.yml$
 ^\.github$
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$
