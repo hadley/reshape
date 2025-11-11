@@ -1,6 +1,7 @@
 # reshape2 (development version)
 
 * No longer uses non-API entry points (@kevinushey, #106).
+* Other various fixes for `R CMD check` issues.
 
 # reshape2 1.4.4
 
