@@ -13,6 +13,9 @@
 
 * Fix C/C++ problems causing R CMD CHECK errors.
 
+* `melt.data.frame()` always drops the `dim` attribute on generated
+  value columns. (#77)
+
 * `melt.data.frame()` throws when encountering objects of type `POSIXlt`,
   and requests a conversion to the (much saner) `POSIXct` type.
 
