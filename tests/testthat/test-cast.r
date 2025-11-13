@@ -211,3 +211,54 @@ test_that("useful error message if value.var doesn't exist", {
   expect_error(dcast(airquality, month ~ day, value.var = "test"),
     "value.var (test) not found in input", fixed = TRUE)
 })
+
+test_that("mix of fun.aggregate= and fill=", {
+  DF <- data.frame(
+    group = c("1", "2"),
+    variable = "value",
+    value = c(1, NA)
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum),
+    data.frame(group = c("1", "2"), value = c(1, NA))
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum, na.rm = TRUE),
+    data.frame(group = c("1", "2"), value = c(1, 0))
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum, fill = -1),
+    data.frame(group = c("1", "2"), value = c(1, NA))
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum, na.rm = TRUE, fill = -1),
+    data.frame(group = c("1", "2"), value = c(1, 0))
+  )
+
+  # "structural" missingness, i.e., combinations that didn't exist
+  DF <- data.frame(
+    group = c("1", "2"),
+    variable = c("v1", "v2"),
+    value = c(1, NA)
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum),
+    data.frame(group = c("1", "2"), v1 = c(1, 0), v2 = c(0, NA))
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum, na.rm = TRUE),
+    data.frame(group = c("1", "2"), v1 = c(1, 0), v2 = c(0, 0))
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum, fill = -1),
+    data.frame(group = c("1", "2"), v1 = c(1, -1), v2 = c(-1, NA))
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, sum, na.rm = TRUE, fill = -1),
+    data.frame(group = c("1", "2"), v1 = c(1, -1), v2 = c(-1, 0))
+  )
+  expect_equal(
+    dcast(DF, group ~ variable, function(x, y) sum(x) + y, 1),
+    data.frame(group = c("1", "2"), v1 = c(2, 1), v2 = c(1, NA))
+  )
+})
